@@ -1,4 +1,4 @@
-import 'package:bill_splitter/app/utils/app_constants.dart';
+import '../../../utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
