@@ -1,11 +1,11 @@
-import 'package:bill_splitter/app/utils/validations_helper.dart';
+import '../../../../routes/app_pages.dart';
+import '../../../../utils/app_constants.dart';
+import '../../../../utils/validations_helper.dart';
 
-import '../../../routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:get/get.dart';
 
-import '../../../utils/app_constants.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {

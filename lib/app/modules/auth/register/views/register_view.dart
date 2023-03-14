@@ -1,9 +1,9 @@
-import 'package:bill_splitter/app/utils/validations_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:get/get.dart';
 
-import '../../../utils/app_constants.dart';
+import '../../../../utils/app_constants.dart';
+import '../../../../utils/validations_helper.dart';
 import '../controllers/register_controller.dart';
 
 class RegisterView extends GetView<RegisterController> {
@@ -87,7 +87,7 @@ class RegisterView extends GetView<RegisterController> {
                     validator: isNotEmptyString,
                   ),
                   const SizedBox(
-                    height: 10 * GOLDEN_RATIO,
+                    height: 20 * GOLDEN_RATIO,
                   ),
                   Obx(
                     () => controller.isLoading.isFalse
