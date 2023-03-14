@@ -14,3 +14,14 @@ String? isEmailValid(String? email) {
   if (!emailValid) return 'Please enter valid email';
   return null;
 }
+
+String? isStrongPassword(String? value) {
+  String? error = isNotEmptyString(value);
+  if (error != null) return error;
+
+  if (value!.length < 8) {
+    return 'Password length must be minimal 8 character(s)';
+  }
+
+  return null;
+}

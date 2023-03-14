@@ -78,7 +78,7 @@ class RegisterView extends GetView<RegisterController> {
                       ),
                       hintText: 'Password',
                     ),
-                    validator: isNotEmptyString,
+                    validator: isStrongPassword,
                   ),
                   const SizedBox(
                     height: 20 * GOLDEN_RATIO,
