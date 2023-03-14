@@ -59,7 +59,9 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                     height: 20 * GOLDEN_RATIO,
                   ),
                   FilledButton.icon(
-                    onPressed: () {},
+                    onPressed: () async {
+                      await controller.sendPasswordRecoveryEmail();
+                    },
                     icon: const Icon(Entypo.paper_plane),
                     label: const Text('Send Password Reset Link'),
                   ),
