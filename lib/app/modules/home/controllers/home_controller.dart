@@ -1,7 +1,7 @@
-import 'package:bill_splitter/app/modules/home/views/dashboard_tab_view.dart';
-import 'package:bill_splitter/app/modules/home/views/friends_tab_view.dart';
-import 'package:bill_splitter/app/modules/home/views/profile_tab_view.dart';
-import 'package:bill_splitter/app/modules/home/views/transactions_tab_view.dart';
+import '../views/dashboard_tab_view.dart';
+import '../views/friends_tab_view.dart';
+import '../views/profile_tab_view.dart';
+import '../views/transactions_tab_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:get/get.dart';
