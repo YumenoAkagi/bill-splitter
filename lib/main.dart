@@ -27,6 +27,7 @@ void main() {
           appBarTheme: appBarThemeLight,
           textTheme: textThemeLight,
           inputDecorationTheme: inputDecorationThemeLight,
+          fontFamily: 'Lato',
         ),
         darkTheme: ThemeData.dark().copyWith(),
         themeMode: ThemeMode.light,
