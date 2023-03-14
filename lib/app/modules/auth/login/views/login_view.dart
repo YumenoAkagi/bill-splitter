@@ -1,11 +1,10 @@
-import '../../../../routes/app_pages.dart';
-import '../../../../utils/app_constants.dart';
-import '../../../../utils/validations_helper.dart';
-
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:get/get.dart';
 
+import '../../../../routes/app_pages.dart';
+import '../../../../utils/app_constants.dart';
+import '../../../../utils/validations_helper.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -71,7 +70,9 @@ class LoginView extends GetView<LoginController> {
                     child: Obx(
                       () => controller.isLoading.isFalse
                           ? TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.toNamed(Routes.FORGOT_PASSWORD);
+                              },
                               child: const Text('Forgot Password?'),
                             )
                           : const TextButton(
@@ -81,7 +82,7 @@ class LoginView extends GetView<LoginController> {
                     ),
                   ),
                   const SizedBox(
-                    height: 10 * GOLDEN_RATIO,
+                    height: 20 * GOLDEN_RATIO,
                   ),
                   Obx(
                     () => controller.isLoading.isFalse

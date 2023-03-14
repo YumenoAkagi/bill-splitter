@@ -15,12 +15,6 @@ class RegisterView extends GetView<RegisterController> {
       appBar: AppBar(
         title: const Text(APP_NAME),
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Get.back();
-          },
-        ),
       ),
       body: Center(
         child: Container(

@@ -21,5 +21,6 @@ flutter:
   assets:
     - assets/images/undraw_Login.png
     - assets/images/undraw_signUp.png
+    - assets/images/undraw_Forgot_password.png
   uses-material-design: true
 

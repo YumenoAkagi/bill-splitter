@@ -51,7 +51,11 @@ const textThemeLight = TextTheme(
   labelLarge: TextStyle(fontSize: 10 * GOLDEN_RATIO), // button
   titleLarge: TextStyle(fontSize: 11 * GOLDEN_RATIO),
   titleMedium: TextStyle(fontSize: 10 * GOLDEN_RATIO), // subtitle 1
-  titleSmall: TextStyle(fontSize: 8 * GOLDEN_RATIO), // subtitle 2
+  titleSmall: TextStyle(
+    fontSize: 8 * GOLDEN_RATIO,
+    fontStyle: FontStyle.italic,
+    fontWeight: FontWeight.w300,
+  ), // subtitle 2
 );
 
 final inputDecorationThemeLight = InputDecorationTheme(
