@@ -1,6 +1,7 @@
-import 'package:bill_splitter/app/modules/auth/email_sent/views/email_sent_view.dart';
+import 'package:bill_splitter/app/modules/walkthrough/view/walkthrough_view.dart';
 import 'package:get/get.dart';
 
+import '../modules/auth/email_sent/views/email_sent_view.dart';
 import '../modules/auth/forgot_password/bindings/forgot_password_binding.dart';
 import '../modules/auth/forgot_password/views/forgot_password_view.dart';
 import '../modules/auth/login/bindings/login_binding.dart';
@@ -15,7 +16,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN;
+  static const INITIAL = Routes.WALKTHROUGH;
 
   static final routes = [
     GetPage(
@@ -41,6 +42,10 @@ class AppPages {
     GetPage(
       name: _Paths.RECOVERY_EMAIL_SENT,
       page: () => const EmailSentView(),
+    ),
+    GetPage(
+      name: _Paths.WALKTHROUGH,
+      page: () => const WalkthroughView(),
     ),
   ];
 }
