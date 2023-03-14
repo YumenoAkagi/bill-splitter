@@ -1,5 +1,3 @@
-import '../modules/walkthrough/bindings/walkthrough_binding.dart';
-import '../modules/walkthrough/view/walkthrough_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/auth/email_sent/views/email_sent_view.dart';
@@ -11,6 +9,7 @@ import '../modules/auth/register/bindings/register_binding.dart';
 import '../modules/auth/register/views/register_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/walkthrough/bindings/walkthrough_binding.dart';
 import '../modules/walkthrough/view/walkthrough_view.dart';
 
 part 'app_routes.dart';
