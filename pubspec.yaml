@@ -18,4 +18,8 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
+  assets:
+    - assets/images/undraw_Login.png
+    - assets/images/undraw_signUp.png
   uses-material-design: true
+
