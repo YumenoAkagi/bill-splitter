@@ -1,3 +1,4 @@
+import 'package:bill_splitter/app/modules/walkthrough/bindings/walkthrough_binding.dart';
 import 'package:bill_splitter/app/modules/walkthrough/view/walkthrough_view.dart';
 import 'package:get/get.dart';
 
@@ -46,6 +47,7 @@ class AppPages {
     GetPage(
       name: _Paths.WALKTHROUGH,
       page: () => const WalkthroughView(),
+      binding: WalkthroughBinding(),
     ),
   ];
 }
