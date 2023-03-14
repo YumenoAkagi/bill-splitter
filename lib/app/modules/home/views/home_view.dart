@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fluttericon/zocial_icons.dart';
+import 'package:fluttericon/entypo_icons.dart';
 import 'package:get/get.dart';
+import 'package:nb_utils/nb_utils.dart';
+import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 
 import '../../../utils/app_constants.dart';
 import '../controllers/home_controller.dart';
@@ -11,37 +13,36 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('HomeView'),
-        centerTitle: true,
+      extendBody: true,
+      bottomNavigationBar: Obx(
+        () => StylishBottomBar(
+          hasNotch: true,
+          option: AnimatedBarOptions(
+            barAnimation: BarAnimation.fade,
+            iconStyle: IconStyle.animated,
+            iconSize: 12 * GOLDEN_RATIO,
+          ),
+          items: controller.bottomNavbarItems,
+          currentIndex: controller.selectedTab.value,
+          onTap: controller.switchTab,
+        ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'HomeView is working',
-              style: TextStyle(fontSize: 20),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            FilledButton.icon(
-              onPressed: () {},
-              icon: const Icon(
-                Zocial.email,
-                size: BUTTON_ICON_SIZE,
-              ),
-              label: const Text('Sign up with Email'),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            OutlinedButton(
-              onPressed: () {},
-              child: const Text("Already have account? Sign in"),
-            ),
-          ],
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: getColorFromHex(COLOR_2),
+        child: const Icon(
+          Entypo.plus,
+          size: 18 * GOLDEN_RATIO,
+        ),
+      ),
+      body: SafeArea(
+        child: PageView.builder(
+          controller: controller.pageController,
+          itemCount: controller.tabViewsList.length,
+          itemBuilder: (_, __) {
+            return controller.tabViewsList[controller.selectedTab.value];
+          },
         ),
       ),
     );
