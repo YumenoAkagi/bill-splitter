@@ -73,7 +73,10 @@ class LoginView extends GetView<LoginController> {
                               onPressed: () {
                                 Get.toNamed(Routes.FORGOT_PASSWORD);
                               },
-                              child: const Text('Forgot Password?'),
+                              child: Text(
+                                'Forgot Password?',
+                                style: Get.textTheme.titleSmall,
+                              ),
                             )
                           : const TextButton(
                               onPressed: null,

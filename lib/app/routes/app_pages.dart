@@ -1,3 +1,4 @@
+import 'package:bill_splitter/app/modules/auth/email_sent/views/email_sent_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/auth/forgot_password/bindings/forgot_password_binding.dart';
@@ -36,6 +37,10 @@ class AppPages {
       name: _Paths.FORGOT_PASSWORD,
       page: () => const ForgotPasswordView(),
       binding: ForgotPasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.RECOVERY_EMAIL_SENT,
+      page: () => const EmailSentView(),
     ),
   ];
 }
