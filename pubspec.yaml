@@ -6,6 +6,7 @@ environment:
   sdk: '>=2.19.0 <3.0.0'
 
 dependencies:
+  carousel_slider: ^4.2.1
   flutter:
     sdk: flutter
   fluttericon: ^2.0.0
@@ -23,4 +24,3 @@ flutter:
     - assets/images/undraw_signUp.png
     - assets/images/undraw_Forgot_password.png
   uses-material-design: true
-
