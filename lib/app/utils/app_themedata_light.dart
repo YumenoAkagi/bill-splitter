@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import 'app_constants.dart';
@@ -42,9 +43,15 @@ final outlinedButtonThemeDataLight = OutlinedButtonThemeData(
 );
 
 final appBarThemeLight = AppBarTheme(
-  color: Colors.white,
   elevation: 0,
   foregroundColor: getColorFromHex(COLOR_2),
+  backgroundColor: Colors.white,
+  titleTextStyle: TextStyle(
+    fontFamily: MAIN_FONT,
+    fontWeight: FontWeight.bold,
+    fontSize: 12 * GOLDEN_RATIO,
+    color: getColorFromHex(COLOR_2),
+  ),
 );
 
 const textThemeLight = TextTheme(

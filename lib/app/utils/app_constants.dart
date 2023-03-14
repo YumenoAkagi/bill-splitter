@@ -6,6 +6,9 @@ const SUPABASE_ANONKEY = '';
 
 // dictionary keys
 
+// font family
+const MAIN_FONT = 'Lato';
+
 // app color palettes
 const COLOR_1 = '#695F94'; // mostly used as image or background color
 const COLOR_2 = '#2D2747'; // mostly used for button primary color

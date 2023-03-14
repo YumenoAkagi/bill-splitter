@@ -18,30 +18,7 @@ class HomeView extends GetView<HomeController> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'HomeView is working',
-              style: TextStyle(fontSize: 20),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            FilledButton.icon(
-              onPressed: () {},
-              icon: const Icon(
-                Zocial.email,
-                size: BUTTON_ICON_SIZE,
-              ),
-              label: const Text('Sign up with Email'),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            OutlinedButton(
-              onPressed: () {},
-              child: const Text("Already have account? Sign in"),
-            ),
-          ],
+          children: [],
         ),
       ),
     );
