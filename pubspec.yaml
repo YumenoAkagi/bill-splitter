@@ -34,7 +34,7 @@ flutter:
     - assets/images/undraw_signUp.png
     - assets/images/undraw_Forgot_password.png
     - assets/images/undraw_Mail_sent.png
-    - assets\images\undraw_Mobile_payments.png
-    - assets\images\undraw_Receipt.png
-    - assets\images\undraw_Transfer_money.png
+    - assets/images/undraw_Mobile_payments.png
+    - assets/images/undraw_Receipt.png
+    - assets/images/undraw_Transfer_money.png
   uses-material-design: true
