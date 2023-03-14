@@ -1,10 +1,9 @@
-import 'package:bill_splitter/app/modules/walkthrough/controllers/walkthrough_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nb_utils/nb_utils.dart';
 
 import '../../../utils/app_constants.dart';
+import '../controllers/walkthrough_controller.dart';
 
 class WalkthroughView extends GetView<WalkthroughController> {
   const WalkthroughView({super.key});
@@ -21,7 +20,10 @@ class WalkthroughView extends GetView<WalkthroughController> {
           children: [
             CarouselSlider(
               items: controller.imageWithTextList,
-              options: CarouselOptions(autoPlay: true, aspectRatio: 3 / 4),
+              options: CarouselOptions(
+                autoPlay: true,
+                height: Get.height * 0.4 * GOLDEN_RATIO,
+              ),
             ),
           ],
         ),
