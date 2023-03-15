@@ -70,6 +70,12 @@ class HomeController extends GetxController {
     const FriendsTabView(),
     const ProfileTabView(),
   ];
+  final tabNames = [
+    'Bill Splitter',
+    'Transactions',
+    'Friends',
+    'Profile',
+  ];
 
   RxInt selectedTab = 0.obs;
 

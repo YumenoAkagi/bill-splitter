@@ -14,6 +14,25 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
+      appBar: AppBar(
+        title: Obx(
+          () => Text(controller.tabNames[controller.selectedTab.value]),
+        ),
+        actions: [
+          Obx(
+            () => controller.selectedTab.value == 2
+                ? IconButton(
+                    onPressed: () {},
+                    iconSize: 12 * GOLDEN_RATIO,
+                    padding: const EdgeInsets.only(right: 5 * GOLDEN_RATIO),
+                    icon: const Icon(
+                      Entypo.user_add,
+                    ),
+                  )
+                : const SizedBox(),
+          ),
+        ],
+      ),
       bottomNavigationBar: Obx(
         () => StylishBottomBar(
           hasNotch: true,
