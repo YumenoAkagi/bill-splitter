@@ -57,6 +57,7 @@ class HomeView extends GetView<HomeController> {
       ),
       body: SafeArea(
         child: PageView.builder(
+          physics: const NeverScrollableScrollPhysics(),
           controller: controller.pageController,
           itemCount: controller.tabViewsList.length,
           itemBuilder: (_, __) {

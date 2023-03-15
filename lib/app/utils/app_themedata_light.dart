@@ -55,6 +55,10 @@ final appBarThemeLight = AppBarTheme(
 
 const textThemeLight = TextTheme(
   labelLarge: TextStyle(fontSize: 10 * GOLDEN_RATIO), // button
+  labelMedium: TextStyle(
+    fontSize: 9 * GOLDEN_RATIO,
+    fontWeight: FontWeight.bold,
+  ),
   titleLarge: TextStyle(fontSize: 12 * GOLDEN_RATIO),
   titleMedium: TextStyle(fontSize: 10 * GOLDEN_RATIO), // subtitle 1
   titleSmall: TextStyle(
