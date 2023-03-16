@@ -68,7 +68,7 @@ class HomeController extends GetxController {
     const DashboardTabView(),
     const TransactionsTabView(),
     const FriendsTabView(),
-    const ProfileTabView(),
+    ProfileTabView(),
   ];
   final tabNames = [
     'Bill Splitter',

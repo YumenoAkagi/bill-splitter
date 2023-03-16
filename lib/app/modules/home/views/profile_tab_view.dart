@@ -5,9 +5,12 @@ import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../../utils/app_constants.dart';
+import '../controllers/profile_tab_controller.dart';
 
 class ProfileTabView extends StatelessWidget {
-  const ProfileTabView({super.key});
+  ProfileTabView({super.key});
+
+  final controller = Get.put<ProfileTabController>(ProfileTabController());
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +112,9 @@ class ProfileTabView extends StatelessWidget {
                   height: 10 * GOLDEN_RATIO,
                 ),
                 OutlinedButton.icon(
-                  onPressed: () {},
+                  onPressed: () async {
+                    await controller.logout();
+                  },
                   icon: const Icon(Entypo.logout),
                   label: const Text('Log Out'),
                   style: OutlinedButton.styleFrom(

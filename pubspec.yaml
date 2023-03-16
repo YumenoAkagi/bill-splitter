@@ -13,8 +13,10 @@ dependencies:
   fluttericon: ^2.0.0
   form_field_validator: ^1.1.0
   get: 4.6.5
+  get_storage: ^2.1.1
   nb_utils: ^5.0.5
   stylish_bottom_bar: ^1.0.0
+  supabase_flutter: ^1.5.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

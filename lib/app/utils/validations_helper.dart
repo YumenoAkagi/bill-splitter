@@ -2,6 +2,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 
 const requiredErrorText = 'This field is required';
 const validEmailErrorText = 'Email must be valid';
+const unexpectedErrorText = 'Unexpected error occurred';
 
 final strongPasswordValidator = MultiValidator([
   RequiredValidator(errorText: requiredErrorText),
