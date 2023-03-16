@@ -11,6 +11,7 @@ import '../views/profile_tab_view.dart';
 import '../views/transactions_tab_view.dart';
 
 class HomeController extends GetxController {
+  //test
   final List<BottomBarItem> bottomNavbarItems = [
     BottomBarItem(
       icon: const Icon(Entypo.home),
