@@ -1,8 +1,8 @@
-import 'package:bill_splitter/app/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../../../utils/app_constants.dart';
 import '../controllers/splash_controller.dart';
 
 class SplashView extends GetView<SplashController> {

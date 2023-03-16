@@ -1,9 +1,9 @@
-import '../../../../utils/validations_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/app_constants.dart';
+import '../../../../utils/validations_helper.dart';
 import '../controllers/forgot_password_controller.dart';
 
 class ForgotPasswordView extends GetView<ForgotPasswordController> {

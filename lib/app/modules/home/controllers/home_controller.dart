@@ -1,7 +1,3 @@
-import '../views/dashboard_tab_view.dart';
-import '../views/friends_tab_view.dart';
-import '../views/profile_tab_view.dart';
-import '../views/transactions_tab_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:get/get.dart';
@@ -9,6 +5,10 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:stylish_bottom_bar/model/bar_items.dart';
 
 import '../../../utils/app_constants.dart';
+import '../views/dashboard_tab_view.dart';
+import '../views/friends_tab_view.dart';
+import '../views/profile_tab_view.dart';
+import '../views/transactions_tab_view.dart';
 
 class HomeController extends GetxController {
   final List<BottomBarItem> bottomNavbarItems = [

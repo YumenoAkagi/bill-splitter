@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:get/get.dart';
 
-import '../../../routes/app_pages.dart';
-import '../../../utils/app_constants.dart';
+import '../../../../routes/app_pages.dart';
+import '../../../../utils/app_constants.dart';
 import '../controllers/walkthrough_controller.dart';
 
 class WalkthroughView extends GetView<WalkthroughController> {

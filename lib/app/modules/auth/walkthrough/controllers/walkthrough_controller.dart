@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../utils/app_constants.dart';
+import '../../../../utils/app_constants.dart';
 
 class WalkthroughController extends GetxController {
   final imageWithTextList = [
