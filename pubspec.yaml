@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   fluttericon: ^2.0.0
+  form_field_validator: ^1.1.0
   get: 4.6.5
   nb_utils: ^5.0.5
   stylish_bottom_bar: ^1.0.0

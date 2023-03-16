@@ -1,27 +1,15 @@
-String? isNotEmptyString(String? value) {
-  if (value == null || value.isEmpty) return 'This field is required.';
-  return null;
-}
+import 'package:form_field_validator/form_field_validator.dart';
 
-String? isEmailValid(String? email) {
-  String? error = isNotEmptyString(email);
-  if (error != null) return error;
+const requiredErrorText = 'This field is required';
+const validEmailErrorText = 'Email must be valid';
 
-  final bool emailValid = RegExp(
-          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-      .hasMatch(email!);
+final strongPasswordValidator = MultiValidator([
+  RequiredValidator(errorText: requiredErrorText),
+  MinLengthValidator(8,
+      errorText: 'Password length must be at least 8 characters long.'),
+]);
 
-  if (!emailValid) return 'Please enter valid email';
-  return null;
-}
-
-String? isStrongPassword(String? value) {
-  String? error = isNotEmptyString(value);
-  if (error != null) return error;
-
-  if (value!.length < 8) {
-    return 'Password length must be minimal 8 character(s)';
-  }
-
-  return null;
-}
+final emailValidator = MultiValidator([
+  RequiredValidator(errorText: requiredErrorText),
+  EmailValidator(errorText: validEmailErrorText),
+]);

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 
 import '../../../../routes/app_pages.dart';
@@ -48,7 +49,7 @@ class LoginView extends GetView<LoginController> {
                       icon: Icon(Entypo.mail),
                       hintText: 'Enter email address',
                     ),
-                    validator: isEmailValid,
+                    validator: emailValidator,
                   ),
                   const SizedBox(
                     height: 10 * GOLDEN_RATIO,
@@ -60,7 +61,7 @@ class LoginView extends GetView<LoginController> {
                       hintText: 'Enter password',
                       icon: Icon(Entypo.lock_open),
                     ),
-                    validator: isNotEmptyString,
+                    validator: RequiredValidator(errorText: requiredErrorText),
                   ),
                   const SizedBox(
                     height: 3 * GOLDEN_RATIO,

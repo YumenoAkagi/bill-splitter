@@ -46,7 +46,7 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                       hintText: 'Enter email address',
                       icon: Icon(Entypo.mail),
                     ),
-                    validator: isEmailValid,
+                    validator: emailValidator,
                   ),
                   const SizedBox(
                     height: 5 * GOLDEN_RATIO,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/app_constants.dart';
@@ -50,7 +51,7 @@ class RegisterView extends GetView<RegisterController> {
                       ),
                       hintText: 'Display Name',
                     ),
-                    validator: isNotEmptyString,
+                    validator: RequiredValidator(errorText: requiredErrorText),
                   ),
                   const SizedBox(
                     height: 10 * GOLDEN_RATIO,
@@ -64,7 +65,7 @@ class RegisterView extends GetView<RegisterController> {
                       ),
                       hintText: 'Email',
                     ),
-                    validator: isEmailValid,
+                    validator: emailValidator,
                   ),
                   const SizedBox(
                     height: 10 * GOLDEN_RATIO,
@@ -78,7 +79,7 @@ class RegisterView extends GetView<RegisterController> {
                       ),
                       hintText: 'Password',
                     ),
-                    validator: isStrongPassword,
+                    validator: strongPasswordValidator,
                   ),
                   const SizedBox(
                     height: 20 * GOLDEN_RATIO,
