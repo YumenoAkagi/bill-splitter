@@ -1,9 +1,9 @@
-import 'package:bill_splitter/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../../routes/app_pages.dart';
 import '../../../../utils/validations_helper.dart';
 
 class LoginController extends GetxController {
@@ -28,10 +28,10 @@ class LoginController extends GetxController {
 
       Get.offAllNamed(Routes.HOME);
     } on AuthException catch (e) {
-      if (Get.isSnackbarOpen) Get.closeAllSnackbars();
+      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
       Get.snackbar('Error', e.message);
     } catch (e) {
-      if (Get.isSnackbarOpen) Get.closeAllSnackbars();
+      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
       Get.snackbar(unexpectedErrorText, e.toString());
     } finally {
       isLoading.value = false;

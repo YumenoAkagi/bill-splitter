@@ -1,3 +1,4 @@
+import 'package:bill_splitter/app/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:get/get.dart';
@@ -65,7 +66,7 @@ class HomeController extends GetxController {
     initialPage: 0,
   );
   final tabViewsList = [
-    const DashboardTabView(),
+    DashboardTabView(),
     const TransactionsTabView(),
     const FriendsTabView(),
     ProfileTabView(),

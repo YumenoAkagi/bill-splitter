@@ -24,18 +24,20 @@ class ProfileTabView extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Avatar(
-                  useCache: true,
-                  shape: AvatarShape.circle(50 * GOLDEN_RATIO),
-                  placeholderColors: [
-                    getColorFromHex(COLOR_1),
-                  ],
-                  backgroundColor: getColorFromHex(COLOR_2),
-                  textStyle: Get.textTheme.titleLarge?.copyWith(
-                    color: Colors.white,
-                    fontSize: 20 * GOLDEN_RATIO,
+                Obx(
+                  () => Avatar(
+                    useCache: true,
+                    shape: AvatarShape.circle(50 * GOLDEN_RATIO),
+                    placeholderColors: [
+                      getColorFromHex(COLOR_1),
+                    ],
+                    backgroundColor: getColorFromHex(COLOR_2),
+                    textStyle: Get.textTheme.titleLarge?.copyWith(
+                      color: Colors.white,
+                      fontSize: 20 * GOLDEN_RATIO,
+                    ),
+                    name: controller.userData.value.DisplayName,
                   ),
-                  name: '[display_name]',
                 ),
                 const SizedBox(
                   height: 15 * GOLDEN_RATIO,
@@ -68,6 +70,7 @@ class ProfileTabView extends StatelessWidget {
                   height: 3 * GOLDEN_RATIO,
                 ),
                 TextFormField(
+                  controller: controller.displayNameController,
                   decoration: const InputDecoration(
                     hintText: 'Display Name',
                   ),
@@ -87,9 +90,11 @@ class ProfileTabView extends StatelessWidget {
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    '[email@email.com]',
-                    style: Get.textTheme.titleSmall,
+                  child: Obx(
+                    () => Text(
+                      controller.userData.value.Email,
+                      style: Get.textTheme.titleSmall,
+                    ),
                   ),
                 ),
                 const SizedBox(

@@ -1,39 +1,21 @@
-import 'package:flutter/material.dart';
+import 'package:bill_splitter/app/utils/validations_helper.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../models/user_model.dart';
-import '../../../routes/app_pages.dart';
-import '../../../utils/app_constants.dart';
-import '../../../utils/validations_helper.dart';
 
-class ProfileTabController extends GetxController {
-  final displayNameController = TextEditingController();
-
+class DashboardTabController extends GetxController {
   final _supabaseClient = Get.find<SupabaseClient>();
   final strg = Get.find<GetStorage>();
-  final Rx<UserModel> userData = UserModel(
+  final userData = UserModel(
     Id: '',
     DisplayName: '',
     Email: '',
   ).obs;
 
-  Future<void> logout() async {
-    strg.remove(SESSION_KEY);
-    await _supabaseClient.auth.signOut();
-
-    // navigate back to splash
-    Get.offAllNamed(Routes.SPLASH);
-  }
-
   Future getUserProfile() async {
     try {
-      if (_supabaseClient.auth.currentSession == null ||
-          _supabaseClient.auth.currentUser == null) {
-        return await logout();
-      }
-
       // ensure user is logged in when retriving profile
       final response = await _supabaseClient.from('Users').select().match({
         'Id': _supabaseClient.auth.currentUser!.id,
@@ -45,8 +27,7 @@ class ProfileTabController extends GetxController {
       userData.value.DisplayName = response['DisplayName'];
       userData.value.ProfilePicUrl = response['ProfilePictureUrl'];
 
-      // insert textformfield
-      displayNameController.text = userData.value.DisplayName;
+      update();
     } catch (e) {
       if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
       Get.snackbar(unexpectedErrorText, e.toString());
@@ -54,8 +35,8 @@ class ProfileTabController extends GetxController {
   }
 
   @override
-  void onReady() async {
-    super.onReady();
+  void onInit() async {
+    super.onInit();
     await getUserProfile();
   }
 }

@@ -4,10 +4,13 @@ import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../../utils/app_constants.dart';
+import '../controllers/dashboard_tab_controller.dart';
 import '../controllers/home_controller.dart';
 
 class DashboardTabView extends StatelessWidget {
-  const DashboardTabView({super.key});
+  DashboardTabView({super.key});
+
+  final dashboardController = Get.put(DashboardTabController());
 
   @override
   Widget build(BuildContext context) {
@@ -23,39 +26,41 @@ class DashboardTabView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Hi, [display_name]',
-                        style: Get.textTheme.titleLarge,
-                      ),
-                      const SizedBox(
-                        height: 3 * GOLDEN_RATIO,
-                      ),
-                      Text(
-                        '[email@email.com]',
-                        style: Get.textTheme.titleSmall,
-                      ),
-                    ],
-                  ),
-                  Avatar(
-                    onTap: () => homeController.switchTab(3),
-                    useCache: true,
-                    shape: AvatarShape.circle(15 * GOLDEN_RATIO),
-                    placeholderColors: [
-                      getColorFromHex(COLOR_1),
-                    ],
-                    backgroundColor: getColorFromHex(COLOR_2),
-                    textStyle: Get.textTheme.titleLarge?.copyWith(
-                      color: Colors.white,
+              GetBuilder<DashboardTabController>(
+                builder: (dtc) => Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Hi, ${dtc.userData.value.DisplayName}',
+                          style: Get.textTheme.titleLarge,
+                        ),
+                        const SizedBox(
+                          height: 3 * GOLDEN_RATIO,
+                        ),
+                        Text(
+                          dtc.userData.value.Email,
+                          style: Get.textTheme.titleSmall,
+                        ),
+                      ],
                     ),
-                    name: '[display_name]',
-                  ),
-                ],
+                    Avatar(
+                      onTap: () => homeController.switchTab(3),
+                      useCache: true,
+                      shape: AvatarShape.circle(15 * GOLDEN_RATIO),
+                      placeholderColors: [
+                        getColorFromHex(COLOR_1),
+                      ],
+                      backgroundColor: getColorFromHex(COLOR_2),
+                      textStyle: Get.textTheme.titleLarge?.copyWith(
+                        color: Colors.white,
+                      ),
+                      name: dtc.userData.value.DisplayName,
+                    ),
+                  ],
+                ),
               ),
               const Divider(height: 15 * GOLDEN_RATIO),
               Text(

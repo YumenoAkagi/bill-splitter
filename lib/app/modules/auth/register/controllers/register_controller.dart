@@ -36,7 +36,7 @@ class RegisterController extends GetxController {
           'Account successfully registered. Email confirmation has been sent.');
       Get.offNamed(Routes.LOGIN);
     } catch (e) {
-      if (Get.isSnackbarOpen) Get.closeAllSnackbars();
+      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
       Get.snackbar(unexpectedErrorText, e.toString());
     } finally {
       isLoading.value = false;
