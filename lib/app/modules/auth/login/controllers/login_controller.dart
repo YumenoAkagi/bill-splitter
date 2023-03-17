@@ -1,3 +1,4 @@
+import 'package:bill_splitter/app/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -26,6 +27,7 @@ class LoginController extends GetxController {
         password: passwordController.text,
       );
 
+      strg.write(SESSION_KEY, response.session?.persistSessionString);
       Get.offAllNamed(Routes.HOME);
     } on AuthException catch (e) {
       if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();

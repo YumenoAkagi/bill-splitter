@@ -12,7 +12,7 @@ class SplashController extends GetxController {
     return _supabaseClient.auth.recoverSession(session);
   }
 
-  void checkSession() async {
+  Future checkSession() async {
     await GetStorage.init();
     final strg = Get.find<GetStorage>();
     final session = strg.read(SESSION_KEY);
@@ -27,8 +27,8 @@ class SplashController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    checkSession();
+    await checkSession();
   }
 }
