@@ -40,7 +40,7 @@ class ProfileTabView extends StatelessWidget {
                       name: controller.userData.value.DisplayName,
                       sources: [
                         NetworkSource(
-                            controller.userData.value.ProfilePicUrl as String),
+                            controller.userData.value.ProfilePicUrl ?? ''),
                       ]),
                 ),
                 const SizedBox(
