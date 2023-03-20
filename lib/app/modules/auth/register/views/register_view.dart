@@ -95,9 +95,10 @@ class RegisterView extends GetView<RegisterController> {
                         : FilledButton.icon(
                             onPressed: null,
                             icon: const SizedBox(
-                                width: 10 * GOLDEN_RATIO,
-                                height: 10 * GOLDEN_RATIO,
-                                child: CircularProgressIndicator()),
+                              width: 10 * GOLDEN_RATIO,
+                              height: 10 * GOLDEN_RATIO,
+                              child: CircularProgressIndicator(),
+                            ),
                             label: const Text('Loading...'),
                           ),
                   ),

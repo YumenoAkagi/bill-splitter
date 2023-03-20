@@ -1,4 +1,3 @@
-import 'package:bill_splitter/app/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:get/get.dart';
@@ -82,12 +81,16 @@ class HomeController extends GetxController {
 
   void switchTab(int index) {
     selectedTab.value = index;
-    pageController.animateToPage(
-      index,
-      duration: const Duration(
-        milliseconds: 275,
-      ),
-      curve: Curves.easeInOut,
-    );
+    pageController.jumpToPage(index);
+
+    // DO NOT USE
+    // this caused bug duplicated globalkey
+    // pageController.animateToPage(
+    //   index,
+    //   duration: const Duration(
+    //     milliseconds: 275,
+    //   ),
+    //   curve: Curves.easeInOut,
+    // );
   }
 }

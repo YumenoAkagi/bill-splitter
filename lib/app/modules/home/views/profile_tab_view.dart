@@ -21,6 +21,7 @@ class ProfileTabView extends StatelessWidget {
           vertical: SAFEAREA_CONTAINER_MARGIN_V,
         ),
         child: Form(
+          key: controller.formKey,
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -74,6 +75,9 @@ class ProfileTabView extends StatelessWidget {
                   decoration: const InputDecoration(
                     hintText: 'Display Name',
                   ),
+                  onChanged: (_) {
+                    controller.setProfileStateAsEdited();
+                  },
                 ),
                 const SizedBox(
                   height: 10 * GOLDEN_RATIO,
@@ -100,10 +104,30 @@ class ProfileTabView extends StatelessWidget {
                 const SizedBox(
                   height: 12 * GOLDEN_RATIO,
                 ),
-                FilledButton.icon(
-                  onPressed: null,
-                  icon: const Icon(Entypo.floppy),
-                  label: const Text('Save Changes'),
+                Obx(
+                  () => (controller.isEdited.isTrue)
+                      ? FilledButton.icon(
+                          onPressed: controller.isLoading.isFalse
+                              ? () async {
+                                  await controller.updateProfile();
+                                }
+                              : null,
+                          icon: (controller.isLoading.isFalse)
+                              ? const Icon(Entypo.floppy)
+                              : const SizedBox(
+                                  width: 10 * GOLDEN_RATIO,
+                                  height: 10 * GOLDEN_RATIO,
+                                  child: CircularProgressIndicator(),
+                                ),
+                          label: (controller.isLoading.isFalse)
+                              ? const Text('Save Changes')
+                              : const Text('Saving Changes...'),
+                        )
+                      : FilledButton.icon(
+                          onPressed: null,
+                          icon: const Icon(Entypo.floppy),
+                          label: const Text('Save Changes'),
+                        ),
                 ),
                 const SizedBox(
                   height: 40 * GOLDEN_RATIO,
