@@ -1,3 +1,5 @@
+import 'package:bill_splitter/app/modules/home/bindings/friend_tab_binding.dart';
+import 'package:bill_splitter/app/modules/home/views/friends_tab_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/auth/email_sent/views/email_sent_view.dart';
@@ -55,6 +57,11 @@ class AppPages {
       name: _Paths.WALKTHROUGH,
       page: () => const WalkthroughView(),
       binding: WalkthroughBinding(),
+    ),
+    GetPage(
+      name: _Paths.FRIEND,
+      page: () => FriendsTabView(),
+      binding: FriendTabBinding(),
     ),
   ];
 }
