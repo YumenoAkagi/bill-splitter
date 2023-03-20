@@ -1,4 +1,4 @@
-import 'package:bill_splitter/app/utils/validations_helper.dart';
+import '../../../utils/validations_helper.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
