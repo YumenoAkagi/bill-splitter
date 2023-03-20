@@ -25,7 +25,7 @@ class DashboardTabController extends GetxController {
       userData.value.Id = response['Id'];
       userData.value.Email = response['Email'];
       userData.value.DisplayName = response['DisplayName'];
-      userData.value.ProfilePicUrl = response['ProfilePictureUrl'];
+      userData.value.ProfilePicUrl = response['ProfilePictureURL'];
 
       update();
     } catch (e) {

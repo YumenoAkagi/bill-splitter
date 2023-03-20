@@ -58,6 +58,17 @@ class DashboardTabView extends StatelessWidget {
                         color: Colors.white,
                       ),
                       name: dtc.userData.value.DisplayName,
+                      sources:
+                          (dashboardController.userData.value.ProfilePicUrl !=
+                                      null &&
+                                  dashboardController
+                                          .userData.value.ProfilePicUrl !=
+                                      '')
+                              ? [
+                                  NetworkSource(dashboardController
+                                      .userData.value.ProfilePicUrl!),
+                                ]
+                              : [],
                     ),
                   ],
                 ),

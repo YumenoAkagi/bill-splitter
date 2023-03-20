@@ -27,33 +27,42 @@ class ProfileTabView extends StatelessWidget {
               children: [
                 Obx(
                   () => Avatar(
-                    useCache: true,
-                    shape: AvatarShape.circle(50 * GOLDEN_RATIO),
-                    placeholderColors: [
-                      getColorFromHex(COLOR_1),
-                    ],
-                    backgroundColor: getColorFromHex(COLOR_2),
-                    textStyle: Get.textTheme.titleLarge?.copyWith(
-                      color: Colors.white,
-                      fontSize: 20 * GOLDEN_RATIO,
-                    ),
-                    name: controller.userData.value.DisplayName,
-                  ),
+                      useCache: true,
+                      shape: AvatarShape.circle(50 * GOLDEN_RATIO),
+                      placeholderColors: [
+                        getColorFromHex(COLOR_1),
+                      ],
+                      backgroundColor: getColorFromHex(COLOR_2),
+                      textStyle: Get.textTheme.titleLarge?.copyWith(
+                        color: Colors.white,
+                        fontSize: 20 * GOLDEN_RATIO,
+                      ),
+                      name: controller.userData.value.DisplayName,
+                      sources: [
+                        NetworkSource(
+                            controller.userData.value.ProfilePicUrl as String),
+                      ]),
                 ),
                 const SizedBox(
                   height: 15 * GOLDEN_RATIO,
                 ),
-                FilledButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Entypo.camera,
-                    size: 10 * GOLDEN_RATIO,
-                  ),
-                  label: const Text('Edit Photo'),
-                  style: FilledButton.styleFrom(
-                    minimumSize: const Size(
-                      70 * GOLDEN_RATIO,
-                      25 * GOLDEN_RATIO,
+                Obx(
+                  () => FilledButton.icon(
+                    onPressed: controller.isLoading.isFalse
+                        ? () async {
+                            await controller.updateProfilePicture();
+                          }
+                        : null,
+                    icon: const Icon(
+                      Entypo.camera,
+                      size: 10 * GOLDEN_RATIO,
+                    ),
+                    label: const Text('Edit Photo'),
+                    style: FilledButton.styleFrom(
+                      minimumSize: const Size(
+                        70 * GOLDEN_RATIO,
+                        25 * GOLDEN_RATIO,
+                      ),
                     ),
                   ),
                 ),

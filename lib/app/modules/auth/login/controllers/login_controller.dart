@@ -27,7 +27,7 @@ class LoginController extends GetxController {
         password: passwordController.text,
       );
 
-      strg.write(SESSION_KEY, response.session?.persistSessionString);
+      await strg.write(SESSION_KEY, response.session?.persistSessionString);
       Get.offAllNamed(Routes.HOME);
     } on AuthException catch (e) {
       if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../models/user_model.dart';
@@ -48,7 +49,7 @@ class ProfileTabController extends GetxController {
       userData.value.Id = response['Id'];
       userData.value.Email = response['Email'];
       userData.value.DisplayName = response['DisplayName'];
-      userData.value.ProfilePicUrl = response['ProfilePictureUrl'];
+      userData.value.ProfilePicUrl = response['ProfilePictureURL'];
 
       // insert textformfield
       displayNameController.text = userData.value.DisplayName;
@@ -66,7 +67,7 @@ class ProfileTabController extends GetxController {
       await _supabaseClient.from('Users').upsert({
         'Id': userData.value.Id,
         'DisplayName': displayNameController.text,
-        'Email': userData.value.Email
+        'Email': userData.value.Email,
       });
 
       if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
@@ -85,9 +86,51 @@ class ProfileTabController extends GetxController {
   }
 
   Future updateProfilePicture() async {
-    try {} catch (e) {
+    final imgPicker = ImagePicker();
+    final imgFile = await imgPicker.pickImage(
+      source: ImageSource.gallery,
+      maxHeight: 300,
+      maxWidth: 300,
+    );
+
+    if (imgFile == null) return;
+
+    isLoading.value = true;
+
+    try {
+      final bytes = await imgFile.readAsBytes();
+      final fileExt = imgFile.path.split('.').last;
+      final newFileName = 'PP-${DateTime.now().toIso8601String()}.$fileExt';
+      final filePath = newFileName; // change path if necessary
+
+      await _supabaseClient.storage
+          .from('avatars')
+          .uploadBinary(filePath, bytes);
+
+      if (userData.value.ProfilePicUrl != null &&
+          userData.value.ProfilePicUrl != '') {
+        // delete old image storage before changing the path
+        await _supabaseClient.storage
+            .from('avatars')
+            .remove([userData.value.ProfilePicUrl!]);
+      }
+
+      final imgFinalPath =
+          _supabaseClient.storage.from('avatars').getPublicUrl(filePath);
+      await _supabaseClient.from('Users').upsert({
+        'Id': userData.value.Id,
+        'DisplayName': displayNameController.text,
+        'Email': userData.value.Email,
+        'ProfilePictureURL': imgFinalPath,
+      });
+
+      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
+      Get.snackbar('Success', 'Profile picture successfully changed!');
+    } catch (e) {
       if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
       Get.snackbar(unexpectedErrorText, e.toString());
+    } finally {
+      isLoading.value = false;
     }
   }
 
