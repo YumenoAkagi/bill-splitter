@@ -24,6 +24,9 @@ class FriendsTabView extends StatelessWidget {
               : ListView.builder(
                   itemCount: ftc.friendList.length,
                   itemBuilder: (context, index) => Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8 * GOLDEN_RATIO)),
+                    elevation: 2,
                     child: ListTile(
                       title: Text(ftc.friendList[index].DisplayName,
                           style: Get.textTheme.titleMedium),

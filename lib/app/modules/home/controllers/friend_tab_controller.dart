@@ -27,7 +27,7 @@ class FriendTabController extends GetxController {
               Id: element['Id'],
               DisplayName: element['DisplayName'],
               Email: element['Email'],
-              ProfilePicUrl: element['ProfilePictureUrl'],
+              ProfilePicUrl: element['ProfilePictureURL'],
             ),
           );
         });
