@@ -1,3 +1,5 @@
+import 'package:bill_splitter/app/modules/Friend/bindings/manage_friend_binding.dart';
+import 'package:bill_splitter/app/modules/Friend/views/manage_friend.dart';
 import 'package:get/get.dart';
 
 import '../modules/auth/email_sent/views/email_sent_view.dart';
@@ -62,6 +64,11 @@ class AppPages {
       name: _Paths.FRIEND,
       page: () => FriendsTabView(),
       binding: FriendTabBinding(),
+    ),
+    GetPage(
+      name: _Paths.MANAGE_FRIEND,
+      page: () => ManageFriendView(),
+      binding: ManageFriendBinding(),
     ),
   ];
 }

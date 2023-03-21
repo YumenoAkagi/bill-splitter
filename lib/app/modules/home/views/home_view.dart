@@ -1,3 +1,5 @@
+import 'package:bill_splitter/app/modules/Friend/views/manage_friend.dart';
+import 'package:bill_splitter/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:get/get.dart';
@@ -22,7 +24,9 @@ class HomeView extends GetView<HomeController> {
           Obx(
             () => controller.selectedTab.value == 2
                 ? IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed(Routes.MANAGE_FRIEND);
+                    },
                     iconSize: 12 * GOLDEN_RATIO,
                     padding: const EdgeInsets.only(right: 5 * GOLDEN_RATIO),
                     icon: const Icon(

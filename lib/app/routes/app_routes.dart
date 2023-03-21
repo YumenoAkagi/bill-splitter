@@ -11,6 +11,7 @@ abstract class Routes {
   static const RECOVERY_EMAIL_SENT = _Paths.RECOVERY_EMAIL_SENT;
   static const WALKTHROUGH = _Paths.WALKTHROUGH;
   static const FRIEND = _Paths.FRIEND;
+  static const MANAGE_FRIEND = _Paths.MANAGE_FRIEND;
 }
 
 abstract class _Paths {
@@ -23,4 +24,5 @@ abstract class _Paths {
   static const RECOVERY_EMAIL_SENT = '/recovery-email-sent';
   static const WALKTHROUGH = '/walkthrough';
   static const FRIEND = '/friend';
+  static const MANAGE_FRIEND = '/manage-friend';
 }
