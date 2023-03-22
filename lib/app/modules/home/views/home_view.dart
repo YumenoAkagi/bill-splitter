@@ -1,11 +1,10 @@
-import 'package:bill_splitter/app/modules/manage_friend/views/manage_friend_view.dart';
-import 'package:bill_splitter/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 
+import '../../../routes/app_pages.dart';
 import '../../../utils/app_constants.dart';
 import '../controllers/home_controller.dart';
 

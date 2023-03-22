@@ -47,6 +47,7 @@ class FriendBottomSheetView extends StatelessWidget {
             FilledButton(
                 onPressed: () {
                   controller.addFriend();
+                  Get.back();
                 },
                 child: const Text('Send Friend Request'))
           ],

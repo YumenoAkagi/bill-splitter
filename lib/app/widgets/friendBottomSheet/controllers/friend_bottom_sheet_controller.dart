@@ -1,12 +1,15 @@
+import 'package:bill_splitter/app/modules/manage_friend/controllers/manage_friend_controller.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../providers/friend_provider.dart';
 
 class FriendBottomSheetController extends GetxController {
+  final mfc = Get.find<ManageFriendController>();
   final friendEmailController = TextEditingController();
   final friendProvider = FriendProvider();
   Future addFriend() async {
-    friendProvider.addFriend(friendEmailController.text);
+    await friendProvider.addFriend(friendEmailController.text);
+    mfc.getPendingFriendList();
   }
 }

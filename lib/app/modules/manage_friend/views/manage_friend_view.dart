@@ -3,6 +3,7 @@ import 'package:bill_splitter/app/modules/manage_friend/controllers/manage_frien
 import 'package:bill_splitter/app/utils/app_constants.dart';
 import 'package:bill_splitter/app/widgets/friendBottomSheet/views/friend_bottom_sheet_view.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttericon/entypo_icons.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -24,10 +25,10 @@ class ManageFriendView extends GetView<ManageFriendController> {
               labelStyle: const TextStyle(fontWeight: FontWeight.bold),
               tabs: const [
                 Tab(
-                  text: 'Request',
+                  text: 'Pending',
                 ),
                 Tab(
-                  text: 'Pending',
+                  text: 'Request',
                 )
               ]),
         ),
@@ -38,32 +39,45 @@ class ManageFriendView extends GetView<ManageFriendController> {
                 margin: const EdgeInsets.symmetric(
                     horizontal: SAFEAREA_CONTAINER_MARGIN_H,
                     vertical: SAFEAREA_CONTAINER_MARGIN_V),
-                child: ListView.builder(
-                  itemCount: mtc.requestFriendList.length,
-                  itemBuilder: (context, index) => Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8 * GOLDEN_RATIO)),
-                    elevation: 2,
-                    child: ListTile(
-                      title: Text(
-                        mtc.requestFriendList[index].DisplayName,
-                        style: Get.textTheme.titleMedium,
+                child: mtc.pendingFriendList.isEmpty
+                    ? const Center(
+                        child: Text('No Pending Friend Request'),
+                      )
+                    : ListView.builder(
+                        itemCount: mtc.pendingFriendList.length,
+                        itemBuilder: (context, index) => Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(8 * GOLDEN_RATIO)),
+                          elevation: 2,
+                          child: ListTile(
+                            title: Text(
+                              mtc.pendingFriendList[index].DisplayName,
+                              style: Get.textTheme.titleMedium,
+                            ),
+                            subtitle: Text(
+                              mtc.pendingFriendList[index].Email,
+                              style: Get.textTheme.bodySmall,
+                            ),
+                            leading: Avatar(
+                              shape: AvatarShape.circle(13 * GOLDEN_RATIO),
+                              name: mtc.pendingFriendList[index].DisplayName,
+                              sources: [
+                                NetworkSource(mtc.pendingFriendList[index]
+                                        .ProfilePicUrl ??
+                                    '')
+                              ],
+                            ),
+                            trailing: IconButton(
+                              icon: const Icon(Entypo.trash),
+                              onPressed: () {
+                                mtc.deletePendingRequest(
+                                    mtc.pendingFriendList[index]);
+                              },
+                            ),
+                          ),
+                        ),
                       ),
-                      subtitle: Text(
-                        mtc.requestFriendList[index].Email,
-                        style: Get.textTheme.bodySmall,
-                      ),
-                      leading: Avatar(
-                        shape: AvatarShape.circle(13 * GOLDEN_RATIO),
-                        name: mtc.requestFriendList[index].DisplayName,
-                        sources: [
-                          NetworkSource(
-                              mtc.requestFriendList[index].ProfilePicUrl ?? '')
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
               ),
             ),
             const Center(
