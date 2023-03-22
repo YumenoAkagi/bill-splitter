@@ -1,4 +1,4 @@
-import 'package:bill_splitter/app/modules/ManageFriend/views/manage_friend.dart';
+import 'package:bill_splitter/app/modules/manage_friend/views/manage_friend_view.dart';
 import 'package:bill_splitter/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';

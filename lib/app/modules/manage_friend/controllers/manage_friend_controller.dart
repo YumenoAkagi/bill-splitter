@@ -1,18 +1,20 @@
 import 'package:bill_splitter/app/models/user_model.dart';
 import 'package:bill_splitter/app/utils/validations_helper.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ManageFriendController extends GetxController {
   final _supabaseClient = Get.find<SupabaseClient>();
-  List<UserModel> friendList = [];
-  Future addFriend() async {}
+  List<UserModel> pendingFriendList = [];
+  final friendEmailController = TextEditingController();
+
   Future getRequestFriendList() async {
     try {
       final Response = await _supabaseClient
           .from('UserFriendList')
           .select('Users(Id, DisplayName, Email, ProfilePictureURL)')
-          .match({'IsRequestPedning': true});
+          .match({'IsRequestPending': true});
     } catch (e) {
       if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
       Get.snackbar(unexpectedErrorText, e.toString());
