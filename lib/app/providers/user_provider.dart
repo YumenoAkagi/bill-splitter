@@ -1,11 +1,12 @@
-import 'package:bill_splitter/app/models/user_model.dart';
-import 'package:bill_splitter/app/utils/validations_helper.dart';
 import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../models/user_model.dart';
+import '../utils/validations_helper.dart';
+
 class UserProvider {
   final _supabaseClient = Get.find<SupabaseClient>();
-  
+
   Future getUserProfile() async {
     try {
       // ensure user is logged in when retriving profile

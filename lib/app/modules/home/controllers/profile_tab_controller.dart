@@ -38,25 +38,33 @@ class ProfileTabController extends GetxController {
 
   Future _getUserProfile() async {
     if (_supabaseClient.auth.currentSession == null ||
-          _supabaseClient.auth.currentUser == null) {
-        return await logout();
-      }
-    
+        _supabaseClient.auth.currentUser == null) {
+      return await logout();
+    }
+
     final userFromRepo = await _userProvider.getUserProfile();
     userData.value = userFromRepo;
-  }
 
+    displayNameController.text = userData.value.DisplayName;
+  }
 
   Future updateProfile() async {
     if (!formKey.currentState!.validate()) return;
     try {
       isLoading.value = true;
 
-      await _supabaseClient.from('Users').upsert({
+      final response = await _supabaseClient.from('Users').upsert({
         'Id': userData.value.Id,
         'DisplayName': displayNameController.text,
         'Email': userData.value.Email,
-      });
+      }).select() as Map;
+
+      final updatedUser = UserModel(
+        Id: response['Id'],
+        DisplayName: response['DisplayName'],
+        Email: response['Email'],
+        ProfilePicUrl: response['ProfilePictureURL'],
+      );
 
       if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
       Get.snackbar('Success', 'Profile successfully updated!');
@@ -64,7 +72,7 @@ class ProfileTabController extends GetxController {
       isEdited.value = false;
 
       // refresh data on dashboard
-      dashboardController.getUserProfile();
+      dashboardController.changeUserProfile(updatedUser);
     } catch (e) {
       if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
       Get.snackbar(unexpectedErrorText, e.toString());
@@ -120,6 +128,7 @@ class ProfileTabController extends GetxController {
       );
 
       userData.value = newUserData;
+      dashboardController.changeUserProfile(newUserData);
 
       if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
       Get.snackbar('Success', 'Profile picture successfully changed!');

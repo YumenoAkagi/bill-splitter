@@ -26,54 +26,56 @@ class DashboardTabView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              GetBuilder<DashboardTabController>(
-                builder: (dtc) => Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Hi, ${dtc.userData.value.DisplayName}',
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Obx(
+                        () => Text(
+                          'Hi, ${dashboardController.userData.value.DisplayName}',
                           style: Get.textTheme.titleLarge,
                         ),
-                        const SizedBox(
-                          height: 3 * GOLDEN_RATIO,
-                        ),
-                        Text(
-                          dtc.userData.value.Email,
+                      ),
+                      const SizedBox(
+                        height: 3 * GOLDEN_RATIO,
+                      ),
+                      Obx(
+                        () => Text(
+                          dashboardController.userData.value.Email,
                           style: Get.textTheme.titleSmall,
                         ),
-                      ],
-                    ),
-                    Obx(
-                      () => Avatar(
-                        onTap: () => homeController.switchTab(3),
-                        useCache: true,
-                        shape: AvatarShape.circle(15 * GOLDEN_RATIO),
-                        placeholderColors: [
-                          getColorFromHex(COLOR_1),
-                        ],
-                        backgroundColor: getColorFromHex(COLOR_2),
-                        textStyle: Get.textTheme.titleLarge?.copyWith(
-                          color: Colors.white,
-                        ),
-                        name: dtc.userData.value.DisplayName,
-                        sources:
-                            (dashboardController.userData.value.ProfilePicUrl !=
-                                        null &&
-                                    dashboardController
-                                            .userData.value.ProfilePicUrl !=
-                                        '')
-                                ? [
-                                    NetworkSource(dashboardController
-                                        .userData.value.ProfilePicUrl!),
-                                  ]
-                                : [],
                       ),
+                    ],
+                  ),
+                  Obx(
+                    () => Avatar(
+                      onTap: () => homeController.switchTab(3),
+                      useCache: true,
+                      shape: AvatarShape.circle(15 * GOLDEN_RATIO),
+                      placeholderColors: [
+                        getColorFromHex(COLOR_1),
+                      ],
+                      backgroundColor: getColorFromHex(COLOR_2),
+                      textStyle: Get.textTheme.titleLarge?.copyWith(
+                        color: Colors.white,
+                      ),
+                      name: dashboardController.userData.value.DisplayName,
+                      sources:
+                          (dashboardController.userData.value.ProfilePicUrl !=
+                                      null &&
+                                  dashboardController
+                                          .userData.value.ProfilePicUrl !=
+                                      '')
+                              ? [
+                                  NetworkSource(dashboardController
+                                      .userData.value.ProfilePicUrl!),
+                                ]
+                              : [],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               const Divider(height: 15 * GOLDEN_RATIO),
               Text(
