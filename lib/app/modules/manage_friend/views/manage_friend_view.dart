@@ -1,3 +1,4 @@
+import 'package:avatars/avatars.dart';
 import 'package:bill_splitter/app/modules/manage_friend/controllers/manage_friend_controller.dart';
 import 'package:bill_splitter/app/utils/app_constants.dart';
 import 'package:bill_splitter/app/widgets/friendBottomSheet/views/friend_bottom_sheet_view.dart';
@@ -30,14 +31,46 @@ class ManageFriendView extends GetView<ManageFriendController> {
                 )
               ]),
         ),
-        body: const TabBarView(children: [
-          Center(
-            child: Text('Tab Request'),
-          ),
-          Center(
-            child: Text('Tab Pending'),
-          )
-        ]),
+        body: GetBuilder<ManageFriendController>(
+          builder: (mtc) => TabBarView(children: [
+            SafeArea(
+              child: Container(
+                margin: const EdgeInsets.symmetric(
+                    horizontal: SAFEAREA_CONTAINER_MARGIN_H,
+                    vertical: SAFEAREA_CONTAINER_MARGIN_V),
+                child: ListView.builder(
+                  itemCount: mtc.requestFriendList.length,
+                  itemBuilder: (context, index) => Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8 * GOLDEN_RATIO)),
+                    elevation: 2,
+                    child: ListTile(
+                      title: Text(
+                        mtc.requestFriendList[index].DisplayName,
+                        style: Get.textTheme.titleMedium,
+                      ),
+                      subtitle: Text(
+                        mtc.requestFriendList[index].Email,
+                        style: Get.textTheme.bodySmall,
+                      ),
+                      leading: Avatar(
+                        shape: AvatarShape.circle(13 * GOLDEN_RATIO),
+                        name: mtc.requestFriendList[index].DisplayName,
+                        sources: [
+                          NetworkSource(
+                              mtc.requestFriendList[index].ProfilePicUrl ?? '')
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const Center(
+              child: Text('Tab Pending'),
+            )
+          ]),
+        ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Container(
           margin: const EdgeInsets.symmetric(
@@ -45,7 +78,7 @@ class ManageFriendView extends GetView<ManageFriendController> {
               horizontal: SAFEAREA_CONTAINER_MARGIN_H),
           child: FilledButton(
               onPressed: () {
-                Get.bottomSheet(const AddFriendBottomSheet());
+                Get.bottomSheet(FriendBottomSheetView());
               },
               child: const Text('Add Friend')),
         ),

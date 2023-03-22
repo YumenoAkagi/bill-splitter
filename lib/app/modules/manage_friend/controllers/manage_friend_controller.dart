@@ -1,32 +1,27 @@
-import 'package:bill_splitter/app/models/user_model.dart';
-import 'package:bill_splitter/app/utils/validations_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../../../models/user_model.dart';
+import '../../../providers/friend_provider.dart';
 
 class ManageFriendController extends GetxController {
-  final _supabaseClient = Get.find<SupabaseClient>();
+  final friendProvider = FriendProvider();
   List<UserModel> pendingFriendList = [];
+  List<UserModel> requestFriendList = [];
   final friendEmailController = TextEditingController();
 
   Future getRequestFriendList() async {
-    try {
-      final Response = await _supabaseClient
-          .from('UserFriendList')
-          .select('Users(Id, DisplayName, Email, ProfilePictureURL)')
-          .match({'IsRequestPending': true});
-    } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
-    }
+    final requestFriendListFromRepo =
+        await friendProvider.getRequestFriendList();
+    requestFriendList = requestFriendListFromRepo;
+    update();
   }
 
   Future getPendingFriendList() async {}
-
   @override
-  void onReady() async {
-    // TODO: implement onReady
-    super.onReady();
+  void onInit() async {
+    // TODO: implement onInit
+    super.onInit();
     await getRequestFriendList();
   }
 }
