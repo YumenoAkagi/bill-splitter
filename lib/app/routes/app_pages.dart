@@ -1,5 +1,5 @@
-import 'package:bill_splitter/app/modules/Friend/bindings/manage_friend_binding.dart';
-import 'package:bill_splitter/app/modules/Friend/views/manage_friend.dart';
+import 'package:bill_splitter/app/modules/ManageFriend/bindings/manage_friend_binding.dart';
+import 'package:bill_splitter/app/modules/ManageFriend/views/manage_friend.dart';
 import 'package:get/get.dart';
 
 import '../modules/auth/email_sent/views/email_sent_view.dart';
