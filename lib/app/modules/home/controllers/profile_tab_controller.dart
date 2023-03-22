@@ -1,3 +1,4 @@
+import 'package:bill_splitter/app/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -15,7 +16,9 @@ class ProfileTabController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final _supabaseClient = Get.find<SupabaseClient>();
   final strg = Get.find<GetStorage>();
-  final Rx<UserModel> userData = UserModel(
+  final _userProvider = UserProvider();
+
+  Rx<UserModel> userData = UserModel(
     Id: '',
     DisplayName: '',
     Email: '',
@@ -33,31 +36,16 @@ class ProfileTabController extends GetxController {
     Get.offAllNamed(Routes.SPLASH);
   }
 
-  Future getUserProfile() async {
-    try {
-      if (_supabaseClient.auth.currentSession == null ||
+  Future _getUserProfile() async {
+    if (_supabaseClient.auth.currentSession == null ||
           _supabaseClient.auth.currentUser == null) {
         return await logout();
       }
-
-      // ensure user is logged in when retriving profile
-      final response = await _supabaseClient.from('Users').select().match({
-        'Id': _supabaseClient.auth.currentUser!.id,
-      }).maybeSingle() as Map;
-
-      // insert user profile
-      userData.value.Id = response['Id'];
-      userData.value.Email = response['Email'];
-      userData.value.DisplayName = response['DisplayName'];
-      userData.value.ProfilePicUrl = response['ProfilePictureURL'];
-
-      // insert textformfield
-      displayNameController.text = userData.value.DisplayName;
-    } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
-    }
+    
+    final userFromRepo = await _userProvider.getUserProfile();
+    userData.value = userFromRepo;
   }
+
 
   Future updateProfile() async {
     if (!formKey.currentState!.validate()) return;
@@ -124,6 +112,15 @@ class ProfileTabController extends GetxController {
         'ProfilePictureURL': imgFinalPath,
       });
 
+      final newUserData = UserModel(
+        Id: userData.value.Id,
+        DisplayName: userData.value.DisplayName,
+        Email: userData.value.Email,
+        ProfilePicUrl: imgFinalPath,
+      );
+
+      userData.value = newUserData;
+
       if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
       Get.snackbar('Success', 'Profile picture successfully changed!');
     } catch (e) {
@@ -141,6 +138,6 @@ class ProfileTabController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
-    await getUserProfile();
+    await _getUserProfile();
   }
 }

@@ -1,19 +1,11 @@
-import '../../../utils/validations_helper.dart';
+import 'package:bill_splitter/app/models/user_model.dart';
+import 'package:bill_splitter/app/utils/validations_helper.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import '../../../models/user_model.dart';
-
-class DashboardTabController extends GetxController {
+class UserProvider {
   final _supabaseClient = Get.find<SupabaseClient>();
-  final strg = Get.find<GetStorage>();
-  Rx<UserModel> userData = UserModel(
-    Id: '',
-    DisplayName: '',
-    Email: '',
-  ).obs;
-
+  
   Future getUserProfile() async {
     try {
       // ensure user is logged in when retriving profile
@@ -28,17 +20,10 @@ class DashboardTabController extends GetxController {
         Email: response['Email'],
         ProfilePicUrl: response['ProfilePictureURL'],
       );
-
-      userData.value = userDataFromResponse;
+      return userDataFromResponse;
     } catch (e) {
       if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
       Get.snackbar(unexpectedErrorText, e.toString());
     }
-  }
-
-  @override
-  void onInit() async {
-    super.onInit();
-    await getUserProfile();
   }
 }

@@ -27,7 +27,7 @@ class ProfileTabView extends StatelessWidget {
               children: [
                 Obx(
                   () => Avatar(
-                      useCache: true,
+                      // useCache: true,
                       shape: AvatarShape.circle(50 * GOLDEN_RATIO),
                       placeholderColors: [
                         getColorFromHex(COLOR_1),

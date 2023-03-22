@@ -46,29 +46,31 @@ class DashboardTabView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Avatar(
-                      onTap: () => homeController.switchTab(3),
-                      useCache: true,
-                      shape: AvatarShape.circle(15 * GOLDEN_RATIO),
-                      placeholderColors: [
-                        getColorFromHex(COLOR_1),
-                      ],
-                      backgroundColor: getColorFromHex(COLOR_2),
-                      textStyle: Get.textTheme.titleLarge?.copyWith(
-                        color: Colors.white,
+                    Obx(
+                      () => Avatar(
+                        onTap: () => homeController.switchTab(3),
+                        useCache: true,
+                        shape: AvatarShape.circle(15 * GOLDEN_RATIO),
+                        placeholderColors: [
+                          getColorFromHex(COLOR_1),
+                        ],
+                        backgroundColor: getColorFromHex(COLOR_2),
+                        textStyle: Get.textTheme.titleLarge?.copyWith(
+                          color: Colors.white,
+                        ),
+                        name: dtc.userData.value.DisplayName,
+                        sources:
+                            (dashboardController.userData.value.ProfilePicUrl !=
+                                        null &&
+                                    dashboardController
+                                            .userData.value.ProfilePicUrl !=
+                                        '')
+                                ? [
+                                    NetworkSource(dashboardController
+                                        .userData.value.ProfilePicUrl!),
+                                  ]
+                                : [],
                       ),
-                      name: dtc.userData.value.DisplayName,
-                      sources:
-                          (dashboardController.userData.value.ProfilePicUrl !=
-                                      null &&
-                                  dashboardController
-                                          .userData.value.ProfilePicUrl !=
-                                      '')
-                              ? [
-                                  NetworkSource(dashboardController
-                                      .userData.value.ProfilePicUrl!),
-                                ]
-                              : [],
                     ),
                   ],
                 ),
