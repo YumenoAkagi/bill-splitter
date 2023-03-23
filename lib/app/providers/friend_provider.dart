@@ -41,7 +41,31 @@ class FriendProvider {
   }
 
   Future getRequestFriendList() async {
-    List<UserModel> requestfriendList = [];
+    final List<UserModel> requestfriendList = [];
+    try {
+      final response =
+          await _supabaseClient.from('UserFriendList').select().match({
+        'IsRequestPending': true,
+        'FriendId': _supabaseClient.auth.currentUser!.id,
+      });
+      for (var i in response) {
+        final requestFriend = await _supabaseClient
+            .from('Users')
+            .select()
+            .eq('Id', i['UserId'])
+            .maybeSingle() as Map;
+        UserModel temp = UserModel(
+            Id: requestFriend['Id'],
+            DisplayName: requestFriend['DisplayName'],
+            Email: requestFriend['Email'],
+            ProfilePicUrl: requestFriend['ProfilePictureURL']);
+        requestfriendList.add(temp);
+      }
+      return requestfriendList;
+    } catch (e) {
+      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
+      Get.snackbar(unexpectedErrorText, e.toString());
+    }
   }
 
   Future getPendingFriendList() async {
@@ -76,6 +100,10 @@ class FriendProvider {
 
   Future addFriend(String email) async {
     try {
+      if (email == _supabaseClient.auth.currentUser?.email) {
+        throw Exception('You Cant Add Yourself As Friend');
+      }
+
       final response = await _supabaseClient
           .from('Users')
           .select()

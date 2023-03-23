@@ -10,7 +10,12 @@ class ManageFriendController extends GetxController {
   List<UserModel> requestFriendList = [];
   final friendEmailController = TextEditingController();
 
-  Future getRequestFriendList() async {}
+  Future getRequestFriendList() async {
+    final requestFriendListFromRepo =
+        await friendProvider.getRequestFriendList();
+    requestFriendList = requestFriendListFromRepo;
+    update();
+  }
 
   Future getPendingFriendList() async {
     final pendingFriendListFromRepo =
@@ -29,5 +34,6 @@ class ManageFriendController extends GetxController {
   void onInit() async {
     super.onInit();
     await getPendingFriendList();
+    await getRequestFriendList();
   }
 }

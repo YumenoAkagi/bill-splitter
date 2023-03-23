@@ -80,9 +80,44 @@ class ManageFriendView extends GetView<ManageFriendController> {
                       ),
               ),
             ),
-            const Center(
-              child: Text('Tab Pending'),
-            )
+            SafeArea(
+                child: Container(
+              margin: const EdgeInsets.symmetric(
+                  horizontal: SAFEAREA_CONTAINER_MARGIN_H,
+                  vertical: SAFEAREA_CONTAINER_MARGIN_V),
+              child: mtc.requestFriendList.isEmpty
+                  ? const Center(
+                      child: Text('No Friend Request'),
+                    )
+                  : ListView.builder(
+                      itemCount: mtc.requestFriendList.length,
+                      itemBuilder: (context, index) => Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(8 * GOLDEN_RATIO)),
+                        elevation: 2,
+                        child: ListTile(
+                          title: Text(
+                            mtc.requestFriendList[index].DisplayName,
+                            style: Get.textTheme.titleMedium,
+                          ),
+                          subtitle: Text(
+                            mtc.requestFriendList[index].Email,
+                            style: Get.textTheme.bodySmall,
+                          ),
+                          leading: Avatar(
+                            shape: AvatarShape.circle(13 * GOLDEN_RATIO),
+                            name: mtc.requestFriendList[index].DisplayName,
+                            sources: [
+                              NetworkSource(
+                                  mtc.requestFriendList[index].ProfilePicUrl ??
+                                      '')
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+            )),
           ]),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

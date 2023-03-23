@@ -53,17 +53,19 @@ class ProfileTabController extends GetxController {
     try {
       isLoading.value = true;
 
-      final response = await _supabaseClient.from('Users').upsert({
-        'Id': userData.value.Id,
-        'DisplayName': displayNameController.text,
-        'Email': userData.value.Email,
-      }).select() as Map;
+      final response = await _supabaseClient
+          .from('Users')
+          .update({
+            'DisplayName': displayNameController.text,
+          })
+          .eq('Id', userData.value.Id)
+          .select();
 
       final updatedUser = UserModel(
-        Id: response['Id'],
-        DisplayName: response['DisplayName'],
-        Email: response['Email'],
-        ProfilePicUrl: response['ProfilePictureURL'],
+        Id: response[0]['Id'],
+        DisplayName: response[0]['DisplayName'],
+        Email: response[0]['Email'],
+        ProfilePicUrl: response[0]['ProfilePictureURL'],
       );
 
       if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
