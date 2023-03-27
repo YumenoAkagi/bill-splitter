@@ -1,4 +1,4 @@
-package com.example.bill_splitter
+package com.binus.skripsi.bill_splitter
 
 import io.flutter.embedding.android.FlutterActivity
 

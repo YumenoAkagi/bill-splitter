@@ -1,8 +1,11 @@
-import '../../../../routes/app_pages.dart';
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../../routes/app_pages.dart';
 import '../../../../utils/validations_helper.dart';
 
 class RegisterController extends GetxController {
@@ -22,6 +25,9 @@ class RegisterController extends GetxController {
       final response = await _supabaseClient.auth.signUp(
         email: emailController.text,
         password: passwordController.text,
+        emailRedirectTo: kIsWeb
+            ? null
+            : 'com.binus.skripsi.bill_splitter://sign-up/', // api callback
       );
 
       await _supabaseClient.from('Users').insert({
