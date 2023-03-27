@@ -1,7 +1,6 @@
-import '../modules/auth/reset_password/bindings/reset_password_binding.dart';
-import '../modules/auth/reset_password/views/reset_password_view.dart';
 import 'package:get/get.dart';
 
+import '../modules/auth/email_sent/bindings/email_sent_binding.dart';
 import '../modules/auth/email_sent/views/email_sent_view.dart';
 import '../modules/auth/forgot_password/bindings/forgot_password_binding.dart';
 import '../modules/auth/forgot_password/views/forgot_password_view.dart';
@@ -9,6 +8,8 @@ import '../modules/auth/login/bindings/login_binding.dart';
 import '../modules/auth/login/views/login_view.dart';
 import '../modules/auth/register/bindings/register_binding.dart';
 import '../modules/auth/register/views/register_view.dart';
+import '../modules/auth/reset_password/bindings/reset_password_binding.dart';
+import '../modules/auth/reset_password/views/reset_password_view.dart';
 import '../modules/auth/walkthrough/bindings/walkthrough_binding.dart';
 import '../modules/auth/walkthrough/view/walkthrough_view.dart';
 import '../modules/home/bindings/friend_tab_binding.dart';
@@ -61,6 +62,7 @@ class AppPages {
     GetPage(
       name: _Paths.RECOVERY_EMAIL_SENT,
       page: () => const EmailSentView(),
+      binding: EmailSentBinding(),
     ),
     GetPage(
       name: _Paths.WALKTHROUGH,
@@ -74,7 +76,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MANAGE_FRIEND,
-      page: () => ManageFriendView(),
+      page: () => const ManageFriendView(),
       binding: ManageFriendBinding(),
     ),
   ];
