@@ -1,11 +1,12 @@
 import 'package:avatars/avatars.dart';
-import 'package:bill_splitter/app/modules/manage_friend/controllers/manage_friend_controller.dart';
-import 'package:bill_splitter/app/utils/app_constants.dart';
-import 'package:bill_splitter/app/widgets/friendBottomSheet/views/friend_bottom_sheet_view.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
+
+import '../../../utils/app_constants.dart';
+import '../../../widgets/friendBottomSheet/views/friend_bottom_sheet_view.dart';
+import '../controllers/manage_friend_controller.dart';
 
 class ManageFriendView extends GetView<ManageFriendController> {
   const ManageFriendView({super.key});

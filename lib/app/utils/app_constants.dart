@@ -1,6 +1,10 @@
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 const APP_NAME = 'Bill Splitter';
 
 // supabase configs
+final supabaseClient = Supabase.instance.client;
+
 const SUPABASE_URL = 'https://whcqnwfmyrmwjdnuarqf.supabase.co/';
 const SUPABASE_ANONKEY =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndoY3Fud2ZteXJtd2pkbnVhcnFmIiwicm9sZSI6ImFub24iLCJpYXQiOjE2Nzg5NzY2NTMsImV4cCI6MTk5NDU1MjY1M30.4NlfYXMM7fkeGjcPDToOnEZ0SghxxzU3rxW-BIPNM3I';

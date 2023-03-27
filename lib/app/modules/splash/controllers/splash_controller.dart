@@ -6,10 +6,8 @@ import '../../../routes/app_pages.dart';
 import '../../../utils/app_constants.dart';
 
 class SplashController extends GetxController {
-  final _supabaseClient = Get.find<SupabaseClient>();
-
   Future<AuthResponse> recoverUserSession(String session) async {
-    return await _supabaseClient.auth.recoverSession(session);
+    return await supabaseClient.auth.recoverSession(session);
   }
 
   Future checkSession() async {

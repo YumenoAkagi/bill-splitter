@@ -8,11 +8,14 @@ import 'app/routes/app_pages.dart';
 import 'app/utils/app_constants.dart';
 import 'app/utils/app_themedata_light.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // init supabase client
-  Get.put<SupabaseClient>(SupabaseClient(SUPABASE_URL, SUPABASE_ANONKEY));
+  await Supabase.initialize(
+    url: SUPABASE_URL,
+    anonKey: SUPABASE_ANONKEY,
+  );
   Get.put<GetStorage>(GetStorage());
 
   SystemChrome.setPreferredOrientations([

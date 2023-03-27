@@ -1,5 +1,5 @@
-import 'package:bill_splitter/app/modules/manage_friend/bindings/manage_friend_binding.dart';
-import 'package:bill_splitter/app/modules/manage_friend/views/manage_friend_view.dart';
+import '../modules/auth/reset_password/bindings/reset_password_binding.dart';
+import '../modules/auth/reset_password/views/reset_password_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/auth/email_sent/views/email_sent_view.dart';
@@ -15,6 +15,8 @@ import '../modules/home/bindings/friend_tab_binding.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/friends_tab_view.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/manage_friend/bindings/manage_friend_binding.dart';
+import '../modules/manage_friend/views/manage_friend_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 
@@ -50,6 +52,11 @@ class AppPages {
       name: _Paths.FORGOT_PASSWORD,
       page: () => const ForgotPasswordView(),
       binding: ForgotPasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.PASSWORD_RECOVERY,
+      page: () => const ResetPasswordView(),
+      binding: ResetPasswordBinding(),
     ),
     GetPage(
       name: _Paths.RECOVERY_EMAIL_SENT,

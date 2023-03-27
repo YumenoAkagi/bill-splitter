@@ -30,8 +30,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
-                    android:scheme="com.binus.skripsi.bill_splitter"
-                    android:host="sign-up" />
+                    android:scheme="com.binus.skripsi.billsplitter"
+                    android:host="url-callback" />
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.

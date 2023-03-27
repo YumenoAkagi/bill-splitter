@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../models/user_model.dart';
 import '../utils/app_constants.dart';
 import '../utils/validations_helper.dart';
 
 class FriendProvider {
-  final _supabaseClient = Get.find<SupabaseClient>();
-
   Future getFriendList() async {
     List<UserModel> friendList = [];
     try {
-      final response = await _supabaseClient
+      final response = await supabaseClient
           .from('UserFriendList')
           .select('Users(Id, DisplayName, Email, ProfilePictureURL)')
           .match({
-        'UserId': _supabaseClient.auth.currentUser!.id,
+        'UserId': supabaseClient.auth.currentUser!.id,
         'IsRequestPending': false,
       });
       response.forEach((element) {
@@ -44,12 +41,12 @@ class FriendProvider {
     final List<UserModel> requestfriendList = [];
     try {
       final response =
-          await _supabaseClient.from('UserFriendList').select().match({
+          await supabaseClient.from('UserFriendList').select().match({
         'IsRequestPending': true,
-        'FriendId': _supabaseClient.auth.currentUser!.id,
+        'FriendId': supabaseClient.auth.currentUser!.id,
       });
       for (var i in response) {
-        final requestFriend = await _supabaseClient
+        final requestFriend = await supabaseClient
             .from('Users')
             .select()
             .eq('Id', i['UserId'])
@@ -71,12 +68,12 @@ class FriendProvider {
   Future getPendingFriendList() async {
     List<UserModel> pendingfriendList = [];
     try {
-      final response = await _supabaseClient
+      final response = await supabaseClient
           .from('UserFriendList')
           .select('Users(Id, DisplayName, Email, ProfilePictureURL)')
           .match({
         'IsRequestPending': true,
-        'UserId': _supabaseClient.auth.currentUser!.id
+        'UserId': supabaseClient.auth.currentUser!.id
       });
       response.forEach((element) {
         Map decoded = Map.from(element);
@@ -100,17 +97,17 @@ class FriendProvider {
 
   Future addFriend(String email) async {
     try {
-      if (email == _supabaseClient.auth.currentUser?.email) {
+      if (email == supabaseClient.auth.currentUser?.email) {
         throw Exception('You Cant Add Yourself As Friend');
       }
 
-      final response = await _supabaseClient
+      final response = await supabaseClient
           .from('Users')
           .select()
           .match({'Email': email}).maybeSingle() as Map?;
       if (response == null) throw Exception('There Is No User With This Email');
 
-      final checker = await _supabaseClient
+      final checker = await supabaseClient
           .from('UserFriendList')
           .select()
           .match({'FriendId': response['Id']}).maybeSingle() as Map?;
@@ -119,8 +116,8 @@ class FriendProvider {
             'You Already Be Friend With ${response['DisplayName']}');
       }
 
-      await _supabaseClient.from('UserFriendList').insert({
-        'UserId': _supabaseClient.auth.currentUser!.id,
+      await supabaseClient.from('UserFriendList').insert({
+        'UserId': supabaseClient.auth.currentUser!.id,
         'FriendId': response['Id'],
         'IsRequestPending': true,
       });
@@ -145,8 +142,8 @@ class FriendProvider {
   Future deletePendingFriend(UserModel userModel) async {
     try {
       final checker =
-          await _supabaseClient.from('UserFriendList').select().match({
-        'UserId': _supabaseClient.auth.currentUser!.id,
+          await supabaseClient.from('UserFriendList').select().match({
+        'UserId': supabaseClient.auth.currentUser!.id,
         'FriendId': userModel.Id,
         'IsRequestPending': true,
       }).maybeSingle() as Map?;
@@ -155,8 +152,8 @@ class FriendProvider {
         throw Exception('Friend Already Deleted');
       }
 
-      await _supabaseClient.from('UserFriendList').delete().match({
-        'UserId': _supabaseClient.auth.currentUser!.id,
+      await supabaseClient.from('UserFriendList').delete().match({
+        'UserId': supabaseClient.auth.currentUser!.id,
         'FriendId': userModel.Id,
         'IsRequestPending': true,
       });

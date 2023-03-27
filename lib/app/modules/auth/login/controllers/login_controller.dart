@@ -1,17 +1,21 @@
-import '../../../../utils/app_constants.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../routes/app_pages.dart';
+import '../../../../utils/app_constants.dart';
 import '../../../../utils/validations_helper.dart';
 
 class LoginController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final _supabaseClient = Get.find<SupabaseClient>();
+  late final StreamSubscription<AuthState> _authStateSub;
+
+  bool _redirecting = false;
 
   RxBool isLoading = false.obs;
 
@@ -22,7 +26,7 @@ class LoginController extends GetxController {
     final strg = Get.find<GetStorage>();
 
     try {
-      final response = await _supabaseClient.auth.signInWithPassword(
+      final response = await supabaseClient.auth.signInWithPassword(
         email: emailController.text,
         password: passwordController.text,
       );
@@ -38,5 +42,24 @@ class LoginController extends GetxController {
     } finally {
       isLoading.value = false;
     }
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    _authStateSub = supabaseClient.auth.onAuthStateChange.listen((response) {
+      if (_redirecting) return;
+      final authEvent = response.event;
+      if (authEvent == AuthChangeEvent.passwordRecovery) {
+        _redirecting = true;
+        Get.offAllNamed(Routes.PASSWORD_RECOVERY);
+      }
+    });
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    _authStateSub.cancel();
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bill_splitter/app/utils/app_constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +14,6 @@ class RegisterController extends GetxController {
   final displayNameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final _supabaseClient = Get.find<SupabaseClient>();
 
   RxBool isLoading = false.obs;
 
@@ -22,15 +22,15 @@ class RegisterController extends GetxController {
     isLoading.value = !isLoading.value;
 
     try {
-      final response = await _supabaseClient.auth.signUp(
+      final response = await supabaseClient.auth.signUp(
         email: emailController.text,
         password: passwordController.text,
         emailRedirectTo: kIsWeb
             ? null
-            : 'com.binus.skripsi.bill_splitter://sign-up/', // api callback
+            : 'com.binus.skripsi.billsplitter://url-callback/', // api callback
       );
 
-      await _supabaseClient.from('Users').insert({
+      await supabaseClient.from('Users').insert({
         "Id": response.user!.id,
         "DisplayName": displayNameController.text,
         "Email": emailController.text,
