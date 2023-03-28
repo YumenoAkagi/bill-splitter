@@ -1,6 +1,7 @@
-import 'package:avatars/avatars.dart';
+import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 import '../../../utils/app_constants.dart';
 import '../controllers/friend_tab_controller.dart';
@@ -33,13 +34,17 @@ class FriendsTabView extends StatelessWidget {
                         ftc.friendList[index].Email,
                         style: Get.textTheme.titleSmall,
                       ),
-                      leading: Avatar(
-                        shape: AvatarShape.circle(13 * GOLDEN_RATIO),
-                        name: ftc.friendList[index].DisplayName,
-                        sources: [
-                          NetworkSource(
-                              ftc.friendList[index].ProfilePicUrl ?? '')
-                        ],
+                      leading: CircularProfileAvatar(
+                        ftc.friendList[index].ProfilePicUrl ?? '',
+                        cacheImage: true,
+                        backgroundColor: getColorFromHex(COLOR_2),
+                        initialsText: Text(
+                          ftc.friendList[index].DisplayName[0],
+                          style: Get.textTheme.titleLarge?.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                        imageFit: BoxFit.cover,
                       ),
                     ),
                   ),

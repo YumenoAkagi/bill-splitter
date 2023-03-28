@@ -6,8 +6,8 @@ environment:
   sdk: '>=2.19.0 <3.0.0'
 
 dependencies:
-  avatars: ^3.0.2
   carousel_slider: ^4.2.1
+  circular_profile_avatar: ^2.0.5
   flutter:
     sdk: flutter
   fluttericon: ^2.0.0

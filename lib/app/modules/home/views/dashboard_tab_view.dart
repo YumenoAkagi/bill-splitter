@@ -1,6 +1,7 @@
-import 'package:avatars/avatars.dart';
+import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../../utils/app_constants.dart';
@@ -50,30 +51,24 @@ class DashboardTabView extends StatelessWidget {
                     ],
                   ),
                   Obx(
-                    () => Avatar(
-                      onTap: () => homeController.switchTab(3),
-                      useCache: true,
-                      shape: AvatarShape.circle(15 * GOLDEN_RATIO),
-                      placeholderColors: [
-                        getColorFromHex(COLOR_1),
-                      ],
-                      backgroundColor: getColorFromHex(COLOR_2),
-                      textStyle: Get.textTheme.titleLarge?.copyWith(
-                        color: Colors.white,
-                      ),
-                      name: dashboardController.userData.value.DisplayName,
-                      sources:
-                          (dashboardController.userData.value.ProfilePicUrl !=
-                                      null &&
-                                  dashboardController
-                                          .userData.value.ProfilePicUrl !=
-                                      '')
-                              ? [
-                                  NetworkSource(dashboardController
-                                      .userData.value.ProfilePicUrl!),
-                                ]
-                              : [],
-                    ),
+                    () => dashboardController
+                            .userData.value.DisplayName.isEmptyOrNull
+                        ? const SizedBox()
+                        : CircularProfileAvatar(
+                            dashboardController.userData.value.ProfilePicUrl ??
+                                '',
+                            radius: 15 * GOLDEN_RATIO,
+                            onTap: () => homeController.switchTab(3),
+                            cacheImage: true,
+                            backgroundColor: getColorFromHex(COLOR_2),
+                            initialsText: Text(
+                              dashboardController.userData.value.DisplayName[0],
+                              style: Get.textTheme.titleLarge?.copyWith(
+                                color: Colors.white,
+                              ),
+                            ),
+                            imageFit: BoxFit.cover,
+                          ),
                   ),
                 ],
               ),

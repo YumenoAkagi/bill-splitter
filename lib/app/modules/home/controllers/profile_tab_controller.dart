@@ -165,4 +165,11 @@ class ProfileTabController extends GetxController {
       }
     });
   }
+
+  @override
+  void onClose() {
+    _authStateSub.cancel();
+    displayNameController.dispose();
+    super.onClose();
+  }
 }

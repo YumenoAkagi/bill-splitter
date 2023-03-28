@@ -17,15 +17,18 @@ class DashboardTabController extends GetxController {
   Future _getUserProfile() async {
     final userFromRepo = await userProvider.getUserProfile();
     userData.value = userFromRepo;
+    print(userData.value);
+    update();
   }
 
   void changeUserProfile(UserModel updatedProfile) {
     userData.value = updatedProfile;
+    update();
   }
 
   @override
-  void onInit() async {
+  void onInit() {
     super.onInit();
-    await _getUserProfile();
+    _getUserProfile();
   }
 }

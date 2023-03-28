@@ -1,4 +1,4 @@
-import 'package:avatars/avatars.dart';
+import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:get/get.dart';
@@ -60,14 +60,18 @@ class ManageFriendView extends GetView<ManageFriendController> {
                               mtc.pendingFriendList[index].Email,
                               style: Get.textTheme.bodySmall,
                             ),
-                            leading: Avatar(
-                              shape: AvatarShape.circle(13 * GOLDEN_RATIO),
-                              name: mtc.pendingFriendList[index].DisplayName,
-                              sources: [
-                                NetworkSource(mtc.pendingFriendList[index]
-                                        .ProfilePicUrl ??
-                                    '')
-                              ],
+                            leading: CircularProfileAvatar(
+                              mtc.pendingFriendList[index].ProfilePicUrl ?? '',
+                              radius: 13 * GOLDEN_RATIO,
+                              cacheImage: true,
+                              backgroundColor: getColorFromHex(COLOR_2),
+                              initialsText: Text(
+                                mtc.pendingFriendList[index].DisplayName[0],
+                                style: Get.textTheme.titleLarge?.copyWith(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              imageFit: BoxFit.cover,
                             ),
                             trailing: IconButton(
                               icon: const Icon(Entypo.trash),
@@ -106,14 +110,18 @@ class ManageFriendView extends GetView<ManageFriendController> {
                             mtc.requestFriendList[index].Email,
                             style: Get.textTheme.bodySmall,
                           ),
-                          leading: Avatar(
-                            shape: AvatarShape.circle(13 * GOLDEN_RATIO),
-                            name: mtc.requestFriendList[index].DisplayName,
-                            sources: [
-                              NetworkSource(
-                                  mtc.requestFriendList[index].ProfilePicUrl ??
-                                      '')
-                            ],
+                          leading: CircularProfileAvatar(
+                            mtc.requestFriendList[index].ProfilePicUrl ?? '',
+                            radius: 13 * GOLDEN_RATIO,
+                            cacheImage: true,
+                            backgroundColor: getColorFromHex(COLOR_2),
+                            initialsText: Text(
+                              mtc.requestFriendList[index].DisplayName[0],
+                              style: Get.textTheme.titleLarge?.copyWith(
+                                color: Colors.white,
+                              ),
+                            ),
+                            imageFit: BoxFit.cover,
                           ),
                         ),
                       ),

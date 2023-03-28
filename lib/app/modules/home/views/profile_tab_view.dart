@@ -1,4 +1,4 @@
-import 'package:avatars/avatars.dart';
+import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:get/get.dart';
@@ -26,22 +26,19 @@ class ProfileTabView extends StatelessWidget {
             child: Column(
               children: [
                 Obx(
-                  () => Avatar(
-                      // useCache: true,
-                      shape: AvatarShape.circle(50 * GOLDEN_RATIO),
-                      placeholderColors: [
-                        getColorFromHex(COLOR_1),
-                      ],
-                      backgroundColor: getColorFromHex(COLOR_2),
-                      textStyle: Get.textTheme.titleLarge?.copyWith(
+                  () => CircularProfileAvatar(
+                    controller.userData.value.ProfilePicUrl ?? '',
+                    radius: 48 * GOLDEN_RATIO,
+                    cacheImage: true,
+                    backgroundColor: getColorFromHex(COLOR_2),
+                    initialsText: Text(
+                      controller.userData.value.DisplayName[0],
+                      style: Get.textTheme.titleLarge?.copyWith(
                         color: Colors.white,
-                        fontSize: 20 * GOLDEN_RATIO,
                       ),
-                      name: controller.userData.value.DisplayName,
-                      sources: [
-                        NetworkSource(
-                            controller.userData.value.ProfilePicUrl ?? ''),
-                      ]),
+                    ),
+                    imageFit: BoxFit.cover,
+                  ),
                 ),
                 const SizedBox(
                   height: 15 * GOLDEN_RATIO,
