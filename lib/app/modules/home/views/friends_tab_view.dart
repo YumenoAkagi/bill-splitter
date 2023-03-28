@@ -29,7 +29,7 @@ class FriendsTabView extends StatelessWidget {
                     elevation: 2,
                     child: ListTile(
                       title: Text(ftc.friendList[index].DisplayName,
-                          style: Get.textTheme.titleMedium),
+                          style: Get.textTheme.labelMedium),
                       subtitle: Text(
                         ftc.friendList[index].Email,
                         style: Get.textTheme.titleSmall,

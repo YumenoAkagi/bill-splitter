@@ -6,6 +6,7 @@ environment:
   sdk: '>=2.19.0 <3.0.0'
 
 dependencies:
+  badges: ^3.0.3
   carousel_slider: ^4.2.1
   circular_profile_avatar: ^2.0.5
   flutter:
@@ -45,4 +46,5 @@ flutter:
     - assets/images/undraw_Receipt.png
     - assets/images/undraw_Transfer_money.png
     - assets/images/undraw_My_password.png
+    - assets/images/undraw_Empty.png
   uses-material-design: true

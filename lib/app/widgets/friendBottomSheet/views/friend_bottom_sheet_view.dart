@@ -30,7 +30,7 @@ class FriendBottomSheetView extends StatelessWidget {
             ),
             Text(
               'Email Address',
-              style: Get.textTheme.titleMedium,
+              style: Get.textTheme.labelMedium,
             ),
             const SizedBox(
               height: 2 * GOLDEN_RATIO,

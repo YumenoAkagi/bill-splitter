@@ -54,7 +54,7 @@ class ManageFriendView extends GetView<ManageFriendController> {
                           child: ListTile(
                             title: Text(
                               mtc.pendingFriendList[index].DisplayName,
-                              style: Get.textTheme.titleMedium,
+                              style: Get.textTheme.labelMedium,
                             ),
                             subtitle: Text(
                               mtc.pendingFriendList[index].Email,
@@ -104,7 +104,7 @@ class ManageFriendView extends GetView<ManageFriendController> {
                         child: ListTile(
                           title: Text(
                             mtc.requestFriendList[index].DisplayName,
-                            style: Get.textTheme.titleMedium,
+                            style: Get.textTheme.labelMedium,
                           ),
                           subtitle: Text(
                             mtc.requestFriendList[index].Email,

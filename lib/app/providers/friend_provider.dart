@@ -37,6 +37,21 @@ class FriendProvider {
     }
   }
 
+  Future<int?> getRequestCount() async {
+    try {
+      final response =
+          await supabaseClient.from('UserFriendList').select().match({
+        'IsRequestPending': true,
+        'FriendId': supabaseClient.auth.currentUser!.id,
+      }) as List;
+
+      return response.length;
+    } catch (e) {
+      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
+      Get.snackbar(unexpectedErrorText, e.toString());
+    }
+  }
+
   Future getRequestFriendList() async {
     final List<UserModel> requestfriendList = [];
     try {

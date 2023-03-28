@@ -14,7 +14,7 @@ class WalkthroughController extends GetxController {
           children: [
             Text(
               'Add New Transaction',
-              style: Get.textTheme.titleMedium,
+              style: Get.textTheme.labelMedium,
             ),
             const SizedBox(
               height: 10 * GOLDEN_RATIO,
@@ -37,7 +37,7 @@ class WalkthroughController extends GetxController {
           children: [
             Text(
               'Split Your Transaction',
-              style: Get.textTheme.titleMedium,
+              style: Get.textTheme.labelMedium,
             ),
             const SizedBox(
               height: 10 * GOLDEN_RATIO,
@@ -60,7 +60,7 @@ class WalkthroughController extends GetxController {
           children: [
             Text(
               'Pay Your Bill',
-              style: Get.textTheme.titleMedium,
+              style: Get.textTheme.labelMedium,
             ),
             const SizedBox(
               height: 10 * GOLDEN_RATIO,

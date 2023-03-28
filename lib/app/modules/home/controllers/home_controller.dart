@@ -19,7 +19,7 @@ class HomeController extends GetxController {
       selectedColor: getColorFromHex(COLOR_2),
       title: Text(
         'Home',
-        style: Get.textTheme.titleMedium?.copyWith(
+        style: Get.textTheme.labelMedium?.copyWith(
           fontSize: 8 * GOLDEN_RATIO,
         ),
       ),
@@ -31,7 +31,7 @@ class HomeController extends GetxController {
       selectedColor: getColorFromHex(COLOR_2),
       title: Text(
         'Transactions',
-        style: Get.textTheme.titleMedium?.copyWith(
+        style: Get.textTheme.labelMedium?.copyWith(
           fontSize: 8 * GOLDEN_RATIO,
         ),
       ),
@@ -43,7 +43,7 @@ class HomeController extends GetxController {
       selectedColor: getColorFromHex(COLOR_2),
       title: Text(
         'Friends',
-        style: Get.textTheme.titleMedium?.copyWith(
+        style: Get.textTheme.labelMedium?.copyWith(
           fontSize: 8 * GOLDEN_RATIO,
         ),
       ),
@@ -55,7 +55,7 @@ class HomeController extends GetxController {
       selectedColor: getColorFromHex(COLOR_2),
       title: Text(
         'Profile',
-        style: Get.textTheme.titleMedium?.copyWith(
+        style: Get.textTheme.labelMedium?.copyWith(
           fontSize: 8 * GOLDEN_RATIO,
         ),
       ),

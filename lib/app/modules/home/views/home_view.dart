@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
@@ -32,7 +33,16 @@ class HomeView extends GetView<HomeController> {
                       Entypo.user_add,
                     ),
                   )
-                : const SizedBox(),
+                : controller.selectedTab.value == 0
+                    ? IconButton(
+                        onPressed: () {},
+                        iconSize: 12 * GOLDEN_RATIO,
+                        padding: const EdgeInsets.only(right: 5 * GOLDEN_RATIO),
+                        icon: const Icon(
+                          FontAwesome.bell_alt,
+                        ),
+                      )
+                    : const SizedBox(),
           ),
         ],
       ),
