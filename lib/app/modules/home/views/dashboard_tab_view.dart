@@ -124,7 +124,9 @@ class DashboardTabView extends StatelessWidget {
                   style: Get.textTheme.labelMedium,
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    homeController.switchTab(1);
+                  },
                   child: Text(
                     'Show More',
                     style: Get.textTheme.labelMedium?.copyWith(
