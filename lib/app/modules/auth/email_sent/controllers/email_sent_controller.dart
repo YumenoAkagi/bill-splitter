@@ -14,6 +14,7 @@ class EmailSentController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    _redirecting = false;
     _authStateSub = supabaseClient.auth.onAuthStateChange.listen((response) {
       if (_redirecting) return;
       final authEvent = response.event;

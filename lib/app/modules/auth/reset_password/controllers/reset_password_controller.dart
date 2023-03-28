@@ -9,11 +9,17 @@ import '../../../../utils/validations_helper.dart';
 class ResetPasswordController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final newPasswordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
 
+  RxString confirmPasswordText = ''.obs;
   RxBool isLoading = false.obs;
 
-  Future resetPassword() async {
+  @override
+  void onClose() {
+    newPasswordController.dispose();
+    super.onClose();
+  }
+
+  Future<void> resetPassword() async {
     if (!formKey.currentState!.validate()) return;
 
     isLoading.value = true;
@@ -25,7 +31,7 @@ class ResetPasswordController extends GetxController {
 
       if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
       Get.snackbar('Success',
-          'Password successfully changed. Try to login with your new password.');
+          'Password successfully changed. Try login with your new password.');
       Get.offNamed(Routes.LOGIN);
     } catch (e) {
       if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();

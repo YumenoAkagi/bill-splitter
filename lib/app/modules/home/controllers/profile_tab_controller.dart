@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../models/user_model.dart';
 import '../../../providers/user_provider.dart';
@@ -15,13 +18,16 @@ class ProfileTabController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final strg = Get.find<GetStorage>();
   final _userProvider = UserProvider();
+  final dashboardController = Get.find<DashboardTabController>();
+  late final StreamSubscription<AuthState> _authStateSub;
+
+  bool _redirecting = false;
 
   Rx<UserModel> userData = UserModel(
     Id: '',
     DisplayName: '',
     Email: '',
   ).obs;
-  final dashboardController = Get.find<DashboardTabController>();
 
   RxBool isEdited = false.obs;
   RxBool isLoading = false.obs;
@@ -29,9 +35,6 @@ class ProfileTabController extends GetxController {
   Future<void> logout() async {
     strg.remove(SESSION_KEY);
     await supabaseClient.auth.signOut();
-
-    // navigate back to splash
-    Get.offAllNamed(Routes.SPLASH);
   }
 
   Future _getUserProfile() async {
@@ -148,5 +151,18 @@ class ProfileTabController extends GetxController {
   void onReady() async {
     super.onReady();
     await _getUserProfile();
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    _authStateSub = supabaseClient.auth.onAuthStateChange.listen((response) {
+      if (_redirecting) return;
+      final authEvent = response.event;
+      if (authEvent == AuthChangeEvent.signedOut) {
+        _redirecting = true;
+        Get.offAllNamed(Routes.SPLASH);
+      }
+    });
   }
 }

@@ -16,7 +16,6 @@ class LoginController extends GetxController {
   late final StreamSubscription<AuthState> _authStateSub;
 
   bool _redirecting = false;
-
   RxBool isLoading = false.obs;
 
   Future loginWithEmailPassword() async {
@@ -60,6 +59,8 @@ class LoginController extends GetxController {
   @override
   void onClose() {
     _authStateSub.cancel();
+    emailController.dispose();
+    passwordController.dispose();
     super.onClose();
   }
 }

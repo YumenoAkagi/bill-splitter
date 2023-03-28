@@ -17,6 +17,14 @@ class RegisterController extends GetxController {
 
   RxBool isLoading = false.obs;
 
+  @override
+  void onClose() {
+    emailController.dispose();
+    displayNameController.dispose();
+    passwordController.dispose();
+    super.onClose();
+  }
+
   Future register() async {
     if (!formKey.currentState!.validate()) return;
     isLoading.value = !isLoading.value;

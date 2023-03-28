@@ -10,8 +10,13 @@ class ForgotPasswordController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
 
+  RxBool isLoading = false.obs;
+
   Future<void> sendPasswordRecoveryEmail() async {
     if (!formKey.currentState!.validate()) return;
+
+    isLoading.value = true;
+
     try {
       await supabaseClient.auth.resetPasswordForEmail(
         emailController.text,
@@ -22,6 +27,14 @@ class ForgotPasswordController extends GetxController {
     } catch (e) {
       if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
       Get.snackbar(unexpectedErrorText, e.toString());
+    } finally {
+      isLoading.value = false;
     }
+  }
+
+  @override
+  void onClose() {
+    emailController.dispose();
+    super.onClose();
   }
 }

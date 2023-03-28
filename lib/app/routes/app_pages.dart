@@ -11,7 +11,7 @@ import '../modules/auth/register/views/register_view.dart';
 import '../modules/auth/reset_password/bindings/reset_password_binding.dart';
 import '../modules/auth/reset_password/views/reset_password_view.dart';
 import '../modules/auth/walkthrough/bindings/walkthrough_binding.dart';
-import '../modules/auth/walkthrough/view/walkthrough_view.dart';
+import '../modules/auth/walkthrough/views/walkthrough_view.dart';
 import '../modules/home/bindings/friend_tab_binding.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/friends_tab_view.dart';
