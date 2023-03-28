@@ -53,26 +53,34 @@ final appBarThemeLight = AppBarTheme(
   ),
 );
 
-const textThemeLight = TextTheme(
-  labelLarge: TextStyle(fontSize: 10 * GOLDEN_RATIO), // button
+final textThemeLight = TextTheme(
+  labelLarge: TextStyle(
+    fontSize: 10 * GOLDEN_RATIO,
+    color: getColorFromHex(COLOR_2),
+  ), // button
   labelMedium: TextStyle(
     fontSize: 10 * GOLDEN_RATIO,
     fontWeight: FontWeight.bold,
+    color: getColorFromHex(COLOR_2),
   ),
   labelSmall: TextStyle(
     fontSize: 8 * GOLDEN_RATIO,
+    color: getColorFromHex(COLOR_2),
   ),
   titleLarge: TextStyle(
     fontSize: 12 * GOLDEN_RATIO,
     fontWeight: FontWeight.w900,
+    color: getColorFromHex(COLOR_2),
   ),
   titleMedium: TextStyle(
     fontSize: 10 * GOLDEN_RATIO,
+    color: getColorFromHex(COLOR_2),
   ), // subtitle 1 - textformfield
   titleSmall: TextStyle(
     fontSize: 9 * GOLDEN_RATIO,
     fontStyle: FontStyle.italic,
     fontWeight: FontWeight.w300,
+    color: getColorFromHex(COLOR_2),
   ), // subtitle 2
 );
 

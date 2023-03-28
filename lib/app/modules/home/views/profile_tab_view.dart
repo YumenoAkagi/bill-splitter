@@ -30,7 +30,7 @@ class ProfileTabView extends StatelessWidget {
                     controller.userData.value.ProfilePicUrl ?? '',
                     radius: 48 * GOLDEN_RATIO,
                     cacheImage: true,
-                    backgroundColor: getColorFromHex(COLOR_2),
+                    backgroundColor: getColorFromHex(COLOR_1),
                     initialsText: Text(
                       controller.userData.value.DisplayName[0],
                       style: Get.textTheme.titleLarge?.copyWith(

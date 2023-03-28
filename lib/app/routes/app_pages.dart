@@ -70,6 +70,8 @@ class AppPages {
       name: _Paths.WALKTHROUGH,
       page: () => const WalkthroughView(),
       binding: WalkthroughBinding(),
+      transition: Transition.downToUp,
+      transitionDuration: const Duration(milliseconds: 625),
     ),
     GetPage(
       name: _Paths.FRIEND,

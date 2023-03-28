@@ -64,7 +64,7 @@ class ManageFriendView extends GetView<ManageFriendController> {
                               mtc.pendingFriendList[index].ProfilePicUrl ?? '',
                               radius: 13 * GOLDEN_RATIO,
                               cacheImage: true,
-                              backgroundColor: getColorFromHex(COLOR_2),
+                              backgroundColor: getColorFromHex(COLOR_1),
                               initialsText: Text(
                                 mtc.pendingFriendList[index].DisplayName[0],
                                 style: Get.textTheme.titleLarge?.copyWith(
@@ -114,7 +114,7 @@ class ManageFriendView extends GetView<ManageFriendController> {
                             mtc.requestFriendList[index].ProfilePicUrl ?? '',
                             radius: 13 * GOLDEN_RATIO,
                             cacheImage: true,
-                            backgroundColor: getColorFromHex(COLOR_2),
+                            backgroundColor: getColorFromHex(COLOR_1),
                             initialsText: Text(
                               mtc.requestFriendList[index].DisplayName[0],
                               style: Get.textTheme.titleLarge?.copyWith(

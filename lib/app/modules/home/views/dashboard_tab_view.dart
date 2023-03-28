@@ -61,7 +61,7 @@ class DashboardTabView extends StatelessWidget {
                           radius: 15 * GOLDEN_RATIO,
                           onTap: () => homeController.switchTab(3),
                           cacheImage: true,
-                          backgroundColor: getColorFromHex(COLOR_2),
+                          backgroundColor: getColorFromHex(COLOR_1),
                           initialsText: Text(
                             dashboardController.userData.value.DisplayName[0],
                             style: Get.textTheme.titleLarge?.copyWith(
@@ -75,14 +75,14 @@ class DashboardTabView extends StatelessWidget {
             ),
             const Divider(height: 15 * GOLDEN_RATIO),
             const SizedBox(
-              height: 5 * GOLDEN_RATIO,
+              height: 3 * GOLDEN_RATIO,
             ),
             Text(
               'Quick Action',
               style: Get.textTheme.labelMedium,
             ),
             const SizedBox(
-              height: 10 * GOLDEN_RATIO,
+              height: 13 * GOLDEN_RATIO,
             ),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -120,7 +120,7 @@ class DashboardTabView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Your Last Active Transaction',
+                  'Your Last Active Transactions',
                   style: Get.textTheme.labelMedium,
                 ),
                 TextButton(
@@ -130,7 +130,7 @@ class DashboardTabView extends StatelessWidget {
                   child: Text(
                     'Show More',
                     style: Get.textTheme.labelMedium?.copyWith(
-                      color: getColorFromHex(COLOR_3),
+                      color: getColorFromHex(COLOR_1),
                     ),
                   ),
                 ),

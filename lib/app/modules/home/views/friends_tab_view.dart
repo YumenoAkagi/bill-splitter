@@ -37,7 +37,7 @@ class FriendsTabView extends StatelessWidget {
                       leading: CircularProfileAvatar(
                         ftc.friendList[index].ProfilePicUrl ?? '',
                         cacheImage: true,
-                        backgroundColor: getColorFromHex(COLOR_2),
+                        backgroundColor: getColorFromHex(COLOR_1),
                         initialsText: Text(
                           ftc.friendList[index].DisplayName[0],
                           style: Get.textTheme.titleLarge?.copyWith(
