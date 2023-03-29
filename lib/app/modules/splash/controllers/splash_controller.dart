@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -6,6 +7,7 @@ import '../../../routes/app_pages.dart';
 import '../../../utils/app_constants.dart';
 
 class SplashController extends GetxController {
+  final strg = Get.find<GetStorage>();
   Future<AuthResponse> recoverUserSession(String session) async {
     return await supabaseClient.auth.recoverSession(session);
   }
@@ -13,7 +15,6 @@ class SplashController extends GetxController {
   Future checkSession() async {
     try {
       await GetStorage.init();
-      final strg = Get.find<GetStorage>();
       final session = strg.read(SESSION_KEY);
 
       if (session == null) {
@@ -35,5 +36,12 @@ class SplashController extends GetxController {
   void onInit() async {
     super.onInit();
     await checkSession();
+
+    final themeMode = strg.read(THEME_KEY);
+    if (themeMode == 'Dark') {
+      Get.changeThemeMode(ThemeMode.dark);
+    } else {
+      Get.changeThemeMode(ThemeMode.light);
+    }
   }
 }

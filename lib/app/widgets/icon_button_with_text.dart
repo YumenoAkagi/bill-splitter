@@ -10,8 +10,8 @@ class IconButtonWithText extends StatelessWidget {
     required this.iconData,
     required this.description,
     required this.onTap,
-    this.width = 75,
-    this.height = 75,
+    this.width = 65,
+    this.height = 65,
     this.badgeCount = 0,
   });
   final IconData iconData;
@@ -29,6 +29,7 @@ class IconButtonWithText extends StatelessWidget {
       child: TextButton(
         onPressed: onTap,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             badgeCount > 0
                 ? Badge.count(
@@ -43,7 +44,7 @@ class IconButtonWithText extends StatelessWidget {
                     color: getColorFromHex(COLOR_5),
                   ),
             const SizedBox(
-              height: 2 * GOLDEN_RATIO,
+              height: 3 * GOLDEN_RATIO,
             ),
             Flexible(
               child: Text(

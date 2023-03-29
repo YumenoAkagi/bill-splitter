@@ -1,7 +1,9 @@
+import 'package:bill_splitter/app/utils/app_themedata_dark.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'app/routes/app_pages.dart';
@@ -31,6 +33,7 @@ void main() async {
         theme: ThemeData(
           fontFamily: MAIN_FONT,
           appBarTheme: appBarThemeLight,
+          brightness: Brightness.light,
           scaffoldBackgroundColor: Colors.white,
           filledButtonTheme: filledButtonThemeDataLight,
           elevatedButtonTheme: elevatedButtonThemeDataLight,
@@ -38,7 +41,17 @@ void main() async {
           textTheme: textThemeLight,
           inputDecorationTheme: inputDecorationThemeLight,
         ),
-        darkTheme: ThemeData.dark().copyWith(),
+        darkTheme: ThemeData(
+          fontFamily: MAIN_FONT,
+          brightness: Brightness.dark,
+          scaffoldBackgroundColor: getColorFromHex(COLOR_DARK_MAIN),
+          appBarTheme: appBarThemeDark,
+          filledButtonTheme: filledButtonThemeDataDark,
+          elevatedButtonTheme: elevatedButtonThemeDataDark,
+          outlinedButtonTheme: outlinedButtonThemeDataDark,
+          textTheme: textThemeDark,
+          inputDecorationTheme: inputDecorationThemeDark,
+        ),
         themeMode: ThemeMode.light,
       ),
     ),

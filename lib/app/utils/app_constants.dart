@@ -11,6 +11,7 @@ const SUPABASE_ANONKEY =
 
 // dictionary keys
 const SESSION_KEY = 'Session';
+const THEME_KEY = 'Theme';
 
 // font family
 const MAIN_FONT = 'Lato';
@@ -21,6 +22,8 @@ const COLOR_2 = '#2D2747'; // mostly used for button primary color
 const COLOR_3 = '#B2A6E0';
 const COLOR_4 = '#47431F';
 const COLOR_5 = '#948E5F'; // warnings + quick action
+
+const COLOR_DARK_MAIN = '#303030';
 
 // calculations and numbers
 const GOLDEN_RATIO = 1.61803398875;

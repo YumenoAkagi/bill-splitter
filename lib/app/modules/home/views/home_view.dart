@@ -30,7 +30,7 @@ class HomeView extends GetView<HomeController> {
                     iconSize: 12 * GOLDEN_RATIO,
                     padding: const EdgeInsets.only(right: 5 * GOLDEN_RATIO),
                     icon: const Icon(
-                      Entypo.user_add,
+                      FontAwesome.user_plus,
                     ),
                   )
                 : controller.selectedTab.value == 0
@@ -39,10 +39,22 @@ class HomeView extends GetView<HomeController> {
                         iconSize: 12 * GOLDEN_RATIO,
                         padding: const EdgeInsets.only(right: 5 * GOLDEN_RATIO),
                         icon: const Icon(
-                          FontAwesome.bell_alt,
+                          FontAwesome.bell,
                         ),
                       )
-                    : const SizedBox(),
+                    : controller.selectedTab.value == 3
+                        ? Obx(
+                            () => IconButton(
+                              onPressed: controller.switchTheme,
+                              iconSize: 12 * GOLDEN_RATIO,
+                              icon: controller.isDarkMode.isTrue
+                                  ? const Icon(FontAwesome.moon)
+                                  : const Icon(FontAwesome.sun),
+                              padding: const EdgeInsets.only(
+                                  right: 5 * GOLDEN_RATIO),
+                            ),
+                          )
+                        : const SizedBox(),
           ),
         ],
       ),
@@ -54,18 +66,27 @@ class HomeView extends GetView<HomeController> {
             iconStyle: IconStyle.animated,
             iconSize: 12 * GOLDEN_RATIO,
           ),
-          items: controller.bottomNavbarItems,
+          items: controller.isDarkMode.isFalse
+              ? controller.bottomNavbarItemsLight
+              : controller.bottomNavbarItemsDark,
           currentIndex: controller.selectedTab.value,
           onTap: controller.switchTab,
+          backgroundColor: controller.isDarkMode.isTrue
+              ? getColorFromHex(COLOR_DARK_MAIN)
+              : null,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: getColorFromHex(COLOR_2),
-        child: const Icon(
-          Entypo.plus,
-          size: 18 * GOLDEN_RATIO,
+      floatingActionButton: Obx(
+        () => FloatingActionButton(
+          onPressed: () {},
+          backgroundColor: controller.isDarkMode.isTrue
+              ? getColorFromHex(COLOR_1)
+              : getColorFromHex(COLOR_2),
+          child: const Icon(
+            Entypo.plus,
+            size: 18 * GOLDEN_RATIO,
+          ),
         ),
       ),
       body: SafeArea(

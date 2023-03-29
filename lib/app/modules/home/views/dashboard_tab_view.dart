@@ -1,8 +1,9 @@
-import 'package:bill_splitter/app/routes/app_pages.dart';
-import 'package:bill_splitter/app/widgets/icon_button_with_text.dart';
+import '../../../routes/app_pages.dart';
+import '../../../widgets/icon_button_with_text.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -91,9 +92,9 @@ class DashboardTabView extends StatelessWidget {
                 children: [
                   Obx(
                     () => IconButtonWithText(
-                      iconData: Entypo.users,
+                      iconData: FontAwesome.users,
                       description: 'Manage Friend',
-                      badgeCount: dashboardController.requestCount.value,
+                      badgeCount: homeController.requestCount.value,
                       onTap: () {
                         Get.toNamed(Routes.MANAGE_FRIEND);
                       },
@@ -105,7 +106,7 @@ class DashboardTabView extends StatelessWidget {
                     onTap: () {},
                   ),
                   IconButtonWithText(
-                    iconData: Entypo.help,
+                    iconData: Entypo.help_circled,
                     description: 'Help',
                     onTap: () {},
                   ),
@@ -147,6 +148,9 @@ class DashboardTabView extends StatelessWidget {
                     Image.asset(
                       'assets/images/undraw_Empty.png',
                       width: Get.width * 0.45 * GOLDEN_RATIO,
+                    ),
+                    const SizedBox(
+                      height: 3 * GOLDEN_RATIO,
                     ),
                     Text(
                       "You haven't created any transactions yet.",
