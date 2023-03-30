@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../utils/app_constants.dart';
-import '../../../../utils/validations_helper.dart';
+import '../../../utils/app_constants.dart';
+import '../../../utils/validations_helper.dart';
 
 class AddTransactionBsController extends GetxController {
   final nameController = TextEditingController();

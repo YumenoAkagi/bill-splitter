@@ -5,20 +5,27 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import '../../../../utils/app_constants.dart';
+import '../../../utils/app_constants.dart';
 import '../controllers/add_transaction_bs_controller.dart';
 
 class AddTransactionBottomSheet extends StatelessWidget {
-  AddTransactionBottomSheet({super.key});
-  final controller = Get.put(AddTransactionBsController());
+  const AddTransactionBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(AddTransactionBsController());
     return Wrap(
       children: [
         Container(
-          color:
-              Get.isDarkMode ? getColorFromHex(COLOR_DARK_MAIN) : Colors.white,
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(15 * GOLDEN_RATIO),
+              topRight: Radius.circular(15 * GOLDEN_RATIO),
+            ),
+            color: Get.isDarkMode
+                ? getColorFromHex(COLOR_DARK_MAIN)
+                : Colors.white,
+          ),
           width: Get.width,
           padding: const EdgeInsets.symmetric(
             horizontal: 10 * GOLDEN_RATIO,

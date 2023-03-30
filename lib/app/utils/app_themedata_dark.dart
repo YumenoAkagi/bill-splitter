@@ -54,31 +54,31 @@ final outlinedButtonThemeDataDark = OutlinedButtonThemeData(
 const textThemeDark = TextTheme(
   labelLarge: TextStyle(
     fontSize: 10 * GOLDEN_RATIO,
-    // color: getColorFromHex(COLOR_2),
+    color: Colors.white,
   ), // button
   labelMedium: TextStyle(
     fontSize: 10 * GOLDEN_RATIO,
     fontWeight: FontWeight.bold,
-    // color: getColorFromHex(COLOR_2),
+    color: Colors.white,
   ),
   labelSmall: TextStyle(
     fontSize: 8 * GOLDEN_RATIO,
-    // color: getColorFromHex(COLOR_2),
+    color: Colors.white,
   ),
   titleLarge: TextStyle(
     fontSize: 12 * GOLDEN_RATIO,
     fontWeight: FontWeight.w900,
-    // color: getColorFromHex(COLOR_2),
+    color: Colors.white,
   ),
   titleMedium: TextStyle(
     fontSize: 10 * GOLDEN_RATIO,
-    // color: getColorFromHex(COLOR_2),
+    color: Colors.white,
   ), // subtitle 1 - textformfield
   titleSmall: TextStyle(
     fontSize: 9 * GOLDEN_RATIO,
     fontStyle: FontStyle.italic,
     fontWeight: FontWeight.w300,
-    // color: getColorFromHex(COLOR_2),
+    color: Colors.white,
   ), // subtitle 2
 );
 

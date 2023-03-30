@@ -97,13 +97,10 @@ class ProfileTabView extends StatelessWidget {
                 const SizedBox(
                   height: 5 * GOLDEN_RATIO,
                 ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Obx(
-                    () => Text(
-                      controller.userData.value.Email,
-                      style: Get.textTheme.titleSmall,
-                    ),
+                Obx(
+                  () => Text(
+                    controller.userData.value.Email,
+                    style: Get.textTheme.titleSmall,
                   ),
                 ),
                 const SizedBox(

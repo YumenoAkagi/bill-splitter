@@ -52,7 +52,7 @@ void main() async {
           textTheme: textThemeDark,
           inputDecorationTheme: inputDecorationThemeDark,
         ),
-        themeMode: ThemeMode.system,
+        themeMode: ThemeMode.light,
       ),
     ),
   );
