@@ -24,54 +24,56 @@ class ProfileTabView extends StatelessWidget {
           key: controller.formKey,
           child: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Obx(
-                  () => CircularProfileAvatar(
-                    controller.userData.value.ProfilePicUrl ?? '',
-                    radius: 48 * GOLDEN_RATIO,
-                    cacheImage: true,
-                    backgroundColor: getColorFromHex(COLOR_1),
-                    initialsText: Text(
-                      controller.userData.value.DisplayName[0],
-                      style: Get.textTheme.titleLarge?.copyWith(
-                        color: Colors.white,
+                Column(
+                  children: [
+                    Obx(
+                      () => CircularProfileAvatar(
+                        controller.userData.value.ProfilePicUrl ?? '',
+                        radius: 48 * GOLDEN_RATIO,
+                        cacheImage: true,
+                        backgroundColor: getColorFromHex(COLOR_1),
+                        initialsText: Text(
+                          controller.userData.value.DisplayName[0],
+                          style: Get.textTheme.titleLarge?.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                        imageFit: BoxFit.cover,
                       ),
                     ),
-                    imageFit: BoxFit.cover,
-                  ),
-                ),
-                const SizedBox(
-                  height: 15 * GOLDEN_RATIO,
-                ),
-                Obx(
-                  () => FilledButton.icon(
-                    onPressed: controller.isLoading.isFalse
-                        ? () async {
-                            await controller.updateProfilePicture();
-                          }
-                        : null,
-                    icon: const Icon(
-                      Entypo.camera,
-                      size: 10 * GOLDEN_RATIO,
+                    const SizedBox(
+                      height: 15 * GOLDEN_RATIO,
                     ),
-                    label: const Text('Edit Photo'),
-                    style: FilledButton.styleFrom(
-                      minimumSize: const Size(
-                        70 * GOLDEN_RATIO,
-                        25 * GOLDEN_RATIO,
+                    Obx(
+                      () => FilledButton.icon(
+                        onPressed: controller.isLoading.isFalse
+                            ? () async {
+                                await controller.updateProfilePicture();
+                              }
+                            : null,
+                        icon: const Icon(
+                          Entypo.camera,
+                          size: 10 * GOLDEN_RATIO,
+                        ),
+                        label: const Text('Edit Photo'),
+                        style: FilledButton.styleFrom(
+                          minimumSize: const Size(
+                            70 * GOLDEN_RATIO,
+                            25 * GOLDEN_RATIO,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
                 const SizedBox(
                   height: 35 * GOLDEN_RATIO,
                 ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Display Name',
-                    style: Get.textTheme.labelMedium,
-                  ),
+                Text(
+                  'Display Name',
+                  style: Get.textTheme.labelMedium,
                 ),
                 const SizedBox(
                   height: 3 * GOLDEN_RATIO,
@@ -88,12 +90,9 @@ class ProfileTabView extends StatelessWidget {
                 const SizedBox(
                   height: 10 * GOLDEN_RATIO,
                 ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Email',
-                    style: Get.textTheme.labelMedium,
-                  ),
+                Text(
+                  'Email',
+                  style: Get.textTheme.labelMedium,
                 ),
                 const SizedBox(
                   height: 5 * GOLDEN_RATIO,

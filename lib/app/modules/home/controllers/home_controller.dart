@@ -7,6 +7,7 @@ import 'package:stylish_bottom_bar/model/bar_items.dart';
 
 import '../../../providers/friend_provider.dart';
 import '../../../utils/app_constants.dart';
+import '../../../widgets/transaction/add_transaction/views/add_transaction_bs_view.dart';
 import '../views/dashboard_tab_view.dart';
 import '../views/friends_tab_view.dart';
 import '../views/profile_tab_view.dart';
@@ -167,5 +168,10 @@ class HomeController extends GetxController {
     super.onReady();
     requestCount.value = await friendProvider.getRequestCount() ?? 0;
     isDarkMode.value = Get.isDarkMode ? true : false;
+  }
+
+  void openAddNewTrxBottomSheet() async {
+    if (Get.isBottomSheetOpen != null && Get.isBottomSheetOpen!) return;
+    await Get.bottomSheet(AddTransactionBottomSheet());
   }
 }

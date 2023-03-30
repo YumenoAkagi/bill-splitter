@@ -6,11 +6,10 @@ import 'app_constants.dart';
 final appBarThemeDark = AppBarTheme(
   elevation: 0,
   backgroundColor: getColorFromHex(COLOR_DARK_MAIN),
-  titleTextStyle: TextStyle(
+  titleTextStyle: const TextStyle(
     fontFamily: MAIN_FONT,
     fontWeight: FontWeight.bold,
     fontSize: 12 * GOLDEN_RATIO,
-    // color: getColorFromHex(COLOR_2),
   ),
 );
 

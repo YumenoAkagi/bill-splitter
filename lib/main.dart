@@ -43,16 +43,16 @@ void main() async {
         ),
         darkTheme: ThemeData(
           fontFamily: MAIN_FONT,
+          appBarTheme: appBarThemeDark,
           brightness: Brightness.dark,
           scaffoldBackgroundColor: getColorFromHex(COLOR_DARK_MAIN),
-          appBarTheme: appBarThemeDark,
           filledButtonTheme: filledButtonThemeDataDark,
           elevatedButtonTheme: elevatedButtonThemeDataDark,
           outlinedButtonTheme: outlinedButtonThemeDataDark,
           textTheme: textThemeDark,
           inputDecorationTheme: inputDecorationThemeDark,
         ),
-        themeMode: ThemeMode.light,
+        themeMode: ThemeMode.system,
       ),
     ),
   );

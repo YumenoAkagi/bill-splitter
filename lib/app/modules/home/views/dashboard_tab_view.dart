@@ -141,23 +141,21 @@ class DashboardTabView extends StatelessWidget {
               height: 10 * GOLDEN_RATIO,
             ),
             Expanded(
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Image.asset(
-                      'assets/images/undraw_Empty.png',
-                      width: Get.width * 0.45 * GOLDEN_RATIO,
-                    ),
-                    const SizedBox(
-                      height: 3 * GOLDEN_RATIO,
-                    ),
-                    Text(
-                      "You haven't created any transactions yet.",
-                      style: Get.textTheme.labelSmall,
-                    ),
-                  ],
-                ),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Image.asset(
+                    'assets/images/undraw_Empty.png',
+                    width: Get.width * 0.45 * GOLDEN_RATIO,
+                  ),
+                  const SizedBox(
+                    height: 3 * GOLDEN_RATIO,
+                  ),
+                  Text(
+                    "You haven't created any transactions yet.",
+                    style: Get.textTheme.labelSmall,
+                  ),
+                ],
               ),
             ),
           ],

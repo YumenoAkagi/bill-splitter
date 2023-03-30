@@ -21,6 +21,8 @@ class ProfileTabController extends GetxController {
   final dashboardController = Get.find<DashboardTabController>();
   late final StreamSubscription<AuthState> _authStateSub;
 
+  String recentDisplayName = '';
+
   bool _redirecting = false;
 
   Rx<UserModel> userData = UserModel(
@@ -47,6 +49,7 @@ class ProfileTabController extends GetxController {
     userData.value = userFromRepo;
 
     displayNameController.text = userData.value.DisplayName;
+    recentDisplayName = userData.value.DisplayName;
   }
 
   Future updateProfile() async {
@@ -72,6 +75,7 @@ class ProfileTabController extends GetxController {
       if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
       Get.snackbar('Success', 'Profile successfully updated!');
 
+      recentDisplayName = updatedUser.DisplayName;
       isEdited.value = false;
 
       // refresh data on dashboard
@@ -144,7 +148,11 @@ class ProfileTabController extends GetxController {
   }
 
   void setProfileStateAsEdited() {
-    isEdited.value = true;
+    if (displayNameController.text == recentDisplayName) {
+      isEdited.value = false;
+    } else {
+      isEdited.value = true;
+    }
   }
 
   @override

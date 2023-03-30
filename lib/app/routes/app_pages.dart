@@ -39,7 +39,7 @@ class AppPages {
       page: () => const HomeView(),
       binding: HomeBinding(),
       transition: Transition.circularReveal,
-      transitionDuration: const Duration(milliseconds: 2500),
+      transitionDuration: const Duration(milliseconds: 1800),
     ),
     GetPage(
       name: _Paths.LOGIN,

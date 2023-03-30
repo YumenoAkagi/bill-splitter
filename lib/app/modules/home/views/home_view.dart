@@ -79,7 +79,7 @@ class HomeView extends GetView<HomeController> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Obx(
         () => FloatingActionButton(
-          onPressed: () {},
+          onPressed: controller.openAddNewTrxBottomSheet,
           backgroundColor: controller.isDarkMode.isTrue
               ? getColorFromHex(COLOR_1)
               : getColorFromHex(COLOR_2),

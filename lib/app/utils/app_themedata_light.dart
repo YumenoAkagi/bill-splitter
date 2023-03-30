@@ -56,6 +56,7 @@ final appBarThemeLight = AppBarTheme(
 final textThemeLight = TextTheme(
   labelLarge: TextStyle(
     fontSize: 10 * GOLDEN_RATIO,
+    // fontWeight: FontWeight.w900,
     color: getColorFromHex(COLOR_2),
   ), // button
   labelMedium: TextStyle(
