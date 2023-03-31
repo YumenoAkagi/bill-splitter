@@ -1,3 +1,5 @@
+import 'package:fluttericon/font_awesome5_icons.dart';
+
 import '../../../routes/app_pages.dart';
 import '../../../widgets/icon_button_with_text.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
@@ -18,7 +20,7 @@ class DashboardTabView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final HomeController homeController = Get.find();
+    final HomeController homeController = Get.find<HomeController>();
 
     return SafeArea(
       child: Container(
@@ -92,7 +94,7 @@ class DashboardTabView extends StatelessWidget {
                 children: [
                   Obx(
                     () => IconButtonWithText(
-                      iconData: FontAwesome.users,
+                      iconData: FontAwesome5.user_friends,
                       description: 'Manage Friend',
                       badgeCount: homeController.requestCount.value,
                       onTap: () {

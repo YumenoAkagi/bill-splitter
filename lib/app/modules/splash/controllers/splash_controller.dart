@@ -22,7 +22,8 @@ class SplashController extends GetxController {
       } else {
         final response = await recoverUserSession(session);
         await strg.write(SESSION_KEY, response.session!.persistSessionString);
-        Get.offNamed(Routes.HOME);
+        Future.delayed(
+            const Duration(seconds: 1), () => Get.offNamed(Routes.HOME));
       }
     } on AuthException catch (_) {
       // get back to login page when refresh token is expired

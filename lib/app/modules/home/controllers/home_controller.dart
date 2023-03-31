@@ -134,7 +134,7 @@ class HomeController extends GetxController {
     ProfileTabView(),
   ];
   final tabNames = [
-    'Bill Splitter',
+    'Home',
     'Transactions',
     'Friends',
     'Profile',
@@ -155,12 +155,6 @@ class HomeController extends GetxController {
     //   ),
     //   curve: Curves.easeInOut,
     // );
-  }
-
-  void switchTheme() async {
-    Get.changeThemeMode(Get.isDarkMode ? ThemeMode.light : ThemeMode.dark);
-    await strg.write(THEME_KEY, Get.isDarkMode ? 'Light' : 'Dark');
-    isDarkMode.value = !isDarkMode.value;
   }
 
   @override

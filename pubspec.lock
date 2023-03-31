@@ -392,6 +392,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  list_tile_switch:
+    dependency: "direct main"
+    description:
+      name: list_tile_switch
+      sha256: b7e6ac3a68dfaa785b3649a14c3bcd1ab06b1838692ad7b8f6d8db4650176a0f
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   matcher:
     dependency: transitive
     description:

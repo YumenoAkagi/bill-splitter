@@ -1,4 +1,4 @@
-import 'package:bill_splitter/app/utils/validations_helper.dart';
+import '../../../utils/validations_helper.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
@@ -57,6 +57,7 @@ class AddTransactionBottomSheet extends StatelessWidget {
                 ),
                 TextFormField(
                   controller: controller.nameController,
+                  textCapitalization: TextCapitalization.words,
                   decoration: const InputDecoration(
                     hintText: 'Name',
                   ),
@@ -108,20 +109,28 @@ class AddTransactionBottomSheet extends StatelessWidget {
                 const SizedBox(
                   height: 25 * GOLDEN_RATIO,
                 ),
-                FilledButton.icon(
-                  onPressed: controller.isLoading.isFalse
-                      ? () async {
-                          await controller.addTransaction();
-                        }
-                      : null,
-                  icon: const Icon(
-                    FontAwesome.plus,
-                    size: 10 * GOLDEN_RATIO,
+                Obx(
+                  () => FilledButton.icon(
+                    onPressed: controller.isLoading.isFalse
+                        ? () async {
+                            await controller.addTransaction();
+                          }
+                        : null,
+                    icon: controller.isLoading.isFalse
+                        ? const Icon(
+                            FontAwesome.plus,
+                            size: 10 * GOLDEN_RATIO,
+                          )
+                        : const SizedBox(
+                            width: 10 * GOLDEN_RATIO,
+                            height: 10 * GOLDEN_RATIO,
+                            child: CircularProgressIndicator(),
+                          ),
+                    label: controller.isLoading.isFalse
+                        ? const Text('Add New Transaction')
+                        : const Text('Saving...'),
                   ),
-                  label: controller.isLoading.isFalse
-                      ? const Text('Add New Transaction')
-                      : const Text('Saving...'),
-                )
+                ),
               ],
             ),
           ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 
@@ -18,7 +20,9 @@ class HomeView extends GetView<HomeController> {
       extendBody: true,
       appBar: AppBar(
         title: Obx(
-          () => Text(controller.tabNames[controller.selectedTab.value]),
+          () => Text(
+            controller.tabNames[controller.selectedTab.value],
+          ),
         ),
         actions: [
           Obx(
@@ -30,7 +34,7 @@ class HomeView extends GetView<HomeController> {
                     iconSize: 12 * GOLDEN_RATIO,
                     padding: const EdgeInsets.only(right: 5 * GOLDEN_RATIO),
                     icon: const Icon(
-                      FontAwesome.user_plus,
+                      FontAwesome5.user_friends,
                     ),
                   )
                 : controller.selectedTab.value == 0
@@ -42,19 +46,27 @@ class HomeView extends GetView<HomeController> {
                           FontAwesome.bell,
                         ),
                       )
-                    : controller.selectedTab.value == 3
-                        ? Obx(
-                            () => IconButton(
-                              onPressed: controller.switchTheme,
-                              iconSize: 12 * GOLDEN_RATIO,
-                              icon: controller.isDarkMode.isTrue
-                                  ? const Icon(FontAwesome.moon)
-                                  : const Icon(FontAwesome.sun),
-                              padding: const EdgeInsets.only(
-                                  right: 5 * GOLDEN_RATIO),
-                            ),
+                    : controller.selectedTab.value == 1
+                        ? IconButton(
+                            onPressed: () {},
+                            iconSize: 12 * GOLDEN_RATIO,
+                            icon: const Icon(Entypo.back_in_time),
+                            padding:
+                                const EdgeInsets.only(right: 5 * GOLDEN_RATIO),
                           )
                         : const SizedBox(),
+          ),
+          Obx(
+            () => controller.selectedTab.value == 0
+                ? IconButton(
+                    onPressed: () {
+                      Get.offNamed(Routes.CONFIGS);
+                    },
+                    icon: const Icon(FontAwesome5.cog),
+                    iconSize: 12 * GOLDEN_RATIO,
+                    padding: const EdgeInsets.only(right: 5 * GOLDEN_RATIO),
+                  )
+                : const SizedBox(),
           ),
         ],
       ),

@@ -22,8 +22,17 @@ class AddTransactionBsController extends GetxController {
     try {
       await supabaseClient.from('TransactionHeader').insert({
         'Name': nameController.text,
-        'Date': selectedDate,
+        'Date': selectedDate!.toIso8601String(),
+        'CreatedById': supabaseClient.auth.currentUser?.id,
       });
+
+      // close bottomsheet
+      if (Get.isBottomSheetOpen != null && Get.isBottomSheetOpen!) {
+        Get.back();
+      }
+
+      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
+      Get.snackbar('Success', 'New Transaction successfully added.');
     } catch (e) {
       if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
       Get.snackbar(unexpectedErrorText, e.toString());

@@ -13,6 +13,7 @@ abstract class Routes {
   static const FRIEND = _Paths.FRIEND;
   static const MANAGE_FRIEND = _Paths.MANAGE_FRIEND;
   static const PASSWORD_RECOVERY = _Paths.PASSWORD_RECOVERY;
+  static const CONFIGS = _Paths.CONFIGS;
 }
 
 abstract class _Paths {
@@ -27,4 +28,5 @@ abstract class _Paths {
   static const FRIEND = '/friend';
   static const MANAGE_FRIEND = '/manage-friend';
   static const PASSWORD_RECOVERY = '/recovery-password';
+  static const CONFIGS = '/configs';
 }

@@ -1,3 +1,5 @@
+import 'package:bill_splitter/app/modules/configs/bindings/configs_binding.dart';
+import 'package:bill_splitter/app/modules/configs/views/configs_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/auth/email_sent/bindings/email_sent_binding.dart';
@@ -12,9 +14,7 @@ import '../modules/auth/reset_password/bindings/reset_password_binding.dart';
 import '../modules/auth/reset_password/views/reset_password_view.dart';
 import '../modules/auth/walkthrough/bindings/walkthrough_binding.dart';
 import '../modules/auth/walkthrough/views/walkthrough_view.dart';
-import '../modules/home/bindings/friend_tab_binding.dart';
 import '../modules/home/bindings/home_binding.dart';
-import '../modules/home/views/friends_tab_view.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/manage_friend/bindings/manage_friend_binding.dart';
 import '../modules/manage_friend/views/manage_friend_view.dart';
@@ -39,7 +39,7 @@ class AppPages {
       page: () => const HomeView(),
       binding: HomeBinding(),
       transition: Transition.circularReveal,
-      transitionDuration: const Duration(milliseconds: 1800),
+      transitionDuration: const Duration(milliseconds: 900),
     ),
     GetPage(
       name: _Paths.LOGIN,
@@ -74,14 +74,14 @@ class AppPages {
       transitionDuration: const Duration(milliseconds: 625),
     ),
     GetPage(
-      name: _Paths.FRIEND,
-      page: () => FriendsTabView(),
-      binding: FriendTabBinding(),
-    ),
-    GetPage(
       name: _Paths.MANAGE_FRIEND,
       page: () => const ManageFriendView(),
       binding: ManageFriendBinding(),
+    ),
+    GetPage(
+      name: _Paths.CONFIGS,
+      page: () => const ConfigsView(),
+      binding: ConfigsBinding(),
     ),
   ];
 }
