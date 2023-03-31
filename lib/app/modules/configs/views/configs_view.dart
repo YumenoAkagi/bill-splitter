@@ -35,8 +35,8 @@ class ConfigsView extends GetView<ConfigsController> {
                 () => ListTileSwitch(
                   leading: Icon(
                     controller.isDarkMode.isFalse
-                        ? FontAwesome.moon
-                        : FontAwesome.sun,
+                        ? FontAwesome.sun
+                        : FontAwesome.moon,
                   ),
                   switchActiveColor: getColorFromHex(COLOR_1),
                   title: const Text(
@@ -50,6 +50,7 @@ class ConfigsView extends GetView<ConfigsController> {
                   ),
                   onChanged: (_) => controller.switchTheme(),
                   value: controller.isDarkMode.value,
+                  switchInactiveColor: getColorFromHex(COLOR_5),
                 ),
               ),
             ],
