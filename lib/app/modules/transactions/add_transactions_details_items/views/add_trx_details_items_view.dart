@@ -94,7 +94,7 @@ class AddTrxDetailsItemsView extends GetView<AddTrxDetailsItemsController> {
                 height: 10 * GOLDEN_RATIO,
               ),
               FilledButton.icon(
-                onPressed: () {},
+                onPressed: controller.askAddItemMethod,
                 icon: const Icon(
                   FontAwesome.plus,
                   size: 10 * GOLDEN_RATIO,

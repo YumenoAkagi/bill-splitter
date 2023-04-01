@@ -106,7 +106,7 @@ class TransactionsTabView extends StatelessWidget {
                                 children: [
                                   SizedBox(
                                     height: 20 * GOLDEN_RATIO,
-                                    width: Get.width * 0.4 * GOLDEN_RATIO,
+                                    width: Get.width * 0.3 * GOLDEN_RATIO,
                                     child: WidgetStack(
                                       positions: RestrictedPositions(
                                         align: StackAlign.left,
@@ -158,25 +158,28 @@ class TransactionsTabView extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        'Total',
-                                        style:
-                                            Get.textTheme.labelMedium?.copyWith(
-                                          fontSize: 9 * GOLDEN_RATIO,
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          'Total',
+                                          style: Get.textTheme.labelMedium
+                                              ?.copyWith(
+                                            fontSize: 9 * GOLDEN_RATIO,
+                                          ),
                                         ),
-                                      ),
-                                      Text(
-                                        moneyFormatter.format(
-                                            ttc.headersList[index].grandTotal),
-                                        style:
-                                            Get.textTheme.labelSmall?.copyWith(
-                                          fontSize: 12 * GOLDEN_RATIO,
+                                        Text(
+                                          moneyFormatter.format(ttc
+                                              .headersList[index].grandTotal),
+                                          style: Get.textTheme.labelSmall
+                                              ?.copyWith(
+                                            fontSize: 12 * GOLDEN_RATIO,
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),

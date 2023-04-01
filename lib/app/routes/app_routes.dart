@@ -15,6 +15,7 @@ abstract class Routes {
   static const PASSWORD_RECOVERY = _Paths.PASSWORD_RECOVERY;
   static const CONFIGS = _Paths.CONFIGS;
   static const ADDTRXITEM = _Paths.ADDTRXITEM;
+  static const ADDITEMMANUAL = _Paths.ADDITEMMANUAL;
 }
 
 abstract class _Paths {
@@ -31,4 +32,5 @@ abstract class _Paths {
   static const PASSWORD_RECOVERY = '/recovery-password';
   static const CONFIGS = '/configs';
   static const ADDTRXITEM = '/add-trx-details-items';
+  static const ADDITEMMANUAL = '/add-item-manual';
 }

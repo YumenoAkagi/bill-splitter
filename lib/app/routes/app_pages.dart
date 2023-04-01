@@ -1,6 +1,8 @@
 import 'package:bill_splitter/app/modules/configs/bindings/configs_binding.dart';
 import 'package:bill_splitter/app/modules/configs/views/configs_view.dart';
+import 'package:bill_splitter/app/modules/transactions/add_transactions_details_items/bindings/add_item_manual_binding.dart';
 import 'package:bill_splitter/app/modules/transactions/add_transactions_details_items/bindings/add_trx_details_items_binding.dart';
+import 'package:bill_splitter/app/modules/transactions/add_transactions_details_items/views/add_item_manual_view.dart';
 import 'package:bill_splitter/app/modules/transactions/add_transactions_details_items/views/add_trx_details_items_view.dart';
 import 'package:get/get.dart';
 
@@ -89,6 +91,13 @@ class AppPages {
       name: _Paths.ADDTRXITEM,
       page: () => const AddTrxDetailsItemsView(),
       binding: AddTrxDetailsItemsBinding(),
+      children: [
+        GetPage(
+          name: _Paths.ADDITEMMANUAL,
+          page: () => const AddItemManualView(),
+          binding: AddItemManualBinding(),
+        ),
+      ],
     ),
   ];
 }
