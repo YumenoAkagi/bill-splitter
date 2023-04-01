@@ -113,14 +113,30 @@ class FriendProvider {
   Future addFriend(String email) async {
     try {
       if (email == supabaseClient.auth.currentUser?.email) {
-        throw Exception('You Cant Add Yourself As Friend');
+        if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
+        Get.snackbar(
+            snackStyle: SnackStyle.FLOATING,
+            backgroundColor: getColorFromHex(COLOR_5),
+            colorText: Colors.white,
+            unexpectedErrorText,
+            'You Cant Add Yourself As Friend');
+        return;
       }
 
       final response = await supabaseClient
           .from('Users')
           .select()
           .match({'Email': email}).maybeSingle() as Map?;
-      if (response == null) throw Exception('There Is No User With This Email');
+      if (response == null) {
+        if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
+        Get.snackbar(
+            snackStyle: SnackStyle.FLOATING,
+            backgroundColor: getColorFromHex(COLOR_5),
+            colorText: Colors.white,
+            unexpectedErrorText,
+            'There Is No User With This Email');
+        return;
+      }
 
       final checker = await supabaseClient
           .from('UserFriendList')
@@ -130,11 +146,23 @@ class FriendProvider {
         'UserId': supabaseClient.auth.currentUser!.id
       }).maybeSingle() as Map?;
       if (checker != null && checker['IsRequestPending'] == false) {
-        throw Exception(
+        if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
+        Get.snackbar(
+            snackStyle: SnackStyle.FLOATING,
+            backgroundColor: getColorFromHex(COLOR_5),
+            colorText: Colors.white,
+            unexpectedErrorText,
             'You Already Be Friend With ${response['DisplayName']}');
+        return;
       } else if (checker != null && checker['IsRequestPending'] == true) {
-        throw Exception(
+        if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
+        Get.snackbar(
+            snackStyle: SnackStyle.FLOATING,
+            backgroundColor: getColorFromHex(COLOR_5),
+            colorText: Colors.white,
+            unexpectedErrorText,
             'You Already Send a Friend Request to ${response['DisplayName']}');
+        return;
       }
 
       await supabaseClient.from('UserFriendList').insert({
@@ -170,7 +198,14 @@ class FriendProvider {
       }).maybeSingle() as Map?;
 
       if (response == null) {
-        throw Exception('Friend Already Accepted');
+        if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
+        Get.snackbar(
+            snackStyle: SnackStyle.FLOATING,
+            backgroundColor: getColorFromHex(COLOR_5),
+            colorText: Colors.white,
+            unexpectedErrorText,
+            'Friend Already Accepted');
+        return;
       }
 
       await supabaseClient
@@ -203,9 +238,15 @@ class FriendProvider {
       }).maybeSingle() as Map?;
 
       if (response == null) {
-        throw Exception('Friend Already Deleted');
+        if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
+        Get.snackbar(
+            snackStyle: SnackStyle.FLOATING,
+            backgroundColor: getColorFromHex(COLOR_5),
+            colorText: Colors.white,
+            unexpectedErrorText,
+            'Friend Already Deleted');
+        return;
       }
-      // print(response['Id']);
       await supabaseClient
           .from('UserFriendList')
           .delete()
@@ -231,7 +272,14 @@ class FriendProvider {
       }).maybeSingle() as Map?;
 
       if (checker == null) {
-        throw Exception('Friend Already Deleted');
+        if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
+        Get.snackbar(
+            snackStyle: SnackStyle.FLOATING,
+            backgroundColor: getColorFromHex(COLOR_5),
+            colorText: Colors.white,
+            unexpectedErrorText,
+            'Friend Already Deleted');
+        return;
       }
 
       await supabaseClient.from('UserFriendList').delete().match({
@@ -264,7 +312,14 @@ class FriendProvider {
       }).maybeSingle() as Map?;
 
       if (link1 == null || link2 == null) {
-        throw Exception('what?');
+        if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
+        Get.snackbar(
+            snackStyle: SnackStyle.FLOATING,
+            backgroundColor: getColorFromHex(COLOR_5),
+            colorText: Colors.white,
+            unexpectedErrorText,
+            'Error Occured');
+        return;
       }
 
       await supabaseClient
