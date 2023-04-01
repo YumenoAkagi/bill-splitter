@@ -30,6 +30,16 @@ class ManageFriendController extends GetxController {
     getPendingFriendList();
   }
 
+  Future acceptRequest(UserModel userModel) async {
+    await friendProvider.acceptRequest(userModel);
+  }
+
+  Future rejectReqeust(UserModel userModel) async {
+    await friendProvider.rejectRequest(userModel);
+    pendingFriendList.clear();
+    getRequestFriendList();
+  }
+
   @override
   void onInit() async {
     super.onInit();

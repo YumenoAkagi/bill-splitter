@@ -1,6 +1,7 @@
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -122,6 +123,37 @@ class ManageFriendView extends GetView<ManageFriendController> {
                               ),
                             ),
                             imageFit: BoxFit.cover,
+                          ),
+                          trailing: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                height: double.infinity,
+                                width: 20 * GOLDEN_RATIO,
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    FontAwesome.ok,
+                                    color: Colors.green,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: double.infinity,
+                                width: 20 * GOLDEN_RATIO,
+                                child: IconButton(
+                                  onPressed: () {
+                                    mtc.rejectReqeust(
+                                        mtc.requestFriendList[index]);
+                                  },
+                                  icon: const Icon(
+                                    FontAwesome.cancel,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ),

@@ -154,6 +154,36 @@ class FriendProvider {
     }
   }
 
+  Future acceptRequest(UserModel userModel) async {}
+
+  Future rejectRequest(UserModel userModel) async {
+    try {
+      final response =
+          await supabaseClient.from('UserFriendList').select().match({
+        'IsRequestPending': true,
+        'FriendId': supabaseClient.auth.currentUser!.id,
+        'UserId': userModel.Id
+      }).maybeSingle() as Map?;
+
+      if (response == null) {
+        throw Exception('Friend Already Deleted');
+      }
+      // print(response['Id']);
+      await supabaseClient
+          .from('UserFriendList')
+          .delete()
+          .match({'Id': response['Id']});
+    } catch (e) {
+      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
+      Get.snackbar(
+          snackStyle: SnackStyle.FLOATING,
+          backgroundColor: getColorFromHex(COLOR_5),
+          colorText: Colors.white,
+          unexpectedErrorText,
+          e.toString());
+    }
+  }
+
   Future deletePendingFriend(UserModel userModel) async {
     try {
       final checker =
