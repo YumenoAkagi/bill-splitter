@@ -1,3 +1,4 @@
+import 'package:bill_splitter/app/providers/transactions_provider.dart';
 import 'package:bill_splitter/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
@@ -11,33 +12,14 @@ import '../../../../utils/validations_helper.dart';
 
 class AddTrxDetailsItemsController extends GetxController {
   final trxHeader = Get.arguments as TransactionHeader;
+  final trxRepo = TransactionsProvider();
   List<TransactionDetailItemModel> detailItemsList = [];
   RxBool makeGrandTotalSameAsSubTotal = true.obs;
 
   Future getAllDetailItems() async {
-    try {
-      final response = await supabaseClient
-          .from('TransactionDetail')
-          .select()
-          .eq('TransactionId', trxHeader.id);
+    detailItemsList = await trxRepo.fetchDetailsItems(trxHeader.id);
 
-      response.forEach((detail) {
-        detailItemsList.add(
-          TransactionDetailItemModel(
-            id: detail['Id'],
-            name: detail['Name'],
-            qty: detail['Quantity'],
-            price: detail['Price'],
-            totalPrice: detail['TotalPrice'],
-          ),
-        );
-      });
-
-      update();
-    } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
-    }
+    update();
   }
 
   Future<void> askAddItemMethod() async {

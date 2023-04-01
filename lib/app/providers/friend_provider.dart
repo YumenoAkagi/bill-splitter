@@ -50,6 +50,7 @@ class FriendProvider {
       if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
       Get.snackbar(unexpectedErrorText, e.toString());
     }
+    return 0;
   }
 
   Future getRequestFriendList() async {

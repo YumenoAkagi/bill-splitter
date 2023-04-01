@@ -1,4 +1,7 @@
+import 'package:bill_splitter/app/utils/validations_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttericon/entypo_icons.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/app_constants.dart';
@@ -20,7 +23,105 @@ class AddItemManualView extends GetView<AddItemManualController> {
             horizontal: SAFEAREA_CONTAINER_MARGIN_H,
             vertical: SAFEAREA_CONTAINER_MARGIN_V,
           ),
-          child: Column(),
+          child: Form(
+            key: controller.formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    'Item Name',
+                    style: Get.textTheme.labelMedium,
+                  ),
+                  const SizedBox(
+                    height: 3 * GOLDEN_RATIO,
+                  ),
+                  TextFormField(
+                    controller: controller.nameController,
+                    decoration: const InputDecoration(hintText: 'Name'),
+                    textCapitalization: TextCapitalization.words,
+                    validator: RequiredValidator(errorText: requiredErrorText),
+                  ),
+                  const SizedBox(
+                    height: 10 * GOLDEN_RATIO,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(
+                              'Quantity',
+                              style: Get.textTheme.labelMedium,
+                            ),
+                            const SizedBox(
+                              height: 3 * GOLDEN_RATIO,
+                            ),
+                            TextFormField(
+                              controller: controller.qtyController,
+                              keyboardType: TextInputType.number,
+                              decoration:
+                                  const InputDecoration(hintText: 'Quantity'),
+                              validator: RequiredValidator(
+                                  errorText: requiredErrorText),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5 * GOLDEN_RATIO,
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(
+                              'Item Price',
+                              style: Get.textTheme.labelMedium,
+                            ),
+                            const SizedBox(
+                              height: 3 * GOLDEN_RATIO,
+                            ),
+                            TextFormField(
+                              controller: controller.priceController,
+                              keyboardType: TextInputType.number,
+                              decoration:
+                                  const InputDecoration(hintText: 'Price'),
+                              validator: RequiredValidator(
+                                  errorText: requiredErrorText),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20 * GOLDEN_RATIO,
+                  ),
+                  Obx(
+                    () => FilledButton.icon(
+                      onPressed: controller.isLoading.isFalse
+                          ? () async {
+                              await controller.addNewItem();
+                            }
+                          : null,
+                      icon: controller.isLoading.isFalse
+                          ? const Icon(Entypo.floppy)
+                          : const SizedBox(
+                              height: 10 * GOLDEN_RATIO,
+                              width: 10 * GOLDEN_RATIO,
+                              child: CircularProgressIndicator(),
+                            ),
+                      label: controller.isLoading.isFalse
+                          ? const Text('Save')
+                          : const Text('Saving...'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );

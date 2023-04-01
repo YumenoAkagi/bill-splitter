@@ -83,10 +83,11 @@ class TransactionsProvider {
         itemsList.add(
           TransactionDetailItemModel(
             id: e['Id'],
+            transactionId: e['TransactionId'],
             name: e['Name'],
-            qty: e['Quantity'],
-            price: e['Price'],
-            totalPrice: e['Quantity'] * e['Price'],
+            qty: double.parse(e['Quantity']),
+            price: double.parse(e['Price']),
+            totalPrice: double.parse(e['Quantity']) * double.parse(e['Price']),
           ),
         );
       });
