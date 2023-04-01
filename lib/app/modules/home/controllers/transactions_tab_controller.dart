@@ -1,3 +1,5 @@
+import 'package:bill_splitter/app/routes/app_pages.dart';
+
 import '../../../utils/app_constants.dart';
 import '../../../utils/validations_helper.dart';
 import 'package:get/get.dart';
@@ -24,6 +26,22 @@ class TransactionsTabController extends GetxController {
     } catch (e) {
       if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
       Get.snackbar(unexpectedErrorText, e.toString());
+    }
+  }
+
+  void viewTrxDetail(String id) {
+    final selectedHeader =
+        headersList.firstWhereOrNull((head) => head.id == id);
+    if (selectedHeader != null) {
+      if (!selectedHeader.isItemFinalized!) {
+        Get.toNamed(Routes.ADDTRXITEM, arguments: selectedHeader);
+        return;
+      }
+
+      if (!selectedHeader.isMemberFinalized!) {
+        // Get.toNamed(Routes.ADDTRXITEM, arguments: selectedHeader);
+        return;
+      }
     }
   }
 

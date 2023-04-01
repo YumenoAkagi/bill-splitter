@@ -3,10 +3,11 @@ class TransactionHeader {
     required this.id,
     required this.name,
     required this.date,
-    this.isComplete,
+    this.isComplete = false,
     this.grandTotal = 0,
-    this.isMemberFinalized,
-    this.isDeletable,
+    this.isMemberFinalized = false,
+    this.isItemFinalized = false,
+    this.isDeletable = true,
   });
 
   final String id;
@@ -15,5 +16,6 @@ class TransactionHeader {
   bool? isComplete;
   num grandTotal;
   bool? isMemberFinalized;
+  bool? isItemFinalized;
   bool? isDeletable;
 }

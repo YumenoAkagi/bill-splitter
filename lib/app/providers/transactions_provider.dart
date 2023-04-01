@@ -1,3 +1,4 @@
+import 'package:bill_splitter/app/models/transaction_detail_item_model.dart';
 import 'package:intl/intl.dart';
 
 import '../models/transaction_header_model.dart';
@@ -30,6 +31,10 @@ class TransactionsProvider {
               ),
             ),
             grandTotal: head['GrandTotal'] ?? 0,
+            isMemberFinalized: head['IsMemberFinalized'] ?? false,
+            isItemFinalized: head['IsItemFinalized'] ?? false,
+            isComplete: head['IsComplete'] ?? false,
+            isDeletable: head['isDeletetable'] ?? true,
           ),
         );
       });
@@ -38,5 +43,32 @@ class TransactionsProvider {
       Get.snackbar(unexpectedErrorText, e.toString());
     }
     return headersList;
+  }
+
+  Future<List<TransactionDetailItemModel>> fetchDetailsItems(
+      String headerId) async {
+    final List<TransactionDetailItemModel> itemsList = [];
+    try {
+      final response = await supabaseClient
+          .from('TransactionDetail')
+          .select()
+          .eq('TransactionId', headerId);
+
+      response.forEach((e) {
+        itemsList.add(
+          TransactionDetailItemModel(
+            id: e['Id'],
+            name: e['Name'],
+            qty: e['Quantity'],
+            price: e['Price'],
+            totalPrice: e['Quantity'] * e['Price'],
+          ),
+        );
+      });
+    } catch (e) {
+      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
+      Get.snackbar(unexpectedErrorText, e.toString());
+    }
+    return itemsList;
   }
 }

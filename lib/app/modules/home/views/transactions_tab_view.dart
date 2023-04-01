@@ -63,61 +63,68 @@ class TransactionsTabView extends StatelessWidget {
 
                       return confirmDelete;
                     },
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8 * GOLDEN_RATIO),
-                      ),
-                      elevation: 2,
-                      child: Container(
-                        margin: const EdgeInsets.all(
-                          5 * GOLDEN_RATIO,
+                    child: InkWell(
+                      onTap: () =>
+                          controller.viewTrxDetail(ttc.headersList[index].id),
+                      borderRadius: BorderRadius.circular(8 * GOLDEN_RATIO),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8 * GOLDEN_RATIO),
                         ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Text(
-                              ttc.headersList[index].name,
-                              style: Get.textTheme.labelMedium,
-                            ),
-                            Text(
-                              ttc.headersList[index].date,
-                              style: Get.textTheme.labelSmall,
-                            ),
-                            const SizedBox(
-                              height: 5 * GOLDEN_RATIO,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                CircularProfileAvatar(
-                                  'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png',
-                                  imageFit: BoxFit.cover,
-                                  radius: 10 * GOLDEN_RATIO,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      'Total',
-                                      style:
-                                          Get.textTheme.labelMedium?.copyWith(
-                                        fontSize: 9 * GOLDEN_RATIO,
+                        elevation: 2,
+                        child: Container(
+                          margin: const EdgeInsets.all(
+                            5 * GOLDEN_RATIO,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(
+                                ttc.headersList[index].name,
+                                style: Get.textTheme.labelMedium,
+                              ),
+                              Text(
+                                ttc.headersList[index].date,
+                                style: Get.textTheme.labelSmall,
+                              ),
+                              const SizedBox(
+                                height: 5 * GOLDEN_RATIO,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CircularProfileAvatar(
+                                    'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png',
+                                    imageFit: BoxFit.cover,
+                                    radius: 10 * GOLDEN_RATIO,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        'Total',
+                                        style:
+                                            Get.textTheme.labelMedium?.copyWith(
+                                          fontSize: 9 * GOLDEN_RATIO,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      NumberFormat.currency(
-                                              locale: 'id-ID', symbol: 'Rp')
-                                          .format(ttc
-                                              .headersList[index].grandTotal),
-                                      style: Get.textTheme.labelSmall?.copyWith(
-                                        fontSize: 12 * GOLDEN_RATIO,
+                                      Text(
+                                        NumberFormat.currency(
+                                                locale: 'id-ID', symbol: 'Rp')
+                                            .format(ttc
+                                                .headersList[index].grandTotal),
+                                        style:
+                                            Get.textTheme.labelSmall?.copyWith(
+                                          fontSize: 12 * GOLDEN_RATIO,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ],
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

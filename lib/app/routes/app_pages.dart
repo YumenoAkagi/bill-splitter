@@ -1,5 +1,7 @@
 import 'package:bill_splitter/app/modules/configs/bindings/configs_binding.dart';
 import 'package:bill_splitter/app/modules/configs/views/configs_view.dart';
+import 'package:bill_splitter/app/modules/transactions/add_transactions_details_items/bindings/add_trx_details_items_binding.dart';
+import 'package:bill_splitter/app/modules/transactions/add_transactions_details_items/views/add_trx_details_items_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/auth/email_sent/bindings/email_sent_binding.dart';
@@ -82,6 +84,11 @@ class AppPages {
       name: _Paths.CONFIGS,
       page: () => const ConfigsView(),
       binding: ConfigsBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADDTRXITEM,
+      page: () => const AddTrxDetailsItemsView(),
+      binding: AddTrxDetailsItemsBinding(),
     ),
   ];
 }

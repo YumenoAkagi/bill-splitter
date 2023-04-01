@@ -14,6 +14,7 @@ abstract class Routes {
   static const MANAGE_FRIEND = _Paths.MANAGE_FRIEND;
   static const PASSWORD_RECOVERY = _Paths.PASSWORD_RECOVERY;
   static const CONFIGS = _Paths.CONFIGS;
+  static const ADDTRXITEM = _Paths.ADDTRXITEM;
 }
 
 abstract class _Paths {
@@ -29,4 +30,5 @@ abstract class _Paths {
   static const MANAGE_FRIEND = '/manage-friend';
   static const PASSWORD_RECOVERY = '/recovery-password';
   static const CONFIGS = '/configs';
+  static const ADDTRXITEM = '/add-trx-details-items';
 }
