@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../../utils/app_constants.dart';
 import '../../../utils/validations_helper.dart';
@@ -16,14 +17,27 @@ class AddTransactionBsController extends GetxController {
     selectedDate = value;
   }
 
+  @override
+  void onInit() {
+    super.onInit();
+    setDate(DateTime.now());
+    selectDateController.text =
+        DateFormat('dd MMM yyyy').format(selectedDate ?? DateTime.now());
+  }
+
   Future addTransaction() async {
     if (!formKey.currentState!.validate()) return;
     isLoading.value = true;
     try {
-      await supabaseClient.from('TransactionHeader').insert({
+      final response = await supabaseClient.from('TransactionHeader').insert({
         'Name': nameController.text,
         'Date': selectedDate!.toIso8601String(),
-        'CreatedById': supabaseClient.auth.currentUser?.id,
+      }).select();
+
+      // add owner as member
+      await supabaseClient.from('TransactionMember').insert({
+        'UserId': supabaseClient.auth.currentUser?.id,
+        'TransactionId': response[0]['Id'],
       });
 
       // close bottomsheet

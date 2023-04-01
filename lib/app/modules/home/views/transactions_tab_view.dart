@@ -1,11 +1,13 @@
-import 'package:bill_splitter/app/utils/app_constants.dart';
+import 'package:avatar_stack/avatar_stack.dart';
+import 'package:avatar_stack/positions.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../../../utils/app_constants.dart';
+import '../../../utils/functions_helper.dart';
 import '../controllers/transactions_tab_controller.dart';
 
 class TransactionsTabView extends StatelessWidget {
@@ -30,7 +32,7 @@ class TransactionsTabView extends StatelessWidget {
                   physics: const AlwaysScrollableScrollPhysics(),
                   itemCount: ttc.headersList.length,
                   itemBuilder: (context, index) => Dismissible(
-                    key: ValueKey(ttc.headersList[index].id),
+                    key: UniqueKey(),
                     onDismissed: (_) async {
                       await controller
                           .deleteTransaction(ttc.headersList[index].id);
@@ -48,11 +50,19 @@ class TransactionsTabView extends StatelessWidget {
                       ),
                     ),
                     confirmDismiss: (_) async {
+                      if (!ttc.headersList[index].isDeletable) {
+                        if (Get.isSnackbarOpen) {
+                          await Get.closeCurrentSnackbar();
+                        }
+                        Get.snackbar('Permission Denied',
+                            'This transaction has been partially paid by you/other members');
+                        return false;
+                      }
                       bool confirmDelete = false;
 
                       await showConfirmDialog(
                         context,
-                        'Delete this transaction?\nThis action cannot be undone.',
+                        'Delete ${ttc.headersList[index].name}?\nThis action cannot be undone.',
                         buttonColor: Colors.red,
                         negativeText: 'Cancel',
                         positiveText: 'Delete',
@@ -94,10 +104,59 @@ class TransactionsTabView extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  CircularProfileAvatar(
-                                    'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png',
-                                    imageFit: BoxFit.cover,
-                                    radius: 10 * GOLDEN_RATIO,
+                                  SizedBox(
+                                    height: 20 * GOLDEN_RATIO,
+                                    width: Get.width * 0.4 * GOLDEN_RATIO,
+                                    child: WidgetStack(
+                                      positions: RestrictedPositions(
+                                        align: StackAlign.left,
+                                        maxCoverage: -0.1,
+                                        minCoverage: -0.5,
+                                      ),
+                                      stackedWidgets: [
+                                        for (var i = 0;
+                                            i <
+                                                ttc.headersList[index]
+                                                    .membersList.length;
+                                            i++)
+                                          CircularProfileAvatar(
+                                            ttc
+                                                    .headersList[index]
+                                                    .membersList[i]
+                                                    .ProfilePicUrl ??
+                                                '',
+                                            radius: 20 * GOLDEN_RATIO,
+                                            cacheImage: true,
+                                            backgroundColor:
+                                                getColorFromHex(COLOR_1),
+                                            initialsText: Text(
+                                              ttc
+                                                  .headersList[index]
+                                                  .membersList[i]
+                                                  .DisplayName[0],
+                                              style: Get.textTheme.titleLarge
+                                                  ?.copyWith(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            imageFit: BoxFit.cover,
+                                          ),
+                                      ],
+                                      buildInfoWidget: (surplus) =>
+                                          CircularProfileAvatar(
+                                        '',
+                                        radius: 20 * GOLDEN_RATIO,
+                                        backgroundColor:
+                                            getColorFromHex(COLOR_1),
+                                        initialsText: Text(
+                                          '+$surplus',
+                                          style: Get.textTheme.titleLarge
+                                              ?.copyWith(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -110,10 +169,8 @@ class TransactionsTabView extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        NumberFormat.currency(
-                                                locale: 'id-ID', symbol: 'Rp')
-                                            .format(ttc
-                                                .headersList[index].grandTotal),
+                                        moneyFormatter.format(
+                                            ttc.headersList[index].grandTotal),
                                         style:
                                             Get.textTheme.labelSmall?.copyWith(
                                           fontSize: 12 * GOLDEN_RATIO,

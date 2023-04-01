@@ -84,6 +84,7 @@ class AddTransactionBottomSheet extends StatelessWidget {
                     final selectedDate = await showCalendarDatePicker2Dialog(
                       context: context,
                       config: CalendarDatePicker2WithActionButtonsConfig(
+                        lastDate: DateTime.now(),
                         firstDayOfWeek: 1,
                         selectedDayHighlightColor: getColorFromHex(COLOR_1),
                         controlsTextStyle: Get.textTheme.labelMedium,

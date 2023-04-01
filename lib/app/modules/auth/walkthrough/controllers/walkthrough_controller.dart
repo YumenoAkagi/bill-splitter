@@ -12,7 +12,7 @@ class WalkthroughController extends GetxController {
         Image.asset(
           'assets/images/undraw_Transfer_money.png',
           height: Get.height * 0.3 * GOLDEN_RATIO,
-          fit: BoxFit.cover,
+          fit: BoxFit.contain,
         ),
         Column(
           children: [
@@ -39,7 +39,7 @@ class WalkthroughController extends GetxController {
         Image.asset(
           'assets/images/undraw_Mobile_payments.png',
           height: Get.height * 0.3 * GOLDEN_RATIO,
-          fit: BoxFit.cover,
+          fit: BoxFit.contain,
         ),
         Column(
           children: [
@@ -66,7 +66,7 @@ class WalkthroughController extends GetxController {
         Image.asset(
           'assets/images/undraw_Receipt.png',
           height: Get.height * 0.3 * GOLDEN_RATIO,
-          fit: BoxFit.cover,
+          fit: BoxFit.contain,
         ),
         Column(
           children: [

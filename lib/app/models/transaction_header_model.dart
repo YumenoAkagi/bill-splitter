@@ -1,3 +1,5 @@
+import 'package:bill_splitter/app/models/user_model.dart';
+
 class TransactionHeader {
   TransactionHeader({
     required this.id,
@@ -8,14 +10,16 @@ class TransactionHeader {
     this.isMemberFinalized = false,
     this.isItemFinalized = false,
     this.isDeletable = true,
+    required this.membersList,
   });
 
   final String id;
   final String name;
   final String date;
-  bool? isComplete;
+  bool isComplete;
   num grandTotal;
-  bool? isMemberFinalized;
-  bool? isItemFinalized;
-  bool? isDeletable;
+  bool isMemberFinalized;
+  bool isItemFinalized;
+  bool isDeletable;
+  List<UserModel> membersList;
 }
