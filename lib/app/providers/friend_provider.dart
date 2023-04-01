@@ -1,3 +1,4 @@
+import 'package:bill_splitter/app/utils/functions_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -32,8 +33,7 @@ class FriendProvider {
       });
       return friendList;
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
+      showUnexpectedErrorSnackbar(e);
     }
   }
 
@@ -47,8 +47,7 @@ class FriendProvider {
 
       return response.length;
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
+      showUnexpectedErrorSnackbar(e);
     }
   }
 
@@ -75,8 +74,7 @@ class FriendProvider {
       }
       return requestfriendList;
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
+      showUnexpectedErrorSnackbar(e);
     }
   }
 
@@ -105,21 +103,14 @@ class FriendProvider {
       });
       return pendingfriendList;
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
+      showUnexpectedErrorSnackbar(e);
     }
   }
 
   Future addFriend(String email) async {
     try {
       if (email == supabaseClient.auth.currentUser?.email) {
-        if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-        Get.snackbar(
-            snackStyle: SnackStyle.FLOATING,
-            backgroundColor: getColorFromHex(COLOR_5),
-            colorText: Colors.white,
-            unexpectedErrorText,
-            'You Cant Add Yourself As Friend');
+        showErrorSnackbar('You Cant Add Yourself As Friend');
         return;
       }
 
@@ -128,13 +119,7 @@ class FriendProvider {
           .select()
           .match({'Email': email}).maybeSingle() as Map?;
       if (response == null) {
-        if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-        Get.snackbar(
-            snackStyle: SnackStyle.FLOATING,
-            backgroundColor: getColorFromHex(COLOR_5),
-            colorText: Colors.white,
-            unexpectedErrorText,
-            'There Is No User With This Email');
+        showErrorSnackbar('There Is No User With This Email');
         return;
       }
 
@@ -146,21 +131,11 @@ class FriendProvider {
         'UserId': supabaseClient.auth.currentUser!.id
       }).maybeSingle() as Map?;
       if (checker != null && checker['IsRequestPending'] == false) {
-        if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-        Get.snackbar(
-            snackStyle: SnackStyle.FLOATING,
-            backgroundColor: getColorFromHex(COLOR_5),
-            colorText: Colors.white,
-            unexpectedErrorText,
+        showErrorSnackbar(
             'You Already Be Friend With ${response['DisplayName']}');
         return;
       } else if (checker != null && checker['IsRequestPending'] == true) {
-        if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-        Get.snackbar(
-            snackStyle: SnackStyle.FLOATING,
-            backgroundColor: getColorFromHex(COLOR_5),
-            colorText: Colors.white,
-            unexpectedErrorText,
+        showErrorSnackbar(
             'You Already Send a Friend Request to ${response['DisplayName']}');
         return;
       }
@@ -171,20 +146,10 @@ class FriendProvider {
         'IsRequestPending': true,
       });
 
-      Get.snackbar(
-          snackStyle: SnackStyle.FLOATING,
-          backgroundColor: getColorFromHex(COLOR_3),
-          colorText: Colors.white,
-          'Friend Successfully Added',
-          '${response['DisplayName']} Have been Added To Your Friend List!');
+      showSuccessSnackbar('Friend Request Sent',
+          'Friend Request Sent to ${response['DisplayName']}!');
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(
-          snackStyle: SnackStyle.FLOATING,
-          backgroundColor: getColorFromHex(COLOR_5),
-          colorText: Colors.white,
-          unexpectedErrorText,
-          e.toString());
+      showUnexpectedErrorSnackbar(e);
     }
   }
 
@@ -198,13 +163,7 @@ class FriendProvider {
       }).maybeSingle() as Map?;
 
       if (response == null) {
-        if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-        Get.snackbar(
-            snackStyle: SnackStyle.FLOATING,
-            backgroundColor: getColorFromHex(COLOR_5),
-            colorText: Colors.white,
-            unexpectedErrorText,
-            'Friend Already Accepted');
+        showErrorSnackbar('Friend Already Accepted');
         return;
       }
 
@@ -217,14 +176,11 @@ class FriendProvider {
         'FriendId': userModel.Id,
         'IsRequestPending': false
       });
+
+      showSuccessSnackbar('Friend Request Accepted',
+          '${userModel.DisplayName} Added To Your Friend List');
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(
-          snackStyle: SnackStyle.FLOATING,
-          backgroundColor: getColorFromHex(COLOR_5),
-          colorText: Colors.white,
-          unexpectedErrorText,
-          e.toString());
+      showUnexpectedErrorSnackbar(e);
     }
   }
 
@@ -238,27 +194,18 @@ class FriendProvider {
       }).maybeSingle() as Map?;
 
       if (response == null) {
-        if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-        Get.snackbar(
-            snackStyle: SnackStyle.FLOATING,
-            backgroundColor: getColorFromHex(COLOR_5),
-            colorText: Colors.white,
-            unexpectedErrorText,
-            'Friend Already Deleted');
+        showErrorSnackbar('Friend Already Deleted');
         return;
       }
       await supabaseClient
           .from('UserFriendList')
           .delete()
           .match({'Id': response['Id']});
+
+      showSuccessSnackbar(
+          'Friend Rejected', 'You reject ${userModel.DisplayName} as Friend');
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(
-          snackStyle: SnackStyle.FLOATING,
-          backgroundColor: getColorFromHex(COLOR_5),
-          colorText: Colors.white,
-          unexpectedErrorText,
-          e.toString());
+      showUnexpectedErrorSnackbar(e);
     }
   }
 
@@ -272,13 +219,7 @@ class FriendProvider {
       }).maybeSingle() as Map?;
 
       if (checker == null) {
-        if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-        Get.snackbar(
-            snackStyle: SnackStyle.FLOATING,
-            backgroundColor: getColorFromHex(COLOR_5),
-            colorText: Colors.white,
-            unexpectedErrorText,
-            'Friend Already Deleted');
+        showErrorSnackbar('Friend Already Deleted');
         return;
       }
 
@@ -287,14 +228,11 @@ class FriendProvider {
         'FriendId': userModel.Id,
         'IsRequestPending': true,
       });
+
+      showSuccessSnackbar('Friend Request Deleted',
+          'Remove ${userModel.DisplayName} from Pending Request');
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(
-          snackStyle: SnackStyle.FLOATING,
-          backgroundColor: getColorFromHex(COLOR_5),
-          colorText: Colors.white,
-          unexpectedErrorText,
-          e.toString());
+      showUnexpectedErrorSnackbar(e);
     }
   }
 
@@ -312,13 +250,7 @@ class FriendProvider {
       }).maybeSingle() as Map?;
 
       if (link1 == null || link2 == null) {
-        if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-        Get.snackbar(
-            snackStyle: SnackStyle.FLOATING,
-            backgroundColor: getColorFromHex(COLOR_5),
-            colorText: Colors.white,
-            unexpectedErrorText,
-            'Error Occured');
+        showErrorSnackbar('Error Occured');
         return;
       }
 
@@ -330,14 +262,11 @@ class FriendProvider {
           .from('UserFriendList')
           .delete()
           .match({'Id': link2['Id']});
+
+      await showSuccessSnackbar('Friend Deleted Successfully',
+          '${userModel.DisplayName} Has Been Deleted from Your Friend List');
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(
-          snackStyle: SnackStyle.FLOATING,
-          backgroundColor: getColorFromHex(COLOR_5),
-          colorText: Colors.white,
-          unexpectedErrorText,
-          e.toString());
+      await showUnexpectedErrorSnackbar(e);
     }
   }
 }
