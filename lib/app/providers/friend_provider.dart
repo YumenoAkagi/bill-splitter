@@ -129,9 +129,12 @@ class FriendProvider {
         'FriendId': response['Id'],
         'UserId': supabaseClient.auth.currentUser!.id
       }).maybeSingle() as Map?;
-      if (checker != null) {
+      if (checker != null && checker['IsRequestPending'] == false) {
         throw Exception(
             'You Already Be Friend With ${response['DisplayName']}');
+      } else if (checker != null && checker['IsRequestPending'] == true) {
+        throw Exception(
+            'You Already Send a Friend Request to ${response['DisplayName']}');
       }
 
       await supabaseClient.from('UserFriendList').insert({
