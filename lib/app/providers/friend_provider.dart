@@ -125,7 +125,10 @@ class FriendProvider {
       final checker = await supabaseClient
           .from('UserFriendList')
           .select()
-          .match({'FriendId': response['Id']}).maybeSingle() as Map?;
+          .match({
+        'FriendId': response['Id'],
+        'UserId': supabaseClient.auth.currentUser!.id
+      }).maybeSingle() as Map?;
       if (checker != null) {
         throw Exception(
             'You Already Be Friend With ${response['DisplayName']}');
