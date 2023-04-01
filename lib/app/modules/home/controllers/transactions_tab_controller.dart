@@ -1,11 +1,10 @@
-import 'package:bill_splitter/app/routes/app_pages.dart';
-
-import '../../../utils/app_constants.dart';
-import '../../../utils/validations_helper.dart';
 import 'package:get/get.dart';
 
 import '../../../models/transaction_header_model.dart';
 import '../../../providers/transactions_provider.dart';
+import '../../../routes/app_pages.dart';
+import '../../../utils/app_constants.dart';
+import '../../../utils/validations_helper.dart';
 
 class TransactionsTabController extends GetxController {
   final TransactionsProvider _transactionsRepo = TransactionsProvider();
@@ -18,6 +17,11 @@ class TransactionsTabController extends GetxController {
 
   Future deleteTransaction(String id) async {
     try {
+      await supabaseClient
+          .from('TransactionMember')
+          .delete()
+          .eq('TransactionId', id);
+
       await supabaseClient.from('TransactionHeader').delete().eq('Id', id);
       headersList.removeWhere((header) => header.id == id);
 
@@ -33,12 +37,12 @@ class TransactionsTabController extends GetxController {
     final selectedHeader =
         headersList.firstWhereOrNull((head) => head.id == id);
     if (selectedHeader != null) {
-      if (!selectedHeader.isItemFinalized!) {
+      if (!selectedHeader.isItemFinalized) {
         Get.toNamed(Routes.ADDTRXITEM, arguments: selectedHeader);
         return;
       }
 
-      if (!selectedHeader.isMemberFinalized!) {
+      if (!selectedHeader.isMemberFinalized) {
         // Get.toNamed(Routes.ADDTRXITEM, arguments: selectedHeader);
         return;
       }

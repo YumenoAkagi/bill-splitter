@@ -6,6 +6,7 @@ environment:
   sdk: '>=2.19.0 <3.0.0'
 
 dependencies:
+  avatar_stack: ^1.2.0
   badges: ^3.0.3
   calendar_date_picker2: ^0.4.6
   carousel_slider: ^4.2.1

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../utils/app_constants.dart';
+import '../../../../utils/functions_helper.dart';
 import '../controllers/history_transactions_controller.dart';
 
 class HistoryTransactionsView extends GetView<HistoryTransactionsController> {
@@ -48,10 +48,8 @@ class HistoryTransactionsView extends GetView<HistoryTransactionsController> {
                               ),
                             ),
                             Text(
-                              NumberFormat.currency(
-                                      locale: 'id-ID', symbol: 'Rp')
-                                  .format(htc.historyTransactionsList[index]
-                                      .grandTotal),
+                              moneyFormatter.format(htc
+                                  .historyTransactionsList[index].grandTotal),
                               style: Get.textTheme.labelSmall?.copyWith(
                                 fontSize: 12 * GOLDEN_RATIO,
                               ),
