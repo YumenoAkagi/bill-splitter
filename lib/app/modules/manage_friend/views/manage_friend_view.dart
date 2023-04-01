@@ -37,16 +37,91 @@ class ManageFriendView extends GetView<ManageFriendController> {
         body: GetBuilder<ManageFriendController>(
           builder: (mtc) => TabBarView(children: [
             SafeArea(
+              child: RefreshIndicator(
+                onRefresh: mtc.getPendingFriendList,
+                child: Container(
+                  margin: const EdgeInsets.symmetric(
+                      horizontal: SAFEAREA_CONTAINER_MARGIN_H,
+                      vertical: SAFEAREA_CONTAINER_MARGIN_V),
+                  child: mtc.pendingFriendList.isEmpty
+                      ? SingleChildScrollView(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          child: SizedBox(
+                            height: Get.height * 0.5 * GOLDEN_RATIO,
+                            child: const Center(
+                              child: Text('No Pending Friend Request'),
+                            ),
+                          ),
+                        )
+                      : ListView.builder(
+                          itemCount: mtc.pendingFriendList.length,
+                          itemBuilder: (context, index) => Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(8 * GOLDEN_RATIO)),
+                            elevation: 2,
+                            child: ListTile(
+                              title: Text(
+                                mtc.pendingFriendList[index].DisplayName,
+                                style: Get.textTheme.labelMedium,
+                              ),
+                              subtitle: Text(
+                                mtc.pendingFriendList[index].Email,
+                                style: Get.textTheme.bodySmall,
+                              ),
+                              leading: CircularProfileAvatar(
+                                mtc.pendingFriendList[index].ProfilePicUrl ??
+                                    '',
+                                radius: 13 * GOLDEN_RATIO,
+                                cacheImage: true,
+                                backgroundColor: getColorFromHex(COLOR_1),
+                                initialsText: Text(
+                                  mtc.pendingFriendList[index].DisplayName[0],
+                                  style: Get.textTheme.titleLarge?.copyWith(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                imageFit: BoxFit.cover,
+                              ),
+                              trailing: SizedBox(
+                                height: double.infinity,
+                                width: 20 * GOLDEN_RATIO,
+                                child: IconButton(
+                                  icon: const Icon(
+                                    FontAwesome.cancel,
+                                    color: Colors.red,
+                                  ),
+                                  onPressed: () {
+                                    mtc.deletePendingRequest(
+                                        mtc.pendingFriendList[index]);
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                ),
+              ),
+            ),
+            SafeArea(
+                child: RefreshIndicator(
+              onRefresh: mtc.getRequestFriendList,
               child: Container(
                 margin: const EdgeInsets.symmetric(
                     horizontal: SAFEAREA_CONTAINER_MARGIN_H,
                     vertical: SAFEAREA_CONTAINER_MARGIN_V),
-                child: mtc.pendingFriendList.isEmpty
-                    ? const Center(
-                        child: Text('No Pending Friend Request'),
+                child: mtc.requestFriendList.isEmpty
+                    ? SingleChildScrollView(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        child: SizedBox(
+                          height: Get.height * 0.5 * GOLDEN_RATIO,
+                          child: const Center(
+                            child: Text('No Friend Request'),
+                          ),
+                        ),
                       )
                     : ListView.builder(
-                        itemCount: mtc.pendingFriendList.length,
+                        itemCount: mtc.requestFriendList.length,
                         itemBuilder: (context, index) => Card(
                           shape: RoundedRectangleBorder(
                               borderRadius:
@@ -54,120 +129,64 @@ class ManageFriendView extends GetView<ManageFriendController> {
                           elevation: 2,
                           child: ListTile(
                             title: Text(
-                              mtc.pendingFriendList[index].DisplayName,
+                              mtc.requestFriendList[index].DisplayName,
                               style: Get.textTheme.labelMedium,
                             ),
                             subtitle: Text(
-                              mtc.pendingFriendList[index].Email,
+                              mtc.requestFriendList[index].Email,
                               style: Get.textTheme.bodySmall,
                             ),
                             leading: CircularProfileAvatar(
-                              mtc.pendingFriendList[index].ProfilePicUrl ?? '',
+                              mtc.requestFriendList[index].ProfilePicUrl ?? '',
                               radius: 13 * GOLDEN_RATIO,
                               cacheImage: true,
                               backgroundColor: getColorFromHex(COLOR_1),
                               initialsText: Text(
-                                mtc.pendingFriendList[index].DisplayName[0],
+                                mtc.requestFriendList[index].DisplayName[0],
                                 style: Get.textTheme.titleLarge?.copyWith(
                                   color: Colors.white,
                                 ),
                               ),
                               imageFit: BoxFit.cover,
                             ),
-                            trailing: SizedBox(
-                              height: double.infinity,
-                              width: 20 * GOLDEN_RATIO,
-                              child: IconButton(
-                                icon: const Icon(
-                                  FontAwesome.cancel,
-                                  color: Colors.red,
+                            trailing: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(
+                                  height: double.infinity,
+                                  width: 20 * GOLDEN_RATIO,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      mtc.acceptRequest(
+                                          mtc.requestFriendList[index]);
+                                    },
+                                    icon: const Icon(
+                                      FontAwesome.ok,
+                                      color: Colors.green,
+                                    ),
+                                  ),
                                 ),
-                                onPressed: () {
-                                  mtc.deletePendingRequest(
-                                      mtc.pendingFriendList[index]);
-                                },
-                              ),
+                                SizedBox(
+                                  height: double.infinity,
+                                  width: 20 * GOLDEN_RATIO,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      mtc.rejectRequest(
+                                          mtc.requestFriendList[index]);
+                                    },
+                                    icon: const Icon(
+                                      FontAwesome.cancel,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                         ),
                       ),
               ),
-            ),
-            SafeArea(
-                child: Container(
-              margin: const EdgeInsets.symmetric(
-                  horizontal: SAFEAREA_CONTAINER_MARGIN_H,
-                  vertical: SAFEAREA_CONTAINER_MARGIN_V),
-              child: mtc.requestFriendList.isEmpty
-                  ? const Center(
-                      child: Text('No Friend Request'),
-                    )
-                  : ListView.builder(
-                      itemCount: mtc.requestFriendList.length,
-                      itemBuilder: (context, index) => Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(8 * GOLDEN_RATIO)),
-                        elevation: 2,
-                        child: ListTile(
-                          title: Text(
-                            mtc.requestFriendList[index].DisplayName,
-                            style: Get.textTheme.labelMedium,
-                          ),
-                          subtitle: Text(
-                            mtc.requestFriendList[index].Email,
-                            style: Get.textTheme.bodySmall,
-                          ),
-                          leading: CircularProfileAvatar(
-                            mtc.requestFriendList[index].ProfilePicUrl ?? '',
-                            radius: 13 * GOLDEN_RATIO,
-                            cacheImage: true,
-                            backgroundColor: getColorFromHex(COLOR_1),
-                            initialsText: Text(
-                              mtc.requestFriendList[index].DisplayName[0],
-                              style: Get.textTheme.titleLarge?.copyWith(
-                                color: Colors.white,
-                              ),
-                            ),
-                            imageFit: BoxFit.cover,
-                          ),
-                          trailing: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SizedBox(
-                                height: double.infinity,
-                                width: 20 * GOLDEN_RATIO,
-                                child: IconButton(
-                                  onPressed: () {
-                                    mtc.acceptRequest(
-                                        mtc.requestFriendList[index]);
-                                  },
-                                  icon: const Icon(
-                                    FontAwesome.ok,
-                                    color: Colors.green,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: double.infinity,
-                                width: 20 * GOLDEN_RATIO,
-                                child: IconButton(
-                                  onPressed: () {
-                                    mtc.rejectRequest(
-                                        mtc.requestFriendList[index]);
-                                  },
-                                  icon: const Icon(
-                                    FontAwesome.cancel,
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
             )),
           ]),
         ),

@@ -1,3 +1,4 @@
+import 'package:bill_splitter/app/utils/functions_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -32,8 +33,7 @@ class FriendProvider {
       });
       return friendList;
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
+      showUnexpectedErrorSnackbar(e);
     }
   }
 
@@ -47,8 +47,7 @@ class FriendProvider {
 
       return response.length;
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
+      showUnexpectedErrorSnackbar(e);
     }
     return 0;
   }
@@ -76,8 +75,7 @@ class FriendProvider {
       }
       return requestfriendList;
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
+      showUnexpectedErrorSnackbar(e);
     }
   }
 
@@ -106,22 +104,25 @@ class FriendProvider {
       });
       return pendingfriendList;
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
+      showUnexpectedErrorSnackbar(e);
     }
   }
 
   Future addFriend(String email) async {
     try {
       if (email == supabaseClient.auth.currentUser?.email) {
-        throw Exception('You Cant Add Yourself As Friend');
+        showErrorSnackbar('You Cant Add Yourself As Friend');
+        return;
       }
 
       final response = await supabaseClient
           .from('Users')
           .select()
           .match({'Email': email}).maybeSingle() as Map?;
-      if (response == null) throw Exception('There Is No User With This Email');
+      if (response == null) {
+        showErrorSnackbar('There Is No User With This Email');
+        return;
+      }
 
       final checker = await supabaseClient
           .from('UserFriendList')
@@ -130,9 +131,14 @@ class FriendProvider {
         'FriendId': response['Id'],
         'UserId': supabaseClient.auth.currentUser!.id
       }).maybeSingle() as Map?;
-      if (checker != null) {
-        throw Exception(
+      if (checker != null && checker['IsRequestPending'] == false) {
+        showErrorSnackbar(
             'You Already Be Friend With ${response['DisplayName']}');
+        return;
+      } else if (checker != null && checker['IsRequestPending'] == true) {
+        showErrorSnackbar(
+            'You Already Send a Friend Request to ${response['DisplayName']}');
+        return;
       }
 
       await supabaseClient.from('UserFriendList').insert({
@@ -141,20 +147,10 @@ class FriendProvider {
         'IsRequestPending': true,
       });
 
-      Get.snackbar(
-          snackStyle: SnackStyle.FLOATING,
-          backgroundColor: getColorFromHex(COLOR_3),
-          colorText: Colors.white,
-          'Friend Successfully Added',
-          '${response['DisplayName']} Have been Added To Your Friend List!');
+      showSuccessSnackbar('Friend Request Sent',
+          'Friend Request Sent to ${response['DisplayName']}!');
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(
-          snackStyle: SnackStyle.FLOATING,
-          backgroundColor: getColorFromHex(COLOR_5),
-          colorText: Colors.white,
-          unexpectedErrorText,
-          e.toString());
+      showUnexpectedErrorSnackbar(e);
     }
   }
 
@@ -168,7 +164,8 @@ class FriendProvider {
       }).maybeSingle() as Map?;
 
       if (response == null) {
-        throw Exception('Friend Already Accepted');
+        showErrorSnackbar('Friend Already Accepted');
+        return;
       }
 
       await supabaseClient
@@ -180,14 +177,11 @@ class FriendProvider {
         'FriendId': userModel.Id,
         'IsRequestPending': false
       });
+
+      showSuccessSnackbar('Friend Request Accepted',
+          '${userModel.DisplayName} Added To Your Friend List');
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(
-          snackStyle: SnackStyle.FLOATING,
-          backgroundColor: getColorFromHex(COLOR_5),
-          colorText: Colors.white,
-          unexpectedErrorText,
-          e.toString());
+      showUnexpectedErrorSnackbar(e);
     }
   }
 
@@ -201,21 +195,18 @@ class FriendProvider {
       }).maybeSingle() as Map?;
 
       if (response == null) {
-        throw Exception('Friend Already Deleted');
+        showErrorSnackbar('Friend Already Deleted');
+        return;
       }
-      // print(response['Id']);
       await supabaseClient
           .from('UserFriendList')
           .delete()
           .match({'Id': response['Id']});
+
+      showSuccessSnackbar(
+          'Friend Rejected', 'You reject ${userModel.DisplayName} as Friend');
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(
-          snackStyle: SnackStyle.FLOATING,
-          backgroundColor: getColorFromHex(COLOR_5),
-          colorText: Colors.white,
-          unexpectedErrorText,
-          e.toString());
+      showUnexpectedErrorSnackbar(e);
     }
   }
 
@@ -229,7 +220,8 @@ class FriendProvider {
       }).maybeSingle() as Map?;
 
       if (checker == null) {
-        throw Exception('Friend Already Deleted');
+        showErrorSnackbar('Friend Already Deleted');
+        return;
       }
 
       await supabaseClient.from('UserFriendList').delete().match({
@@ -237,14 +229,11 @@ class FriendProvider {
         'FriendId': userModel.Id,
         'IsRequestPending': true,
       });
+
+      showSuccessSnackbar('Friend Request Deleted',
+          'Remove ${userModel.DisplayName} from Pending Request');
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(
-          snackStyle: SnackStyle.FLOATING,
-          backgroundColor: getColorFromHex(COLOR_5),
-          colorText: Colors.white,
-          unexpectedErrorText,
-          e.toString());
+      showUnexpectedErrorSnackbar(e);
     }
   }
 
@@ -262,7 +251,8 @@ class FriendProvider {
       }).maybeSingle() as Map?;
 
       if (link1 == null || link2 == null) {
-        throw Exception('what?');
+        showErrorSnackbar('Error Occured');
+        return;
       }
 
       await supabaseClient
@@ -273,14 +263,11 @@ class FriendProvider {
           .from('UserFriendList')
           .delete()
           .match({'Id': link2['Id']});
+
+      await showSuccessSnackbar('Friend Deleted Successfully',
+          '${userModel.DisplayName} Has Been Deleted from Your Friend List');
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(
-          snackStyle: SnackStyle.FLOATING,
-          backgroundColor: getColorFromHex(COLOR_5),
-          colorText: Colors.white,
-          unexpectedErrorText,
-          e.toString());
+      await showUnexpectedErrorSnackbar(e);
     }
   }
 }
