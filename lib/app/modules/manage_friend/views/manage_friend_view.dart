@@ -74,12 +74,19 @@ class ManageFriendView extends GetView<ManageFriendController> {
                               ),
                               imageFit: BoxFit.cover,
                             ),
-                            trailing: IconButton(
-                              icon: const Icon(Entypo.trash),
-                              onPressed: () {
-                                mtc.deletePendingRequest(
-                                    mtc.pendingFriendList[index]);
-                              },
+                            trailing: SizedBox(
+                              height: double.infinity,
+                              width: 20 * GOLDEN_RATIO,
+                              child: IconButton(
+                                icon: const Icon(
+                                  FontAwesome.cancel,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () {
+                                  mtc.deletePendingRequest(
+                                      mtc.pendingFriendList[index]);
+                                },
+                              ),
                             ),
                           ),
                         ),

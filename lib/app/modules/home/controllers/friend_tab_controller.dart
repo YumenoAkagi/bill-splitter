@@ -12,6 +12,12 @@ class FriendTabController extends GetxController {
     update();
   }
 
+  Future deleteFriend(UserModel userModel) async {
+    await friendProvider.deleteFriend(userModel);
+    friendList.clear();
+    getFriendList();
+  }
+
   @override
   void onReady() async {
     super.onReady();

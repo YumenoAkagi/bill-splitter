@@ -244,5 +244,39 @@ class FriendProvider {
     }
   }
 
-  Future deleteFriend() async {}
+  Future deleteFriend(UserModel userModel) async {
+    try {
+      final link1 = await supabaseClient.from('UserFriendList').select().match({
+        'UserId': supabaseClient.auth.currentUser!.id,
+        'FriendId': userModel.Id,
+        'IsRequestPending': false
+      }).maybeSingle() as Map?;
+      final link2 = await supabaseClient.from('UserFriendList').select().match({
+        'UserId': userModel.Id,
+        'FriendId': supabaseClient.auth.currentUser!.id,
+        'IsRequestPending': false
+      }).maybeSingle() as Map?;
+
+      if (link1 == null || link2 == null) {
+        throw Exception('what?');
+      }
+
+      await supabaseClient
+          .from('UserFriendList')
+          .delete()
+          .match({'Id': link1['Id']});
+      await supabaseClient
+          .from('UserFriendList')
+          .delete()
+          .match({'Id': link2['Id']});
+    } catch (e) {
+      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
+      Get.snackbar(
+          snackStyle: SnackStyle.FLOATING,
+          backgroundColor: getColorFromHex(COLOR_5),
+          colorText: Colors.white,
+          unexpectedErrorText,
+          e.toString());
+    }
+  }
 }
