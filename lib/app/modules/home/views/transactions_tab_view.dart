@@ -20,8 +20,14 @@ class TransactionsTabView extends StatelessWidget {
       onRefresh: controller.getActiveTransactions,
       child: GetBuilder<TransactionsTabController>(
         builder: (ttc) => ttc.headersList.isEmpty
-            ? const Center(
-                child: Text('No data'),
+            ? SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: SizedBox(
+                  height: Get.height * 0.5 * GOLDEN_RATIO,
+                  child: const Center(
+                    child: Text('No data'),
+                  ),
+                ),
               )
             : Container(
                 margin: const EdgeInsets.symmetric(

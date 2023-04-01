@@ -50,8 +50,8 @@ class TransactionsTabController extends GetxController {
   }
 
   @override
-  void onInit() {
-    super.onInit();
+  void onReady() {
+    super.onReady();
     getActiveTransactions();
   }
 }
