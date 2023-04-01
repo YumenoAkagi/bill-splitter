@@ -1,3 +1,4 @@
+import 'package:bill_splitter/app/utils/functions_helper.dart';
 import 'package:get/get.dart';
 
 import '../../../models/transaction_header_model.dart';
@@ -16,6 +17,8 @@ class TransactionsTabController extends GetxController {
   }
 
   Future deleteTransaction(String id) async {
+    final deletedHeader = headersList.firstWhere((header) => header.id == id);
+    int deletedIdx = -1;
     try {
       await supabaseClient
           .from('TransactionMember')
@@ -23,13 +26,15 @@ class TransactionsTabController extends GetxController {
           .eq('TransactionId', id);
 
       await supabaseClient.from('TransactionHeader').delete().eq('Id', id);
-      headersList.removeWhere((header) => header.id == id);
+      deletedIdx = headersList.indexWhere((header) => header.id == id);
+      headersList.removeAt(deletedIdx);
 
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar('Success', 'Transaction successfully deleted');
+      update();
+
+      showSuccessSnackbar('Success', 'Transaction successfully deleted');
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
+      headersList.insert(deletedIdx, deletedHeader);
+      showUnexpectedErrorSnackbar(e);
     }
   }
 

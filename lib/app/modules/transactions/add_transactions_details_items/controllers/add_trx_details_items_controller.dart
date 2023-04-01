@@ -1,5 +1,6 @@
 import 'package:bill_splitter/app/providers/transactions_provider.dart';
 import 'package:bill_splitter/app/routes/app_pages.dart';
+import 'package:bill_splitter/app/utils/functions_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:get/get.dart';
@@ -13,13 +14,38 @@ import '../../../../utils/validations_helper.dart';
 class AddTrxDetailsItemsController extends GetxController {
   final trxHeader = Get.arguments as TransactionHeader;
   final trxRepo = TransactionsProvider();
-  List<TransactionDetailItemModel> detailItemsList = [];
+  RxList<TransactionDetailItemModel> detailItemsList =
+      List<TransactionDetailItemModel>.empty(growable: true).obs;
   RxBool makeGrandTotalSameAsSubTotal = true.obs;
+  RxDouble subtotal = 0.0.obs;
 
   Future getAllDetailItems() async {
-    detailItemsList = await trxRepo.fetchDetailsItems(trxHeader.id);
-
+    detailItemsList.value = await trxRepo.fetchDetailsItems(trxHeader.id);
+    recalculateSubtotal();
     update();
+  }
+
+  void recalculateSubtotal() {
+    subtotal.value =
+        detailItemsList.value.fold(0, (prev, e) => prev + e.totalPrice);
+  }
+
+  Future<void> removeItem(int id) async {
+    TransactionDetailItemModel deletedItem =
+        detailItemsList.firstWhere((item) => item.id == id);
+    int deletedIdx = -1;
+    try {
+      await supabaseClient.from('TransactionDetail').delete().eq('Id', id);
+      deletedIdx = detailItemsList.indexWhere((item) => item.id == id);
+      detailItemsList.removeAt(deletedIdx);
+      recalculateSubtotal();
+      update();
+
+      showSuccessSnackbar('Success', 'Item successfully deleted.');
+    } catch (e) {
+      detailItemsList.insert(deletedIdx, deletedItem);
+      showUnexpectedErrorSnackbar(e);
+    }
   }
 
   Future<void> askAddItemMethod() async {

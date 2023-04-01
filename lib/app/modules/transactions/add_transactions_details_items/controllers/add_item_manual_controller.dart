@@ -1,3 +1,4 @@
+import 'package:bill_splitter/app/utils/functions_helper.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -31,20 +32,20 @@ class AddItemManualController extends GetxController {
         'TotalPrice': totalPriceRaw
       }).select();
 
-      addTrxController.detailItemsList.add(
+      addTrxController.detailItemsList.value.add(
         TransactionDetailItemModel(
           id: response[0]['Id'],
           transactionId: response[0]['TransactionId'],
           name: response[0]['Name'],
-          qty: double.parse(response[0]['Quantity']),
-          price: double.parse(response[0]['Price']),
-          totalPrice: double.parse(response[0]['TotalPrice']),
+          qty: response[0]['Quantity'],
+          price: response[0]['Price'],
+          totalPrice: response[0]['TotalPrice'],
         ),
       );
-
+      addTrxController.recalculateSubtotal();
       addTrxController.update();
-
       Get.back();
+      await showSuccessSnackbar('Success', 'Item successfully added!');
     } catch (e) {
       if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
       Get.snackbar(unexpectedErrorText, e.toString());

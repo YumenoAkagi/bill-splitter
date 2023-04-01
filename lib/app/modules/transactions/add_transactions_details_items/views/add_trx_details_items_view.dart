@@ -41,8 +41,30 @@ class AddTrxDetailsItemsView extends GetView<AddTrxDetailsItemsController> {
                           ),
                         )
                       : ListView.builder(
-                          itemCount: controller.detailItemsList.length,
-                          itemBuilder: (context, index) => ListTile(),
+                          itemCount: trxdc.detailItemsList.length,
+                          itemBuilder: (context, index) => ListTile(
+                            onLongPress: () async {
+                              await showConfirmDialog(
+                                context,
+                                'Delete selected item?',
+                                negativeText: 'Cancel',
+                                positiveText: 'Delete',
+                                buttonColor: Colors.red,
+                                onAccept: () async {
+                                  await trxdc.removeItem(
+                                      trxdc.detailItemsList[index].id);
+                                },
+                              );
+                            },
+                            title: Text(trxdc.detailItemsList[index].name),
+                            subtitle: Text(
+                              '${trxdc.detailItemsList[index].qty} x ${moneyFormatter.format(trxdc.detailItemsList[index].price)}',
+                            ),
+                            trailing: Text(
+                              moneyFormatter.format(
+                                  trxdc.detailItemsList[index].totalPrice),
+                            ),
+                          ),
                         ),
                 ),
               ),
@@ -58,13 +80,12 @@ class AddTrxDetailsItemsView extends GetView<AddTrxDetailsItemsController> {
                       fontSize: 9 * GOLDEN_RATIO,
                     ),
                   ),
-                  Text(
-                    moneyFormatter.format(
-                      controller.detailItemsList
-                          .fold(0.0, (prev, e) => prev + e.totalPrice),
-                    ),
-                    style: Get.textTheme.labelSmall?.copyWith(
-                      fontSize: 9 * GOLDEN_RATIO,
+                  Obx(
+                    () => Text(
+                      moneyFormatter.format(controller.subtotal.value),
+                      style: Get.textTheme.labelSmall?.copyWith(
+                        fontSize: 9 * GOLDEN_RATIO,
+                      ),
                     ),
                   ),
                 ],

@@ -1,5 +1,5 @@
 class TransactionDetailItemModel {
-  const TransactionDetailItemModel({
+  TransactionDetailItemModel({
     required this.id,
     required this.transactionId,
     required this.name,
@@ -8,10 +8,10 @@ class TransactionDetailItemModel {
     required this.totalPrice,
   });
 
-  final String id;
-  final String transactionId;
-  final String name;
-  final num qty;
-  final num price;
-  final num totalPrice;
+  int id;
+  String transactionId;
+  String name;
+  num qty;
+  num price;
+  num totalPrice;
 }

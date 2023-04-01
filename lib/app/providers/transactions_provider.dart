@@ -79,16 +79,17 @@ class TransactionsProvider {
           .select()
           .eq('TransactionId', headerId);
 
-      response.forEach((e) {
+      response.forEach((item) {
+        final newTrx = TransactionDetailItemModel(
+          id: item['Id'],
+          transactionId: item['TransactionId'],
+          name: item['Name'],
+          qty: item['Quantity'],
+          price: item['Price'],
+          totalPrice: item['TotalPrice'],
+        );
         itemsList.add(
-          TransactionDetailItemModel(
-            id: e['Id'],
-            transactionId: e['TransactionId'],
-            name: e['Name'],
-            qty: double.parse(e['Quantity']),
-            price: double.parse(e['Price']),
-            totalPrice: double.parse(e['Quantity']) * double.parse(e['Price']),
-          ),
+          newTrx,
         );
       });
     } catch (e) {
