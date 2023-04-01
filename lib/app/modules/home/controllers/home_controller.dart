@@ -157,10 +157,14 @@ class HomeController extends GetxController {
     // );
   }
 
+  void recalcFriendRequest() async {
+    requestCount.value = await friendProvider.getRequestCount() ?? 0;
+  }
+
   @override
   void onReady() async {
     super.onReady();
-    requestCount.value = await friendProvider.getRequestCount() ?? 0;
+    recalcFriendRequest();
     isDarkMode.value = Get.isDarkMode ? true : false;
   }
 
