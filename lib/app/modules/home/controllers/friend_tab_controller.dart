@@ -6,7 +6,7 @@ import '../../../providers/friend_provider.dart';
 class FriendTabController extends GetxController {
   List<UserModel> friendList = [];
   final friendProvider = FriendProvider();
-  Future _getFriendList() async {
+  Future getFriendList() async {
     final friendListFromRepo = await friendProvider.getFriendList();
     friendList = friendListFromRepo;
     update();
@@ -15,6 +15,6 @@ class FriendTabController extends GetxController {
   @override
   void onReady() async {
     super.onReady();
-    await _getFriendList();
+    await getFriendList();
   }
 }

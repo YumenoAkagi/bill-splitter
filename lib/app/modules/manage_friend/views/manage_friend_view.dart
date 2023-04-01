@@ -132,7 +132,10 @@ class ManageFriendView extends GetView<ManageFriendController> {
                                 height: double.infinity,
                                 width: 20 * GOLDEN_RATIO,
                                 child: IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    mtc.acceptRequest(
+                                        mtc.requestFriendList[index]);
+                                  },
                                   icon: const Icon(
                                     FontAwesome.ok,
                                     color: Colors.green,
@@ -144,7 +147,7 @@ class ManageFriendView extends GetView<ManageFriendController> {
                                 width: 20 * GOLDEN_RATIO,
                                 child: IconButton(
                                   onPressed: () {
-                                    mtc.rejectReqeust(
+                                    mtc.rejectRequest(
                                         mtc.requestFriendList[index]);
                                   },
                                   icon: const Icon(

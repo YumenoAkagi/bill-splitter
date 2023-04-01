@@ -154,7 +154,38 @@ class FriendProvider {
     }
   }
 
-  Future acceptRequest(UserModel userModel) async {}
+  Future acceptRequest(UserModel userModel) async {
+    try {
+      final response =
+          await supabaseClient.from('UserFriendList').select().match({
+        'IsRequestPending': true,
+        'FriendId': supabaseClient.auth.currentUser!.id,
+        'UserId': userModel.Id
+      }).maybeSingle() as Map?;
+
+      if (response == null) {
+        throw Exception('Friend Already Accepted');
+      }
+
+      await supabaseClient
+          .from('UserFriendList')
+          .update({'IsRequestPending': false}).match({'Id': response['Id']});
+
+      await supabaseClient.from('UserFriendList').insert({
+        'UserId': supabaseClient.auth.currentUser!.id,
+        'FriendId': userModel.Id,
+        'IsRequestPending': false
+      });
+    } catch (e) {
+      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
+      Get.snackbar(
+          snackStyle: SnackStyle.FLOATING,
+          backgroundColor: getColorFromHex(COLOR_5),
+          colorText: Colors.white,
+          unexpectedErrorText,
+          e.toString());
+    }
+  }
 
   Future rejectRequest(UserModel userModel) async {
     try {
@@ -212,4 +243,6 @@ class FriendProvider {
           e.toString());
     }
   }
+
+  Future deleteFriend() async {}
 }

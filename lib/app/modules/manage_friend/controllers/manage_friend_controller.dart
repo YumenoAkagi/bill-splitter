@@ -1,3 +1,4 @@
+import 'package:bill_splitter/app/modules/home/controllers/friend_tab_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -32,11 +33,15 @@ class ManageFriendController extends GetxController {
 
   Future acceptRequest(UserModel userModel) async {
     await friendProvider.acceptRequest(userModel);
+    requestFriendList.clear();
+    getRequestFriendList();
+    var ftc = Get.find<FriendTabController>();
+    ftc.getFriendList();
   }
 
-  Future rejectReqeust(UserModel userModel) async {
+  Future rejectRequest(UserModel userModel) async {
     await friendProvider.rejectRequest(userModel);
-    pendingFriendList.clear();
+    requestFriendList.clear;
     getRequestFriendList();
   }
 
