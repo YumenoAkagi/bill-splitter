@@ -1,4 +1,4 @@
-import 'package:bill_splitter/app/models/user_model.dart';
+import 'user_model.dart';
 
 class TransactionHeader {
   TransactionHeader({

@@ -1,11 +1,3 @@
-import 'package:bill_splitter/app/modules/configs/bindings/configs_binding.dart';
-import 'package:bill_splitter/app/modules/configs/views/configs_view.dart';
-import 'package:bill_splitter/app/modules/transactions/add_transactions_details_items/bindings/add_item_manual_binding.dart';
-import 'package:bill_splitter/app/modules/transactions/add_transactions_details_items/bindings/add_trx_details_items_binding.dart';
-import 'package:bill_splitter/app/modules/transactions/add_transactions_details_items/views/add_item_manual_view.dart';
-import 'package:bill_splitter/app/modules/transactions/add_transactions_details_items/views/add_trx_details_items_view.dart';
-import 'package:bill_splitter/app/modules/transactions/history_transactions/bindings/history_transactions_binding.dart';
-import 'package:bill_splitter/app/modules/transactions/history_transactions/views/history_transactions_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/auth/email_sent/bindings/email_sent_binding.dart';
@@ -20,12 +12,20 @@ import '../modules/auth/reset_password/bindings/reset_password_binding.dart';
 import '../modules/auth/reset_password/views/reset_password_view.dart';
 import '../modules/auth/walkthrough/bindings/walkthrough_binding.dart';
 import '../modules/auth/walkthrough/views/walkthrough_view.dart';
+import '../modules/configs/bindings/configs_binding.dart';
+import '../modules/configs/views/configs_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/manage_friend/bindings/manage_friend_binding.dart';
 import '../modules/manage_friend/views/manage_friend_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules/transactions/add_transactions_details_items/bindings/add_item_manual_binding.dart';
+import '../modules/transactions/add_transactions_details_items/bindings/add_trx_details_items_binding.dart';
+import '../modules/transactions/add_transactions_details_items/views/add_item_manual_view.dart';
+import '../modules/transactions/add_transactions_details_items/views/add_trx_details_items_view.dart';
+import '../modules/transactions/history_transactions/bindings/history_transactions_binding.dart';
+import '../modules/transactions/history_transactions/views/history_transactions_view.dart';
 
 part 'app_routes.dart';
 

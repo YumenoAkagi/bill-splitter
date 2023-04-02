@@ -9,22 +9,31 @@ import '../../home/controllers/home_controller.dart';
 class ManageFriendController extends GetxController {
   final friendProvider = FriendProvider();
   final homeController = Get.find<HomeController>();
+  final friendEmailController = TextEditingController();
   List<UserModel> pendingFriendList = [];
   List<UserModel> requestFriendList = [];
-  final friendEmailController = TextEditingController();
 
-  Future getRequestFriendList() async {
-    final requestFriendListFromRepo =
-        await friendProvider.getRequestFriendList();
-    requestFriendList = requestFriendListFromRepo;
+  bool isFetching = false;
+
+  void _toggleFetchingStatus(bool newStat) {
+    isFetching = newStat;
     update();
   }
 
+  Future getRequestFriendList() async {
+    _toggleFetchingStatus(true);
+    final requestFriendListFromRepo =
+        await friendProvider.getRequestFriendList();
+    requestFriendList = requestFriendListFromRepo;
+    _toggleFetchingStatus(false);
+  }
+
   Future getPendingFriendList() async {
+    _toggleFetchingStatus(true);
     final pendingFriendListFromRepo =
         await friendProvider.getPendingFriendList();
     pendingFriendList = pendingFriendListFromRepo;
-    update();
+    _toggleFetchingStatus(false);
   }
 
   Future deletePendingRequest(UserModel userModel) async {

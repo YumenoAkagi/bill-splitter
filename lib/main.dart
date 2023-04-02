@@ -1,4 +1,3 @@
-import 'package:bill_splitter/app/utils/app_themedata_dark.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -8,6 +7,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'app/routes/app_pages.dart';
 import 'app/utils/app_constants.dart';
+import 'app/utils/app_themedata_dark.dart';
 import 'app/utils/app_themedata_light.dart';
 
 void main() async {

@@ -1,15 +1,13 @@
-import 'package:bill_splitter/app/providers/transactions_provider.dart';
-import 'package:bill_splitter/app/routes/app_pages.dart';
-import 'package:bill_splitter/app/utils/functions_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:get/get.dart';
-import 'package:nb_utils/nb_utils.dart';
 
 import '../../../../models/transaction_detail_item_model.dart';
 import '../../../../models/transaction_header_model.dart';
+import '../../../../providers/transactions_provider.dart';
+import '../../../../routes/app_pages.dart';
 import '../../../../utils/app_constants.dart';
-import '../../../../utils/validations_helper.dart';
+import '../../../../utils/functions_helper.dart';
 
 class AddTrxDetailsItemsController extends GetxController {
   final trxHeader = Get.arguments as TransactionHeader;

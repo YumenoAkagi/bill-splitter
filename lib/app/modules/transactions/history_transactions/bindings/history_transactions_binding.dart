@@ -1,5 +1,6 @@
-import 'package:bill_splitter/app/modules/transactions/history_transactions/controllers/history_transactions_controller.dart';
 import 'package:get/get.dart';
+
+import '../controllers/history_transactions_controller.dart';
 
 class HistoryTransactionsBinding extends Bindings {
   @override

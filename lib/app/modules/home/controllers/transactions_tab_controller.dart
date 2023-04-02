@@ -1,11 +1,10 @@
-import 'package:bill_splitter/app/utils/functions_helper.dart';
 import 'package:get/get.dart';
 
 import '../../../models/transaction_header_model.dart';
 import '../../../providers/transactions_provider.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/app_constants.dart';
-import '../../../utils/validations_helper.dart';
+import '../../../utils/functions_helper.dart';
 
 class TransactionsTabController extends GetxController {
   final TransactionsProvider _transactionsRepo = TransactionsProvider();

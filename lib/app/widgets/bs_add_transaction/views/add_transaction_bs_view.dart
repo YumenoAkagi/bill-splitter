@@ -1,4 +1,3 @@
-import '../../../utils/validations_helper.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
@@ -8,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../../utils/app_constants.dart';
+import '../../../utils/validations_helper.dart';
 import '../controllers/add_transaction_bs_controller.dart';
 
 class AddTransactionBottomSheet extends StatelessWidget {

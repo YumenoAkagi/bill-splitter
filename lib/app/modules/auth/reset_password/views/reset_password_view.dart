@@ -1,10 +1,10 @@
-import 'package:bill_splitter/app/utils/validations_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/app_constants.dart';
+import '../../../../utils/validations_helper.dart';
 import '../controllers/reset_password_controller.dart';
 
 class ResetPasswordView extends GetView<ResetPasswordController> {

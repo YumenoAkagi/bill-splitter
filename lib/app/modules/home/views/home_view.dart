@@ -3,7 +3,6 @@ import 'package:fluttericon/entypo_icons.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
 
