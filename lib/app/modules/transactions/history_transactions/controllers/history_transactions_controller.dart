@@ -26,4 +26,10 @@ class HistoryTransactionsController extends GetxController {
       _toggleFetchingStatus(false);
     }
   }
+
+  @override
+  void onReady() async {
+    super.onReady();
+    await getAllHistoryTransactions();
+  }
 }
