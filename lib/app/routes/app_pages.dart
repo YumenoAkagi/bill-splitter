@@ -4,6 +4,8 @@ import 'package:bill_splitter/app/modules/transactions/add_transactions_details_
 import 'package:bill_splitter/app/modules/transactions/add_transactions_details_items/bindings/add_trx_details_items_binding.dart';
 import 'package:bill_splitter/app/modules/transactions/add_transactions_details_items/views/add_item_manual_view.dart';
 import 'package:bill_splitter/app/modules/transactions/add_transactions_details_items/views/add_trx_details_items_view.dart';
+import 'package:bill_splitter/app/modules/transactions/history_transactions/bindings/history_transactions_binding.dart';
+import 'package:bill_splitter/app/modules/transactions/history_transactions/views/history_transactions_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/auth/email_sent/bindings/email_sent_binding.dart';
@@ -86,6 +88,11 @@ class AppPages {
       name: _Paths.CONFIGS,
       page: () => const ConfigsView(),
       binding: ConfigsBinding(),
+    ),
+    GetPage(
+      name: _Paths.HISTORYTRX,
+      page: () => const HistoryTransactionsView(),
+      binding: HistoryTransactionsBinding(),
     ),
     GetPage(
       name: _Paths.ADDTRXITEM,

@@ -8,7 +8,7 @@ import '../utils/app_constants.dart';
 import '../utils/functions_helper.dart';
 
 class TransactionsProvider {
-  Future<List<TransactionHeader>> getActiveTransactions() async {
+  Future<List<TransactionHeader>> getTransactionHeaders(bool isComplete) async {
     final List<TransactionHeader> headersList = [];
     try {
       final response = await supabaseClient

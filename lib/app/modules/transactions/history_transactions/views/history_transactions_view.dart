@@ -18,47 +18,50 @@ class HistoryTransactionsView extends GetView<HistoryTransactionsController> {
         child: RefreshIndicator(
           onRefresh: controller.getAllHistoryTransactions,
           child: GetBuilder<HistoryTransactionsController>(
-            builder: (htc) => htc.historyTransactionsList.isEmpty
-                ? const Center(
-                    child: Text('No Data'),
-                  )
-                : Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: SAFEAREA_CONTAINER_MARGIN_H,
-                      vertical: SAFEAREA_CONTAINER_MARGIN_V,
-                    ),
-                    child: ListView.builder(
-                      physics: const AlwaysScrollableScrollPhysics(),
-                      itemCount: htc.historyTransactionsList.length,
-                      itemBuilder: (context, index) => ListTile(
-                        title: Text(
-                          htc.historyTransactionsList[index].name,
-                          style: Get.textTheme.labelMedium,
+            builder: (htc) => htc.isFetching
+                ? showFetchingScreen()
+                : htc.historyTransactionsList.isEmpty
+                    ? const Center(
+                        child: Text('No Data'),
+                      )
+                    : Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: SAFEAREA_CONTAINER_MARGIN_H,
+                          vertical: SAFEAREA_CONTAINER_MARGIN_V,
                         ),
-                        subtitle: Text(
-                          htc.historyTransactionsList[index].date,
-                          style: Get.textTheme.labelSmall,
-                        ),
-                        trailing: Column(
-                          children: [
-                            Text(
-                              'Total',
-                              style: Get.textTheme.labelMedium?.copyWith(
-                                fontSize: 9 * GOLDEN_RATIO,
-                              ),
+                        child: ListView.builder(
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          itemCount: htc.historyTransactionsList.length,
+                          itemBuilder: (context, index) => ListTile(
+                            title: Text(
+                              htc.historyTransactionsList[index].name,
+                              style: Get.textTheme.labelMedium,
                             ),
-                            Text(
-                              moneyFormatter.format(htc
-                                  .historyTransactionsList[index].grandTotal),
-                              style: Get.textTheme.labelSmall?.copyWith(
-                                fontSize: 12 * GOLDEN_RATIO,
-                              ),
-                            )
-                          ],
+                            subtitle: Text(
+                              htc.historyTransactionsList[index].date,
+                              style: Get.textTheme.labelSmall,
+                            ),
+                            trailing: Column(
+                              children: [
+                                Text(
+                                  'Total',
+                                  style: Get.textTheme.labelMedium?.copyWith(
+                                    fontSize: 9 * GOLDEN_RATIO,
+                                  ),
+                                ),
+                                Text(
+                                  moneyFormatter.format(htc
+                                      .historyTransactionsList[index]
+                                      .grandTotal),
+                                  style: Get.textTheme.labelSmall?.copyWith(
+                                    fontSize: 12 * GOLDEN_RATIO,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
           ),
         ),
       ),

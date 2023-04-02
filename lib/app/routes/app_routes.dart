@@ -16,6 +16,7 @@ abstract class Routes {
   static const CONFIGS = _Paths.CONFIGS;
   static const ADDTRXITEM = _Paths.ADDTRXITEM;
   static const ADDITEMMANUAL = _Paths.ADDITEMMANUAL;
+  static const HISTORYTRX = _Paths.HISTORYTRX;
 }
 
 abstract class _Paths {
@@ -31,6 +32,7 @@ abstract class _Paths {
   static const MANAGE_FRIEND = '/manage-friend';
   static const PASSWORD_RECOVERY = '/recovery-password';
   static const CONFIGS = '/configs';
+  static const HISTORYTRX = '/transactions-history';
   static const ADDTRXITEM = '/add-trx-details-items';
   static const ADDITEMMANUAL = '/add-item-manual';
 }

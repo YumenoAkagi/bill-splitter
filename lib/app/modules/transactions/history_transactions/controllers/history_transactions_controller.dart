@@ -8,11 +8,22 @@ class HistoryTransactionsController extends GetxController {
   final transactionsRepo = TransactionsProvider();
   List<TransactionHeader> historyTransactionsList = [];
 
+  bool isFetching = false;
+
+  void _toggleFetchingStatus(bool newStat) {
+    isFetching = newStat;
+    update();
+  }
+
   Future getAllHistoryTransactions() async {
     try {
-      update();
+      _toggleFetchingStatus(true);
+      historyTransactionsList =
+          await transactionsRepo.getTransactionHeaders(true);
     } catch (e) {
       showUnexpectedErrorSnackbar(e);
+    } finally {
+      _toggleFetchingStatus(false);
     }
   }
 }

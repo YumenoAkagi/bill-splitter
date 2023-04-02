@@ -20,21 +20,7 @@ class TransactionsTabView extends StatelessWidget {
       onRefresh: controller.getActiveTransactions,
       child: GetBuilder<TransactionsTabController>(
         builder: (ttc) => ttc.isFetching
-            ? Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(
-                      color: getColorFromHex(COLOR_1),
-                    ),
-                    Text(
-                      retrievingDataStatusTxt,
-                      style: Get.textTheme.labelSmall,
-                    ),
-                  ],
-                ),
-              )
+            ? showFetchingScreen()
             : ttc.headersList.isEmpty
                 ? SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(),

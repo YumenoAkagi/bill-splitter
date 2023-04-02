@@ -48,7 +48,9 @@ class HomeView extends GetView<HomeController> {
                       )
                     : controller.selectedTab.value == 1
                         ? IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed(Routes.HISTORYTRX);
+                            },
                             iconSize: 12 * GOLDEN_RATIO,
                             icon: const Icon(Entypo.back_in_time),
                             padding:

@@ -11,6 +11,24 @@ final moneyFormatter = NumberFormat.currency(
   symbol: 'Rp',
 );
 
+Widget showFetchingScreen() {
+  return Center(
+    child: Column(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CircularProgressIndicator(
+          color: getColorFromHex(COLOR_1),
+        ),
+        Text(
+          retrievingDataStatusTxt,
+          style: Get.textTheme.labelSmall,
+        ),
+      ],
+    ),
+  );
+}
+
 Future<void> showSuccessSnackbar(String title, String message) async {
   if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
   Get.snackbar(

@@ -20,7 +20,7 @@ class TransactionsTabController extends GetxController {
 
   Future getActiveTransactions() async {
     _toggleFetchingStatus(true);
-    headersList = await _transactionsRepo.getActiveTransactions();
+    headersList = await _transactionsRepo.getTransactionHeaders(false);
     _toggleFetchingStatus(false);
   }
 
