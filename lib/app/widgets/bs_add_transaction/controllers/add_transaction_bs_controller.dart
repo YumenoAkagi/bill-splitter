@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../utils/app_constants.dart';
-import '../../../utils/validations_helper.dart';
+import '../../../utils/functions_helper.dart';
 
 class AddTransactionBsController extends GetxController {
   final nameController = TextEditingController();
@@ -45,11 +45,9 @@ class AddTransactionBsController extends GetxController {
         Get.back();
       }
 
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar('Success', 'New Transaction successfully added.');
+      showSuccessSnackbar('Success', 'New Transaction successfully added.');
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
+      showUnexpectedErrorSnackbar(e);
     } finally {
       isLoading.value = false;
     }

@@ -1,10 +1,9 @@
-import 'package:bill_splitter/app/utils/functions_helper.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../../models/transaction_detail_item_model.dart';
 import '../../../../utils/app_constants.dart';
-import '../../../../utils/validations_helper.dart';
+import '../../../../utils/functions_helper.dart';
 import 'add_trx_details_items_controller.dart';
 
 class AddItemManualController extends GetxController {
@@ -47,8 +46,7 @@ class AddItemManualController extends GetxController {
       Get.back();
       await showSuccessSnackbar('Success', 'Item successfully added!');
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
+      showUnexpectedErrorSnackbar(e);
     } finally {
       isLoading.value = false;
     }

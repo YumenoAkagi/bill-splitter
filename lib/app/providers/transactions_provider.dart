@@ -1,11 +1,11 @@
-import 'package:bill_splitter/app/models/user_model.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../models/transaction_detail_item_model.dart';
 import '../models/transaction_header_model.dart';
+import '../models/user_model.dart';
 import '../utils/app_constants.dart';
-import '../utils/validations_helper.dart';
+import '../utils/functions_helper.dart';
 
 class TransactionsProvider {
   Future<List<TransactionHeader>> getActiveTransactions() async {
@@ -64,8 +64,7 @@ class TransactionsProvider {
         }
       });
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
+      showUnexpectedErrorSnackbar(e);
     }
     return headersList;
   }
@@ -93,8 +92,7 @@ class TransactionsProvider {
         );
       });
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
+      showUnexpectedErrorSnackbar(e);
     }
     return itemsList;
   }

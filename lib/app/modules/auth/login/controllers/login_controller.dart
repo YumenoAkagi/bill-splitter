@@ -7,7 +7,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../routes/app_pages.dart';
 import '../../../../utils/app_constants.dart';
-import '../../../../utils/validations_helper.dart';
+import '../../../../utils/functions_helper.dart';
 
 class LoginController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -33,11 +33,9 @@ class LoginController extends GetxController {
       await strg.write(SESSION_KEY, response.session?.persistSessionString);
       Get.offAllNamed(Routes.HOME);
     } on AuthException catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar('Error', e.message);
+      showErrorSnackbar(e.message);
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
+      showUnexpectedErrorSnackbar(e);
     } finally {
       isLoading.value = false;
     }

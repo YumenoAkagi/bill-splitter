@@ -10,7 +10,7 @@ import '../../../models/user_model.dart';
 import '../../../providers/user_provider.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/app_constants.dart';
-import '../../../utils/validations_helper.dart';
+import '../../../utils/functions_helper.dart';
 import 'dashboard_tab_controller.dart';
 
 class ProfileTabController extends GetxController {
@@ -72,8 +72,7 @@ class ProfileTabController extends GetxController {
         ProfilePicUrl: response[0]['ProfilePictureURL'],
       );
 
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar('Success', 'Profile successfully updated!');
+      showSuccessSnackbar('Success', 'Profile successfully updated!');
 
       recentDisplayName = updatedUser.DisplayName;
       isEdited.value = false;
@@ -81,8 +80,7 @@ class ProfileTabController extends GetxController {
       // refresh data on dashboard
       dashboardController.changeUserProfile(updatedUser);
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
+      showUnexpectedErrorSnackbar(e);
     } finally {
       isLoading.value = false;
     }
@@ -137,11 +135,9 @@ class ProfileTabController extends GetxController {
       userData.value = newUserData;
       dashboardController.changeUserProfile(newUserData);
 
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar('Success', 'Profile picture successfully changed!');
+      showSuccessSnackbar('Success', 'Profile picture successfully changed!');
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
+      showUnexpectedErrorSnackbar(e);
     } finally {
       isLoading.value = false;
     }

@@ -49,7 +49,7 @@ class AddTrxDetailsItemsView extends GetView<AddTrxDetailsItemsController> {
                                 'Delete selected item?',
                                 negativeText: 'Cancel',
                                 positiveText: 'Delete',
-                                buttonColor: Colors.red,
+                                buttonColor: Colors.red.shade700,
                                 onAccept: () async {
                                   await trxdc.removeItem(
                                       trxdc.detailItemsList[index].id);

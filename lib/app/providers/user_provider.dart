@@ -1,8 +1,6 @@
-import 'package:get/get.dart';
-
 import '../models/user_model.dart';
 import '../utils/app_constants.dart';
-import '../utils/validations_helper.dart';
+import '../utils/functions_helper.dart';
 
 class UserProvider {
   Future getUserProfile() async {
@@ -21,8 +19,7 @@ class UserProvider {
       );
       return userDataFromResponse;
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
+      showUnexpectedErrorSnackbar(e);
     }
   }
 }

@@ -14,29 +14,32 @@ final moneyFormatter = NumberFormat.currency(
 Future<void> showSuccessSnackbar(String title, String message) async {
   if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
   Get.snackbar(
-      snackStyle: SnackStyle.FLOATING,
-      backgroundColor: getColorFromHex(COLOR_5),
-      colorText: Colors.white,
-      title,
-      message);
+    snackStyle: SnackStyle.FLOATING,
+    backgroundColor: getColorFromHex(COLOR_5),
+    colorText: Colors.white,
+    title,
+    message,
+  );
 }
 
 Future<void> showUnexpectedErrorSnackbar(Object e) async {
   if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
   Get.snackbar(
-      snackStyle: SnackStyle.FLOATING,
-      backgroundColor: getColorFromHex(COLOR_5),
-      colorText: Colors.white,
-      unexpectedErrorText,
-      e.toString());
+    snackStyle: SnackStyle.FLOATING,
+    backgroundColor: Colors.red.shade700,
+    colorText: Colors.white,
+    unexpectedErrorText,
+    e.toString(),
+  );
 }
 
 Future<void> showErrorSnackbar(String message) async {
   if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
   Get.snackbar(
-      snackStyle: SnackStyle.FLOATING,
-      backgroundColor: getColorFromHex(COLOR_5),
-      colorText: Colors.white,
-      'Error',
-      message);
+    snackStyle: SnackStyle.FLOATING,
+    backgroundColor: Colors.red.shade700,
+    colorText: Colors.white,
+    'Error',
+    message,
+  );
 }

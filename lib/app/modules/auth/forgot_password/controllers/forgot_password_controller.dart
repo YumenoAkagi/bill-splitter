@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../../routes/app_pages.dart';
 import '../../../../utils/app_constants.dart';
-import '../../../../utils/validations_helper.dart';
+import '../../../../utils/functions_helper.dart';
 
 class ForgotPasswordController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -25,8 +25,7 @@ class ForgotPasswordController extends GetxController {
       );
       Get.offAllNamed(Routes.RECOVERY_EMAIL_SENT);
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
+      showUnexpectedErrorSnackbar(e);
     } finally {
       isLoading.value = false;
     }

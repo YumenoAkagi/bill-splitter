@@ -5,6 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../routes/app_pages.dart';
 import '../../../utils/app_constants.dart';
+import '../../../utils/functions_helper.dart';
 
 class SplashController extends GetxController {
   final strg = Get.find<GetStorage>();
@@ -27,8 +28,7 @@ class SplashController extends GetxController {
       }
     } on AuthException catch (_) {
       // get back to login page when refresh token is expired
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar('Error', 'Session Expired');
+      showErrorSnackbar('Session expired');
       Get.offNamed(Routes.LOGIN);
     }
   }

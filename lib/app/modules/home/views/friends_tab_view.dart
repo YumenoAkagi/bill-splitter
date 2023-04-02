@@ -42,7 +42,7 @@ class FriendsTabView extends StatelessWidget {
                       background: Container(
                         padding:
                             const EdgeInsets.only(right: 10 * GOLDEN_RATIO),
-                        color: Colors.red,
+                        color: Colors.red.shade700,
                         child: const Align(
                           alignment: Alignment.centerRight,
                           child: Icon(
@@ -55,7 +55,7 @@ class FriendsTabView extends StatelessWidget {
                         bool confirmDelete = false;
                         await showConfirmDialog(context,
                             'Delete ${ftc.friendList[index].DisplayName}?\nThis action cannot be undone.',
-                            buttonColor: Colors.red,
+                            buttonColor: Colors.red.shade700,
                             negativeText: 'Cancel',
                             positiveText: 'Delete', onAccept: () {
                           confirmDelete = true;

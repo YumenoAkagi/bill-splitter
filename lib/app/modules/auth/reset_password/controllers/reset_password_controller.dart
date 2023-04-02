@@ -4,7 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../routes/app_pages.dart';
 import '../../../../utils/app_constants.dart';
-import '../../../../utils/validations_helper.dart';
+import '../../../../utils/functions_helper.dart';
 
 class ResetPasswordController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -29,13 +29,11 @@ class ResetPasswordController extends GetxController {
         password: newPasswordController.text,
       ));
 
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar('Success',
+      showSuccessSnackbar('Success',
           'Password successfully changed. Try login with your new password.');
       Get.offNamed(Routes.LOGIN);
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
+      showUnexpectedErrorSnackbar(e);
     } finally {
       isLoading.value = true;
     }

@@ -1,8 +1,8 @@
-import 'package:bill_splitter/app/providers/transactions_provider.dart';
 import 'package:get/get.dart';
 
 import '../../../../models/transaction_header_model.dart';
-import '../../../../utils/validations_helper.dart';
+import '../../../../providers/transactions_provider.dart';
+import '../../../../utils/functions_helper.dart';
 
 class HistoryTransactionsController extends GetxController {
   final transactionsRepo = TransactionsProvider();
@@ -12,8 +12,7 @@ class HistoryTransactionsController extends GetxController {
     try {
       update();
     } catch (e) {
-      if (Get.isSnackbarOpen) await Get.closeCurrentSnackbar();
-      Get.snackbar(unexpectedErrorText, e.toString());
+      showUnexpectedErrorSnackbar(e);
     }
   }
 }

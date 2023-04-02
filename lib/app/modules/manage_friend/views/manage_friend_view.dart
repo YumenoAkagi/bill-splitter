@@ -87,9 +87,9 @@ class ManageFriendView extends GetView<ManageFriendController> {
                                 height: double.infinity,
                                 width: 20 * GOLDEN_RATIO,
                                 child: IconButton(
-                                  icon: const Icon(
+                                  icon: Icon(
                                     FontAwesome.cancel,
-                                    color: Colors.red,
+                                    color: Colors.red.shade700,
                                   ),
                                   onPressed: () {
                                     mtc.deletePendingRequest(
@@ -175,9 +175,9 @@ class ManageFriendView extends GetView<ManageFriendController> {
                                       mtc.rejectRequest(
                                           mtc.requestFriendList[index]);
                                     },
-                                    icon: const Icon(
+                                    icon: Icon(
                                       FontAwesome.cancel,
-                                      color: Colors.red,
+                                      color: Colors.red.shade700,
                                     ),
                                   ),
                                 )

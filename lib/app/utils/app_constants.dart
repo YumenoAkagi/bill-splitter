@@ -37,3 +37,6 @@ const CONTAINER_MARGIN_VERTICAL = 25 * GOLDEN_RATIO;
 const SAFEAREA_CONTAINER_MARGIN_H = 15 * GOLDEN_RATIO;
 const SAFEAREA_CONTAINER_MARGIN_V = 5 * GOLDEN_RATIO;
 const TEXTFORMFIELD_BORDER_RAD = 8 * GOLDEN_RATIO;
+
+// text & labels
+const retrievingDataStatusTxt = 'Retrieving data...';

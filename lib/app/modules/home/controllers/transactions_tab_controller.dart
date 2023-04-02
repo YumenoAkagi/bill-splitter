@@ -11,9 +11,17 @@ class TransactionsTabController extends GetxController {
   final TransactionsProvider _transactionsRepo = TransactionsProvider();
   List<TransactionHeader> headersList = [];
 
-  Future getActiveTransactions() async {
-    headersList = await _transactionsRepo.getActiveTransactions();
+  bool isFetching = false;
+
+  void _toggleFetchingStatus(bool newStat) {
+    isFetching = newStat;
     update();
+  }
+
+  Future getActiveTransactions() async {
+    _toggleFetchingStatus(true);
+    headersList = await _transactionsRepo.getActiveTransactions();
+    _toggleFetchingStatus(false);
   }
 
   Future deleteTransaction(String id) async {
