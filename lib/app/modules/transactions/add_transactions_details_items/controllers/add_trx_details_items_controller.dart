@@ -47,12 +47,13 @@ class AddTrxDetailsItemsController extends GetxController {
       deletedIdx = detailItemsList.indexWhere((item) => item.id == id);
       detailItemsList.removeAt(deletedIdx);
       recalculateSubtotal();
-      _toggleFetchingStatus(false);
 
       showSuccessSnackbar('Success', 'Item successfully deleted.');
     } catch (e) {
       detailItemsList.insert(deletedIdx, deletedItem);
       showUnexpectedErrorSnackbar(e);
+    } finally {
+      _toggleFetchingStatus(false);
     }
   }
 
