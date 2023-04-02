@@ -18,11 +18,18 @@ class AddTrxDetailsItemsController extends GetxController {
       List<TransactionDetailItemModel>.empty(growable: true).obs;
   RxBool makeGrandTotalSameAsSubTotal = true.obs;
   RxDouble subtotal = 0.0.obs;
+  bool isFetching = false;
+
+  void _toggleFetchingStatus(bool newStat) {
+    isFetching = newStat;
+    update();
+  }
 
   Future getAllDetailItems() async {
+    _toggleFetchingStatus(true);
     detailItemsList.value = await trxRepo.fetchDetailsItems(trxHeader.id);
     recalculateSubtotal();
-    update();
+    _toggleFetchingStatus(false);
   }
 
   void recalculateSubtotal() {
@@ -35,11 +42,12 @@ class AddTrxDetailsItemsController extends GetxController {
         detailItemsList.firstWhere((item) => item.id == id);
     int deletedIdx = -1;
     try {
+      _toggleFetchingStatus(true);
       await supabaseClient.from('TransactionDetail').delete().eq('Id', id);
       deletedIdx = detailItemsList.indexWhere((item) => item.id == id);
       detailItemsList.removeAt(deletedIdx);
       recalculateSubtotal();
-      update();
+      _toggleFetchingStatus(false);
 
       showSuccessSnackbar('Success', 'Item successfully deleted.');
     } catch (e) {

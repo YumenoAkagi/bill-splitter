@@ -33,39 +33,41 @@ class AddTrxDetailsItemsView extends GetView<AddTrxDetailsItemsController> {
               ),
               Expanded(
                 child: GetBuilder<AddTrxDetailsItemsController>(
-                  builder: (trxdc) => trxdc.detailItemsList.isEmpty
-                      ? Center(
-                          child: Text(
-                            'No items added',
-                            style: Get.textTheme.labelSmall,
-                          ),
-                        )
-                      : ListView.builder(
-                          itemCount: trxdc.detailItemsList.length,
-                          itemBuilder: (context, index) => ListTile(
-                            onLongPress: () async {
-                              await showConfirmDialog(
-                                context,
-                                'Delete selected item?',
-                                negativeText: 'Cancel',
-                                positiveText: 'Delete',
-                                buttonColor: Colors.red.shade700,
-                                onAccept: () async {
-                                  await trxdc.removeItem(
-                                      trxdc.detailItemsList[index].id);
+                  builder: (trxdc) => trxdc.isFetching
+                      ? showFetchingScreen()
+                      : trxdc.detailItemsList.isEmpty
+                          ? Center(
+                              child: Text(
+                                'No items added',
+                                style: Get.textTheme.labelSmall,
+                              ),
+                            )
+                          : ListView.builder(
+                              itemCount: trxdc.detailItemsList.length,
+                              itemBuilder: (context, index) => ListTile(
+                                onLongPress: () async {
+                                  await showConfirmDialog(
+                                    context,
+                                    'Delete selected item?',
+                                    negativeText: 'Cancel',
+                                    positiveText: 'Delete',
+                                    buttonColor: Colors.red.shade700,
+                                    onAccept: () async {
+                                      await trxdc.removeItem(
+                                          trxdc.detailItemsList[index].id);
+                                    },
+                                  );
                                 },
-                              );
-                            },
-                            title: Text(trxdc.detailItemsList[index].name),
-                            subtitle: Text(
-                              '${trxdc.detailItemsList[index].qty} x ${moneyFormatter.format(trxdc.detailItemsList[index].price)}',
+                                title: Text(trxdc.detailItemsList[index].name),
+                                subtitle: Text(
+                                  '${trxdc.detailItemsList[index].qty} x ${moneyFormatter.format(trxdc.detailItemsList[index].price)}',
+                                ),
+                                trailing: Text(
+                                  moneyFormatter.format(
+                                      trxdc.detailItemsList[index].totalPrice),
+                                ),
+                              ),
                             ),
-                            trailing: Text(
-                              moneyFormatter.format(
-                                  trxdc.detailItemsList[index].totalPrice),
-                            ),
-                          ),
-                        ),
                 ),
               ),
               const SizedBox(
