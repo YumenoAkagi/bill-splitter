@@ -1,3 +1,4 @@
+import 'package:bill_splitter/app/modules/home/controllers/transactions_tab_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -43,6 +44,13 @@ class AddTransactionBsController extends GetxController {
       // close bottomsheet
       if (Get.isBottomSheetOpen != null && Get.isBottomSheetOpen!) {
         Get.back();
+      }
+
+      try {
+        final transactionTabController = Get.find<TransactionsTabController>();
+        await transactionTabController.getActiveTransactions();
+      } catch (e) {
+        // do nothing
       }
 
       showSuccessSnackbar('Success', 'New Transaction successfully added.');

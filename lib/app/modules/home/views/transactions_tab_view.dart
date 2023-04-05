@@ -98,7 +98,8 @@ class TransactionsTabView extends StatelessWidget {
                                 children: [
                                   Text(
                                     ttc.headersList[index].name,
-                                    style: Get.textTheme.labelMedium,
+                                    style: Get.textTheme.labelMedium
+                                        ?.copyWith(fontSize: 11 * GOLDEN_RATIO),
                                   ),
                                   Text(
                                     ttc.headersList[index].date,
@@ -175,7 +176,7 @@ class TransactionsTabView extends StatelessWidget {
                                               'Total',
                                               style: Get.textTheme.labelMedium
                                                   ?.copyWith(
-                                                fontSize: 9 * GOLDEN_RATIO,
+                                                fontSize: 7 * GOLDEN_RATIO,
                                               ),
                                             ),
                                             Text(
@@ -184,7 +185,7 @@ class TransactionsTabView extends StatelessWidget {
                                                   .grandTotal),
                                               style: Get.textTheme.labelSmall
                                                   ?.copyWith(
-                                                fontSize: 12 * GOLDEN_RATIO,
+                                                fontSize: 9 * GOLDEN_RATIO,
                                               ),
                                             ),
                                           ],

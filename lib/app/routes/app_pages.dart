@@ -1,3 +1,5 @@
+import 'package:bill_splitter/app/modules/transactions/add_transactions_detail_members/bindings/add_trx_detail_members_binding.dart';
+import 'package:bill_splitter/app/modules/transactions/add_transactions_detail_members/views/add_trx_detail_members_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/auth/email_sent/bindings/email_sent_binding.dart';
@@ -105,6 +107,11 @@ class AppPages {
           binding: AddItemManualBinding(),
         ),
       ],
+    ),
+    GetPage(
+      name: _Paths.ADDTRXMEMBERS,
+      page: () => const AddTrxDetailMembersView(),
+      binding: AddTrxDetailMembersBinding(),
     ),
   ];
 }

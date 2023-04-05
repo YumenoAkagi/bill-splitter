@@ -30,14 +30,14 @@ class EmailSentView extends StatelessWidget {
               ),
               Text(
                 'Email Sent',
-                style: Get.textTheme.titleLarge,
+                style: Get.textTheme.labelMedium,
               ),
               const SizedBox(
                 height: 5 * GOLDEN_RATIO,
               ),
               Text(
                 'Reset Password link has been sent. Please check your email to continue reset your password',
-                style: Get.textTheme.labelMedium,
+                style: Get.textTheme.labelSmall,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(

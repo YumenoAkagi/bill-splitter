@@ -27,6 +27,7 @@ const COLOR_DARK_MAIN = '#303030';
 
 // calculations and numbers
 const GOLDEN_RATIO = 1.61803398875;
+const INTMAXVALUE = 9007199254740991;
 
 // widget sizes
 const BUTTON_MINHEIGHT = 30 * GOLDEN_RATIO;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -10,6 +11,60 @@ final moneyFormatter = NumberFormat.currency(
   locale: 'id-ID',
   symbol: 'Rp',
 );
+
+class DecimalFormatter extends TextInputFormatter {
+  final int decimalDigits;
+  final double minVal;
+  final double maxVal;
+
+  DecimalFormatter(
+      {this.decimalDigits = 2, this.minVal = 0.0, required this.maxVal})
+      : assert(decimalDigits >= 0, minVal < maxVal);
+
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    String newText;
+
+    if (decimalDigits == 0) {
+      newText = newValue.text.replaceAll(RegExp('[^0-9]'), '');
+    } else {
+      newText = newValue.text.replaceAll(RegExp('[^0-9.]'), '');
+    }
+
+    if (newText.contains('.')) {
+      //in case if user's first input is "."
+      if (newText.trim() == '.') {
+        return newValue.copyWith(
+          text: '0.',
+          selection: const TextSelection.collapsed(offset: 2),
+        );
+      }
+      //in case if user tries to input multiple "."s or tries to input
+      //more than the decimal place
+      else if ((newText.split(".").length > 2) ||
+          (newText.split(".")[1].length > decimalDigits)) {
+        return oldValue;
+      }
+      return newValue;
+    }
+
+    double newDouble = double.parse(newText);
+    var selectionIndexFromTheRight =
+        newValue.text.length - newValue.selection.end;
+
+    String newString = NumberFormat("#,##0.##").format(newDouble);
+
+    return TextEditingValue(
+      text: newString,
+      selection: TextSelection.collapsed(
+        offset: newString.length - selectionIndexFromTheRight,
+      ),
+    );
+  }
+}
 
 Widget showFetchingScreen() {
   return Center(

@@ -14,3 +14,18 @@ final emailValidator = MultiValidator([
   RequiredValidator(errorText: requiredErrorText),
   EmailValidator(errorText: validEmailErrorText),
 ]);
+
+final qtyAndPriceValidator = MultiValidator([
+  RequiredValidator(errorText: requiredErrorText),
+  GreaterThanZeroValidator('Value must be greater than 0'),
+]);
+
+class GreaterThanZeroValidator extends FieldValidator<num> {
+  GreaterThanZeroValidator(String errorText) : super(errorText);
+
+  @override
+  bool isValid(num value) {
+    if (value < 0) return false;
+    return true;
+  }
+}

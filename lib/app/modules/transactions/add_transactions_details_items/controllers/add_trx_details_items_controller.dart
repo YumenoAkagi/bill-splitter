@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 import '../../../../models/transaction_detail_item_model.dart';
 import '../../../../models/transaction_header_model.dart';
@@ -8,15 +10,19 @@ import '../../../../providers/transactions_provider.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../utils/app_constants.dart';
 import '../../../../utils/functions_helper.dart';
+import '../../../home/controllers/transactions_tab_controller.dart';
 
 class AddTrxDetailsItemsController extends GetxController {
-  final trxHeader = Get.arguments as TransactionHeader;
+  TransactionHeader trxHeader = Get.arguments as TransactionHeader;
   final trxRepo = TransactionsProvider();
+  final grandTotalController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
   RxList<TransactionDetailItemModel> detailItemsList =
       List<TransactionDetailItemModel>.empty(growable: true).obs;
   RxBool makeGrandTotalSameAsSubTotal = true.obs;
   RxDouble subtotal = 0.0.obs;
   bool isFetching = false;
+  RxBool isLoading = false.obs;
 
   void _toggleFetchingStatus(bool newStat) {
     isFetching = newStat;
@@ -31,8 +37,7 @@ class AddTrxDetailsItemsController extends GetxController {
   }
 
   void recalculateSubtotal() {
-    subtotal.value =
-        detailItemsList.value.fold(0, (prev, e) => prev + e.totalPrice);
+    subtotal.value = detailItemsList.fold(0, (prev, e) => prev + e.totalPrice);
   }
 
   Future<void> removeItem(int id) async {
@@ -104,6 +109,35 @@ class AddTrxDetailsItemsController extends GetxController {
     if (result == 2) {
       Get.toNamed('${Routes.ADDTRXITEM}/${Routes.ADDITEMMANUAL}');
       return;
+    }
+  }
+
+  Future<void> finalizeDetailItems() async {
+    if (!(formKey.currentState?.validate() ?? true)) return;
+
+    isLoading.value = true;
+
+    // calculate grand total
+    num grandTotal = 0;
+    if (makeGrandTotalSameAsSubTotal.isTrue) {
+      grandTotal = subtotal.value;
+    } else {
+      grandTotal = double.parse(grandTotalController.text);
+    }
+
+    final isFinalized =
+        await trxRepo.finalizeDetailItem(trxHeader.id, grandTotal);
+
+    if (isFinalized) {
+      trxHeader.isMemberFinalized = true;
+      // update list in tab and dashboard
+      final transactionTabController = Get.find<TransactionsTabController>();
+      await transactionTabController.getActiveTransactions();
+
+      isLoading.value = false; // update tab
+      Get.offNamed(Routes.ADDTRXMEMBERS, arguments: trxHeader);
+    } else {
+      isLoading.value = false;
     }
   }
 

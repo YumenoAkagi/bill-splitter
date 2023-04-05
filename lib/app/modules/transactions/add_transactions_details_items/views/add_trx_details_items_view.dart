@@ -1,3 +1,4 @@
+import 'package:bill_splitter/app/utils/validations_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
@@ -116,20 +117,92 @@ class AddTrxDetailsItemsView extends GetView<AddTrxDetailsItemsController> {
               const SizedBox(
                 height: 10 * GOLDEN_RATIO,
               ),
-              FilledButton.icon(
-                onPressed: controller.askAddItemMethod,
-                icon: const Icon(
-                  FontAwesome.plus,
-                  size: 10 * GOLDEN_RATIO,
+              Obx(
+                () => Visibility(
+                  visible: controller.makeGrandTotalSameAsSubTotal.isFalse,
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              'Grand Total',
+                              style: Get.textTheme.labelSmall?.copyWith(
+                                fontSize: 9 * GOLDEN_RATIO,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Form(
+                              key: controller.formKey,
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                inputFormatters: [
+                                  DecimalFormatter(maxVal: double.maxFinite),
+                                ],
+                                textAlign: TextAlign.end,
+                                decoration: const InputDecoration(
+                                  hintText: '0.0',
+                                  prefix: Text('Rp'),
+                                ),
+                                validator: qtyAndPriceValidator,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10 * GOLDEN_RATIO,
+                      ),
+                    ],
+                  ),
                 ),
-                label: const Text('Add New Item'),
+              ),
+              Obx(
+                () => FilledButton.icon(
+                  onPressed: controller.isLoading.isFalse
+                      ? controller.askAddItemMethod
+                      : null,
+                  icon: controller.isLoading.isFalse
+                      ? const Icon(
+                          FontAwesome.plus,
+                          size: 10 * GOLDEN_RATIO,
+                        )
+                      : const SizedBox(
+                          height: 10 * GOLDEN_RATIO,
+                          width: 10 * GOLDEN_RATIO,
+                          child: CircularProgressIndicator(),
+                        ),
+                  label: controller.isLoading.isFalse
+                      ? const Text('Add New Item')
+                      : const Text('Saving...'),
+                ),
               ),
               const SizedBox(
                 height: 5 * GOLDEN_RATIO,
               ),
-              OutlinedButton(
-                onPressed: () {},
-                child: const Text('Finalize Item'),
+              Obx(
+                () => OutlinedButton(
+                  onPressed: controller.isLoading.isFalse
+                      ? () async {
+                          if (controller.detailItemsList.isEmpty) {
+                            showErrorSnackbar('There is nothing to finalize');
+                            return;
+                          }
+                          await showConfirmDialog(
+                            context,
+                            'Finalize items?\nYou can no longer edit items after you finalize.',
+                            positiveText: 'Finalize',
+                            negativeText: 'Cancel',
+                            buttonColor: getColorFromHex(COLOR_1),
+                            onAccept: controller.finalizeDetailItems,
+                          );
+                        }
+                      : null,
+                  child: controller.isLoading.isFalse
+                      ? const Text('Finalize Item')
+                      : const Text('Saving...'),
+                ),
               ),
               const SizedBox(
                 height: 10 * GOLDEN_RATIO,

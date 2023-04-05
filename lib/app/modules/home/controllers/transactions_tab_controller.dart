@@ -1,10 +1,9 @@
+import 'package:bill_splitter/app/utils/functions_helper.dart';
 import 'package:get/get.dart';
 
 import '../../../models/transaction_header_model.dart';
 import '../../../providers/transactions_provider.dart';
 import '../../../routes/app_pages.dart';
-import '../../../utils/app_constants.dart';
-import '../../../utils/functions_helper.dart';
 
 class TransactionsTabController extends GetxController {
   final TransactionsProvider _transactionsRepo = TransactionsProvider();
@@ -24,25 +23,26 @@ class TransactionsTabController extends GetxController {
   }
 
   Future deleteTransaction(String id) async {
-    final deletedHeader = headersList.firstWhere((header) => header.id == id);
-    int deletedIdx = -1;
-    try {
-      await supabaseClient
-          .from('TransactionMember')
-          .delete()
-          .eq('TransactionId', id);
+    final selectedTrx = await _transactionsRepo.getTransactionHeader(id);
 
-      await supabaseClient.from('TransactionHeader').delete().eq('Id', id);
-      deletedIdx = headersList.indexWhere((header) => header.id == id);
-      headersList.removeAt(deletedIdx);
-
-      update();
-
-      showSuccessSnackbar('Success', 'Transaction successfully deleted');
-    } catch (e) {
-      headersList.insert(deletedIdx, deletedHeader);
-      showUnexpectedErrorSnackbar(e);
+    if (selectedTrx == null) {
+      return;
     }
+
+    if (selectedTrx.isDeletable == false) {
+      showErrorSnackbar(
+          'Delete failed. Reason: This transaction has been processed');
+      return;
+    }
+
+    final deletedHeader = headersList.firstWhere((header) => header.id == id);
+    final deletedIdx = headersList.indexOf(deletedHeader);
+
+    final isDeleted = await _transactionsRepo.deleteTransaction(id);
+    if (isDeleted) {
+      headersList.removeAt(deletedIdx);
+    }
+    update();
   }
 
   void viewTrxDetail(String id) {
@@ -55,7 +55,7 @@ class TransactionsTabController extends GetxController {
       }
 
       if (!selectedHeader.isMemberFinalized) {
-        // Get.toNamed(Routes.ADDTRXITEM, arguments: selectedHeader);
+        Get.toNamed(Routes.ADDTRXMEMBERS, arguments: selectedHeader);
         return;
       }
     }
