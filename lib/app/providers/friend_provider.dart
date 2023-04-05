@@ -3,7 +3,7 @@ import '../utils/app_constants.dart';
 import '../utils/functions_helper.dart';
 
 class FriendProvider {
-  Future getFriendList() async {
+  Future<List<UserModel>> getFriendList() async {
     List<UserModel> friendList = [];
     try {
       final response = await supabaseClient
@@ -26,10 +26,10 @@ class FriendProvider {
           );
         });
       });
-      return friendList;
     } catch (e) {
       showUnexpectedErrorSnackbar(e);
     }
+    return friendList;
   }
 
   Future<int?> getRequestCount() async {
