@@ -1,4 +1,3 @@
-import 'package:bill_splitter/app/utils/validations_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
@@ -7,6 +6,7 @@ import 'package:nb_utils/nb_utils.dart';
 
 import '../../../../utils/app_constants.dart';
 import '../../../../utils/functions_helper.dart';
+import '../../../../utils/validations_helper.dart';
 import '../controllers/add_trx_details_items_controller.dart';
 
 class AddTrxDetailsItemsView extends GetView<AddTrxDetailsItemsController> {
@@ -168,11 +168,7 @@ class AddTrxDetailsItemsView extends GetView<AddTrxDetailsItemsController> {
                           FontAwesome.plus,
                           size: 10 * GOLDEN_RATIO,
                         )
-                      : const SizedBox(
-                          height: 10 * GOLDEN_RATIO,
-                          width: 10 * GOLDEN_RATIO,
-                          child: CircularProgressIndicator(),
-                        ),
+                      : showCustomCircularProgressIndicator(),
                   label: controller.isLoading.isFalse
                       ? const Text('Add New Item')
                       : const Text('Saving...'),

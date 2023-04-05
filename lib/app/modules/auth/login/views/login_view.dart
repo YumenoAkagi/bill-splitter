@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../../routes/app_pages.dart';
 import '../../../../utils/app_constants.dart';
+import '../../../../utils/functions_helper.dart';
 import '../../../../utils/validations_helper.dart';
 import '../controllers/login_controller.dart';
 
@@ -98,11 +99,7 @@ class LoginView extends GetView<LoginController> {
                           )
                         : FilledButton.icon(
                             onPressed: null,
-                            icon: const SizedBox(
-                              width: 10 * GOLDEN_RATIO,
-                              height: 10 * GOLDEN_RATIO,
-                              child: CircularProgressIndicator(),
-                            ),
+                            icon: showCustomCircularProgressIndicator(),
                             label: const Text('Signing in...'),
                           ),
                   ),

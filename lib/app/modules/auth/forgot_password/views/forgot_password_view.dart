@@ -3,6 +3,7 @@ import 'package:fluttericon/entypo_icons.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/app_constants.dart';
+import '../../../../utils/functions_helper.dart';
 import '../../../../utils/validations_helper.dart';
 import '../controllers/forgot_password_controller.dart';
 
@@ -66,11 +67,7 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                             : null,
                         icon: controller.isLoading.isFalse
                             ? const Icon(Entypo.paper_plane)
-                            : const SizedBox(
-                                width: 10 * GOLDEN_RATIO,
-                                height: 10 * GOLDEN_RATIO,
-                                child: CircularProgressIndicator(),
-                              ),
+                            : showCustomCircularProgressIndicator(),
                         label: controller.isLoading.isFalse
                             ? const Text('Send Password Reset Link')
                             : const Text('Sending email...'),

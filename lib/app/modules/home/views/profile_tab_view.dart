@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../../utils/app_constants.dart';
+import '../../../utils/functions_helper.dart';
 import '../controllers/profile_tab_controller.dart';
 
 class ProfileTabView extends StatelessWidget {
@@ -116,11 +117,7 @@ class ProfileTabView extends StatelessWidget {
                               : null,
                           icon: (controller.isLoading.isFalse)
                               ? const Icon(Entypo.floppy)
-                              : const SizedBox(
-                                  width: 10 * GOLDEN_RATIO,
-                                  height: 10 * GOLDEN_RATIO,
-                                  child: CircularProgressIndicator(),
-                                ),
+                              : showCustomCircularProgressIndicator(),
                           label: (controller.isLoading.isFalse)
                               ? const Text('Save Changes')
                               : const Text('Saving Changes...'),

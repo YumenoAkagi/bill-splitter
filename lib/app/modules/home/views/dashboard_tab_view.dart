@@ -105,7 +105,9 @@ class DashboardTabView extends StatelessWidget {
                   IconButtonWithText(
                     iconData: Entypo.back_in_time,
                     description: 'View History',
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(Routes.HISTORYTRX);
+                    },
                   ),
                   IconButtonWithText(
                     iconData: Entypo.help_circled,

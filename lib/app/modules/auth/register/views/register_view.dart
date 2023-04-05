@@ -4,6 +4,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/app_constants.dart';
+import '../../../../utils/functions_helper.dart';
 import '../../../../utils/validations_helper.dart';
 import '../controllers/register_controller.dart';
 
@@ -94,11 +95,7 @@ class RegisterView extends GetView<RegisterController> {
                           )
                         : FilledButton.icon(
                             onPressed: null,
-                            icon: const SizedBox(
-                              width: 10 * GOLDEN_RATIO,
-                              height: 10 * GOLDEN_RATIO,
-                              child: CircularProgressIndicator(),
-                            ),
+                            icon: showCustomCircularProgressIndicator(),
                             label: const Text('Loading...'),
                           ),
                   ),

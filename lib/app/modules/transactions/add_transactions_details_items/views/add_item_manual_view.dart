@@ -4,6 +4,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/app_constants.dart';
+import '../../../../utils/functions_helper.dart';
 import '../../../../utils/validations_helper.dart';
 import '../controllers/add_item_manual_controller.dart';
 
@@ -108,11 +109,7 @@ class AddItemManualView extends GetView<AddItemManualController> {
                           : null,
                       icon: controller.isLoading.isFalse
                           ? const Icon(Entypo.floppy)
-                          : const SizedBox(
-                              height: 10 * GOLDEN_RATIO,
-                              width: 10 * GOLDEN_RATIO,
-                              child: CircularProgressIndicator(),
-                            ),
+                          : showCustomCircularProgressIndicator(),
                       label: controller.isLoading.isFalse
                           ? const Text('Save')
                           : const Text('Saving...'),

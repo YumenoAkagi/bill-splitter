@@ -66,14 +66,23 @@ class DecimalFormatter extends TextInputFormatter {
   }
 }
 
+SizedBox showCustomCircularProgressIndicator() {
+  return const SizedBox(
+    width: 10 * GOLDEN_RATIO,
+    height: 10 * GOLDEN_RATIO,
+    child: CircularProgressIndicator(),
+  );
+}
+
 Widget showFetchingScreen() {
   return Center(
     child: Column(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CircularProgressIndicator(
-          color: getColorFromHex(COLOR_1),
+        showCustomCircularProgressIndicator(),
+        const SizedBox(
+          height: 10 * GOLDEN_RATIO,
         ),
         Text(
           retrievingDataStatusTxt,

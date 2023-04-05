@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../../utils/app_constants.dart';
+import '../../../utils/functions_helper.dart';
 import '../../../utils/validations_helper.dart';
 import '../controllers/add_transaction_bs_controller.dart';
 
@@ -122,11 +123,7 @@ class AddTransactionBottomSheet extends StatelessWidget {
                             FontAwesome.plus,
                             size: 10 * GOLDEN_RATIO,
                           )
-                        : const SizedBox(
-                            width: 10 * GOLDEN_RATIO,
-                            height: 10 * GOLDEN_RATIO,
-                            child: CircularProgressIndicator(),
-                          ),
+                        : showCustomCircularProgressIndicator(),
                     label: controller.isLoading.isFalse
                         ? const Text('Add New Transaction')
                         : const Text('Saving...'),
