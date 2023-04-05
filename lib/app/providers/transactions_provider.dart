@@ -59,7 +59,7 @@ class TransactionsProvider {
           .from('TransactionMember')
           .select('Users!inner(*), TransactionHeader!inner(*)')
           .eq('UserId', supabaseClient.auth.currentUser?.id)
-          .eq('TransactionHeader.IsComplete', false)
+          .eq('TransactionHeader.IsComplete', isComplete)
           .order(
             'created_at',
             ascending: false,

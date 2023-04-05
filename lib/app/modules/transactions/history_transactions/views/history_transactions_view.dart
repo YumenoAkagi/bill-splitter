@@ -1,5 +1,9 @@
+import 'package:avatar_stack/avatar_stack.dart';
+import 'package:avatar_stack/positions.dart';
+import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 import '../../../../utils/app_constants.dart';
 import '../../../../utils/functions_helper.dart';
@@ -29,34 +33,101 @@ class HistoryTransactionsView extends GetView<HistoryTransactionsController> {
                           horizontal: SAFEAREA_CONTAINER_MARGIN_H,
                           vertical: SAFEAREA_CONTAINER_MARGIN_V,
                         ),
-                        child: ListView.builder(
+                        child: ListView.separated(
+                          separatorBuilder: (context, index) {
+                            return const Divider();
+                          },
                           physics: const AlwaysScrollableScrollPhysics(),
                           itemCount: htc.historyTransactionsList.length,
-                          itemBuilder: (context, index) => ListTile(
-                            title: Text(
-                              htc.historyTransactionsList[index].name,
-                              style: Get.textTheme.labelMedium,
-                            ),
-                            subtitle: Text(
-                              htc.historyTransactionsList[index].date,
-                              style: Get.textTheme.labelSmall,
-                            ),
-                            trailing: Column(
+                          itemBuilder: (context, index) => Card(
+                            elevation: 0,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                Text(
-                                  'Total',
-                                  style: Get.textTheme.labelMedium?.copyWith(
-                                    fontSize: 9 * GOLDEN_RATIO,
+                                SizedBox(
+                                  height: 20 * GOLDEN_RATIO,
+                                  width: Get.width,
+                                  child: WidgetStack(
+                                    positions: RestrictedPositions(
+                                      align: StackAlign.left,
+                                      maxCoverage: -0.1,
+                                      minCoverage: -0.5,
+                                    ),
+                                    stackedWidgets: [
+                                      for (var i = 0;
+                                          i <
+                                              htc.historyTransactionsList[index]
+                                                  .membersList.length;
+                                          i++)
+                                        CircularProfileAvatar(
+                                          htc
+                                                  .historyTransactionsList[
+                                                      index]
+                                                  .membersList[i]
+                                                  .ProfilePicUrl ??
+                                              '',
+                                          radius: 20 * GOLDEN_RATIO,
+                                          cacheImage: true,
+                                          backgroundColor:
+                                              getColorFromHex(COLOR_1),
+                                          initialsText: Text(
+                                            htc.historyTransactionsList[index]
+                                                .membersList[i].DisplayName[0],
+                                            style: Get.textTheme.titleLarge
+                                                ?.copyWith(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          imageFit: BoxFit.cover,
+                                        ),
+                                    ],
+                                    buildInfoWidget: (surplus) =>
+                                        CircularProfileAvatar(
+                                      '',
+                                      radius: 20 * GOLDEN_RATIO,
+                                      backgroundColor: getColorFromHex(COLOR_1),
+                                      initialsText: Text(
+                                        '+$surplus',
+                                        style:
+                                            Get.textTheme.titleLarge?.copyWith(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                                Text(
-                                  moneyFormatter.format(htc
-                                      .historyTransactionsList[index]
-                                      .grandTotal),
-                                  style: Get.textTheme.labelSmall?.copyWith(
-                                    fontSize: 12 * GOLDEN_RATIO,
+                                ListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  title: Text(
+                                    htc.historyTransactionsList[index].name,
+                                    style: Get.textTheme.labelMedium,
                                   ),
-                                )
+                                  subtitle: Text(
+                                    htc.historyTransactionsList[index].date,
+                                    style: Get.textTheme.labelSmall,
+                                  ),
+                                  trailing: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        'Total',
+                                        style:
+                                            Get.textTheme.labelMedium?.copyWith(
+                                          fontSize: 9 * GOLDEN_RATIO,
+                                        ),
+                                      ),
+                                      Text(
+                                        moneyFormatter.format(htc
+                                            .historyTransactionsList[index]
+                                            .grandTotal),
+                                        style:
+                                            Get.textTheme.labelSmall?.copyWith(
+                                          fontSize: 12 * GOLDEN_RATIO,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
                               ],
                             ),
                           ),
