@@ -64,23 +64,23 @@ class ManageFriendView extends GetView<ManageFriendController> {
                                 elevation: 2,
                                 child: ListTile(
                                   title: Text(
-                                    mtc.pendingFriendList[index].DisplayName,
+                                    mtc.pendingFriendList[index].displayName,
                                     style: Get.textTheme.labelMedium,
                                   ),
                                   subtitle: Text(
-                                    mtc.pendingFriendList[index].Email,
+                                    mtc.pendingFriendList[index].email,
                                     style: Get.textTheme.bodySmall,
                                   ),
                                   leading: CircularProfileAvatar(
                                     mtc.pendingFriendList[index]
-                                            .ProfilePicUrl ??
+                                            .profilePicUrl ??
                                         '',
                                     radius: 13 * GOLDEN_RATIO,
                                     cacheImage: true,
                                     backgroundColor: getColorFromHex(COLOR_1),
                                     initialsText: Text(
                                       mtc.pendingFriendList[index]
-                                          .DisplayName[0],
+                                          .displayName[0],
                                       style: Get.textTheme.titleLarge?.copyWith(
                                         color: Colors.white,
                                       ),
@@ -135,21 +135,21 @@ class ManageFriendView extends GetView<ManageFriendController> {
                               elevation: 2,
                               child: ListTile(
                                 title: Text(
-                                  mtc.requestFriendList[index].DisplayName,
+                                  mtc.requestFriendList[index].displayName,
                                   style: Get.textTheme.labelMedium,
                                 ),
                                 subtitle: Text(
-                                  mtc.requestFriendList[index].Email,
+                                  mtc.requestFriendList[index].email,
                                   style: Get.textTheme.bodySmall,
                                 ),
                                 leading: CircularProfileAvatar(
-                                  mtc.requestFriendList[index].ProfilePicUrl ??
+                                  mtc.requestFriendList[index].profilePicUrl ??
                                       '',
                                   radius: 13 * GOLDEN_RATIO,
                                   cacheImage: true,
                                   backgroundColor: getColorFromHex(COLOR_1),
                                   initialsText: Text(
-                                    mtc.requestFriendList[index].DisplayName[0],
+                                    mtc.requestFriendList[index].displayName[0],
                                     style: Get.textTheme.titleLarge?.copyWith(
                                       color: Colors.white,
                                     ),

@@ -18,10 +18,10 @@ class FriendProvider {
         decoded.values.toList().forEach((element) {
           friendList.add(
             UserModel(
-              Id: element['Id'],
-              DisplayName: element['DisplayName'],
-              Email: element['Email'],
-              ProfilePicUrl: element['ProfilePictureURL'],
+              id: element['Id'],
+              displayName: element['DisplayName'],
+              email: element['Email'],
+              profilePicUrl: element['ProfilePictureURL'],
             ),
           );
         });
@@ -62,10 +62,10 @@ class FriendProvider {
             .eq('Id', i['UserId'])
             .maybeSingle() as Map;
         UserModel temp = UserModel(
-            Id: requestFriend['Id'],
-            DisplayName: requestFriend['DisplayName'],
-            Email: requestFriend['Email'],
-            ProfilePicUrl: requestFriend['ProfilePictureURL']);
+            id: requestFriend['Id'],
+            displayName: requestFriend['DisplayName'],
+            email: requestFriend['Email'],
+            profilePicUrl: requestFriend['ProfilePictureURL']);
         requestfriendList.add(temp);
       }
       return requestfriendList;
@@ -89,10 +89,10 @@ class FriendProvider {
         decoded.values.toList().forEach((element) {
           pendingfriendList.add(
             UserModel(
-              Id: element['Id'],
-              DisplayName: element['DisplayName'],
-              Email: element['Email'],
-              ProfilePicUrl: element['ProfilePictureURL'],
+              id: element['Id'],
+              displayName: element['DisplayName'],
+              email: element['Email'],
+              profilePicUrl: element['ProfilePictureURL'],
             ),
           );
         });
@@ -155,7 +155,7 @@ class FriendProvider {
           await supabaseClient.from('UserFriendList').select().match({
         'IsRequestPending': true,
         'FriendId': supabaseClient.auth.currentUser!.id,
-        'UserId': userModel.Id
+        'UserId': userModel.id
       }).maybeSingle() as Map?;
 
       if (response == null) {
@@ -169,12 +169,12 @@ class FriendProvider {
 
       await supabaseClient.from('UserFriendList').insert({
         'UserId': supabaseClient.auth.currentUser!.id,
-        'FriendId': userModel.Id,
+        'FriendId': userModel.id,
         'IsRequestPending': false
       });
 
       showSuccessSnackbar('Friend Request Accepted',
-          '${userModel.DisplayName} Added To Your Friend List');
+          '${userModel.displayName} Added To Your Friend List');
     } catch (e) {
       showUnexpectedErrorSnackbar(e);
     }
@@ -186,7 +186,7 @@ class FriendProvider {
           await supabaseClient.from('UserFriendList').select().match({
         'IsRequestPending': true,
         'FriendId': supabaseClient.auth.currentUser!.id,
-        'UserId': userModel.Id
+        'UserId': userModel.id
       }).maybeSingle() as Map?;
 
       if (response == null) {
@@ -199,7 +199,7 @@ class FriendProvider {
           .match({'Id': response['Id']});
 
       showSuccessSnackbar(
-          'Friend Rejected', 'You reject ${userModel.DisplayName} as Friend');
+          'Friend Rejected', 'You reject ${userModel.displayName} as Friend');
     } catch (e) {
       showUnexpectedErrorSnackbar(e);
     }
@@ -210,7 +210,7 @@ class FriendProvider {
       final checker =
           await supabaseClient.from('UserFriendList').select().match({
         'UserId': supabaseClient.auth.currentUser!.id,
-        'FriendId': userModel.Id,
+        'FriendId': userModel.id,
         'IsRequestPending': true,
       }).maybeSingle() as Map?;
 
@@ -221,12 +221,12 @@ class FriendProvider {
 
       await supabaseClient.from('UserFriendList').delete().match({
         'UserId': supabaseClient.auth.currentUser!.id,
-        'FriendId': userModel.Id,
+        'FriendId': userModel.id,
         'IsRequestPending': true,
       });
 
       showSuccessSnackbar('Friend Request Deleted',
-          'Remove ${userModel.DisplayName} from Pending Request');
+          'Remove ${userModel.displayName} from Pending Request');
     } catch (e) {
       showUnexpectedErrorSnackbar(e);
     }
@@ -236,11 +236,11 @@ class FriendProvider {
     try {
       final link1 = await supabaseClient.from('UserFriendList').select().match({
         'UserId': supabaseClient.auth.currentUser!.id,
-        'FriendId': userModel.Id,
+        'FriendId': userModel.id,
         'IsRequestPending': false
       }).maybeSingle() as Map?;
       final link2 = await supabaseClient.from('UserFriendList').select().match({
-        'UserId': userModel.Id,
+        'UserId': userModel.id,
         'FriendId': supabaseClient.auth.currentUser!.id,
         'IsRequestPending': false
       }).maybeSingle() as Map?;
@@ -260,7 +260,7 @@ class FriendProvider {
           .match({'Id': link2['Id']});
 
       await showSuccessSnackbar('Friend Deleted Successfully',
-          '${userModel.DisplayName} Has Been Deleted from Your Friend List');
+          '${userModel.displayName} Has Been Deleted from Your Friend List');
     } catch (e) {
       await showUnexpectedErrorSnackbar(e);
     }

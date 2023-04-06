@@ -1,3 +1,9 @@
+import 'package:bill_splitter/app/providers/transactions_provider.dart';
+
+import '../../../home/controllers/transactions_tab_controller.dart';
+import '../../../../routes/app_pages.dart';
+import '../../../../utils/app_constants.dart';
+import '../../../../utils/functions_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,12 +13,14 @@ import '../../../../providers/friend_provider.dart';
 
 class AddTrxDetailMembersController extends GetxController {
   final _friendRepo = FriendProvider();
+  final _transactionRepo = TransactionsProvider();
   TransactionHeader trxHeader = Get.arguments as TransactionHeader;
   List<UserModel> unfilteredFL = [];
   RxList<UserModel> friendList = <UserModel>[].obs;
   RxList<UserModel> selectedFriend = <UserModel>[].obs;
 
   RxBool isFetching = false.obs;
+  RxBool isLoading = false.obs;
   RxBool searchBarOpened = false.obs;
 
   final searchController = TextEditingController();
@@ -36,9 +44,9 @@ class AddTrxDetailMembersController extends GetxController {
     if (searchController.text != '') {
       friendList.value = friendList
           .where(
-            (friend) => friend.DisplayName.toLowerCase().contains(
-              searchController.text.toLowerCase(),
-            ),
+            (friend) => friend.displayName.toLowerCase().contains(
+                  searchController.text.toLowerCase(),
+                ),
           )
           .toList();
     }
@@ -49,27 +57,34 @@ class AddTrxDetailMembersController extends GetxController {
   Future<void> getFriendList() async {
     _toggleFetchingStatus(true);
     unfilteredFL = await _friendRepo.getFriendList();
-    // unfilteredFL = [
-    //   UserModel(Id: 'Test', DisplayName: 'Test', Email: 'test@test.com'),
-    //   UserModel(Id: 'Test1', DisplayName: 'Test1', Email: 'test@test.com'),
-    //   UserModel(Id: 'Test2', DisplayName: 'Test2', Email: 'test@test.com'),
-    //   UserModel(Id: 'Test3', DisplayName: 'Test3', Email: 'test@test.com'),
-    //   UserModel(Id: 'Test4', DisplayName: 'Test4', Email: 'test@test.com'),
-    //   UserModel(Id: 'Test5', DisplayName: 'Test5', Email: 'test@test.com'),
-    //   UserModel(Id: 'Test6', DisplayName: 'Test6', Email: 'test@test.com'),
-    //   UserModel(Id: 'Test7', DisplayName: 'Test7', Email: 'test@test.com'),
-    //   UserModel(Id: 'Test8', DisplayName: 'Test8', Email: 'test@test.com'),
-    //   UserModel(Id: 'Test9', DisplayName: 'Test9', Email: 'test@test.com'),
-    //   UserModel(Id: 'Test10', DisplayName: 'Test10', Email: 'test@test.com'),
-    //   UserModel(Id: 'Test11', DisplayName: 'Test11', Email: 'test@test.com'),
-    // ];
     friendList.value = unfilteredFL;
     _toggleFetchingStatus(false);
   }
 
   Future<void> finalizeMember() async {
-    for (var i = 0; i < selectedFriend.length; i++) {
-      print(selectedFriend[i].Id);
+    if (selectedFriend.isEmpty) {
+      showErrorSnackbar('Please select at least one member');
+      return;
+    }
+
+    isLoading.value = true;
+
+    final isFinalized = await _transactionRepo.finalizeDetailMember(
+        trxHeader.id, selectedFriend);
+
+    if (isFinalized) {
+      trxHeader.isMemberFinalized = true;
+      trxHeader.membersList.addAll(selectedFriend);
+      try {
+        final transactionTabController = Get.find<TransactionsTabController>();
+        await transactionTabController.getActiveTransactions();
+      } catch (e) {
+        // do nothing
+      }
+      isLoading.value = false;
+      Get.offNamed(Routes.TRXSPLITOPTIONS, arguments: trxHeader);
+    } else {
+      isLoading.value = false;
     }
   }
 

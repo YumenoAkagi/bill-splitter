@@ -50,8 +50,8 @@ class HistoryTransactionsView extends GetView<HistoryTransactionsController> {
                                   child: WidgetStack(
                                     positions: RestrictedPositions(
                                       align: StackAlign.left,
-                                      maxCoverage: -0.1,
-                                      minCoverage: -0.5,
+                                      maxCoverage: -0.75 * GOLDEN_RATIO,
+                                      minCoverage: 0.2 * GOLDEN_RATIO,
                                     ),
                                     stackedWidgets: [
                                       for (var i = 0;
@@ -64,7 +64,7 @@ class HistoryTransactionsView extends GetView<HistoryTransactionsController> {
                                                   .historyTransactionsList[
                                                       index]
                                                   .membersList[i]
-                                                  .ProfilePicUrl ??
+                                                  .profilePicUrl ??
                                               '',
                                           radius: 20 * GOLDEN_RATIO,
                                           cacheImage: true,
@@ -72,7 +72,7 @@ class HistoryTransactionsView extends GetView<HistoryTransactionsController> {
                                               getColorFromHex(COLOR_1),
                                           initialsText: Text(
                                             htc.historyTransactionsList[index]
-                                                .membersList[i].DisplayName[0],
+                                                .membersList[i].displayName[0],
                                             style: Get.textTheme.titleLarge
                                                 ?.copyWith(
                                               color: Colors.white,

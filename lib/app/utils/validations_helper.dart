@@ -1,5 +1,7 @@
 import 'package:form_field_validator/form_field_validator.dart';
 
+import 'functions_helper.dart';
+
 const requiredErrorText = 'This field is required';
 const validEmailErrorText = 'Email must be valid';
 const unexpectedErrorText = 'Unexpected error occurred';
@@ -20,12 +22,13 @@ final qtyAndPriceValidator = MultiValidator([
   GreaterThanZeroValidator('Value must be greater than 0'),
 ]);
 
-class GreaterThanZeroValidator extends FieldValidator<num> {
+class GreaterThanZeroValidator extends FieldValidator<String> {
   GreaterThanZeroValidator(String errorText) : super(errorText);
 
   @override
-  bool isValid(num value) {
-    if (value < 0) return false;
+  bool isValid(String value) {
+    final val = separatorFormatter.parse(value);
+    if (val < 0) return false;
     return true;
   }
 }

@@ -106,7 +106,7 @@ class TransactionsTabView extends StatelessWidget {
                                     style: Get.textTheme.labelSmall,
                                   ),
                                   const SizedBox(
-                                    height: 5 * GOLDEN_RATIO,
+                                    height: 8 * GOLDEN_RATIO,
                                   ),
                                   Row(
                                     mainAxisAlignment:
@@ -118,8 +118,8 @@ class TransactionsTabView extends StatelessWidget {
                                         child: WidgetStack(
                                           positions: RestrictedPositions(
                                             align: StackAlign.left,
-                                            maxCoverage: -0.1,
-                                            minCoverage: -0.5,
+                                            maxCoverage: -0.75 * GOLDEN_RATIO,
+                                            minCoverage: 0.2 * GOLDEN_RATIO,
                                           ),
                                           stackedWidgets: [
                                             for (var i = 0;
@@ -131,7 +131,7 @@ class TransactionsTabView extends StatelessWidget {
                                                 ttc
                                                         .headersList[index]
                                                         .membersList[i]
-                                                        .ProfilePicUrl ??
+                                                        .profilePicUrl ??
                                                     '',
                                                 radius: 20 * GOLDEN_RATIO,
                                                 cacheImage: true,
@@ -141,7 +141,7 @@ class TransactionsTabView extends StatelessWidget {
                                                   ttc
                                                       .headersList[index]
                                                       .membersList[i]
-                                                      .DisplayName[0],
+                                                      .displayName[0],
                                                   style: Get
                                                       .textTheme.titleLarge
                                                       ?.copyWith(

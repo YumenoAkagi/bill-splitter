@@ -118,11 +118,11 @@ class AddTrxDetailsItemsController extends GetxController {
     isLoading.value = true;
 
     // calculate grand total
-    num grandTotal = 0;
+    num grandTotal = 0.0;
     if (makeGrandTotalSameAsSubTotal.isTrue) {
       grandTotal = subtotal.value;
     } else {
-      grandTotal = double.parse(grandTotalController.text);
+      grandTotal = separatorFormatter.parse(grandTotalController.text);
     }
 
     final isFinalized =
@@ -131,8 +131,12 @@ class AddTrxDetailsItemsController extends GetxController {
     if (isFinalized) {
       trxHeader.isMemberFinalized = true;
       // update list in tab and dashboard
-      final transactionTabController = Get.find<TransactionsTabController>();
-      await transactionTabController.getActiveTransactions();
+      try {
+        final transactionTabController = Get.find<TransactionsTabController>();
+        await transactionTabController.getActiveTransactions();
+      } catch (e) {
+        // do nothing
+      }
 
       isLoading.value = false; // update tab
       Get.offNamed(Routes.ADDTRXMEMBERS, arguments: trxHeader);

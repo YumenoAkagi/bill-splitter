@@ -26,9 +26,9 @@ class ProfileTabController extends GetxController {
   bool _redirecting = false;
 
   Rx<UserModel> userData = UserModel(
-    Id: '',
-    DisplayName: '',
-    Email: '',
+    id: '',
+    displayName: '',
+    email: '',
   ).obs;
 
   RxBool isEdited = false.obs;
@@ -48,8 +48,8 @@ class ProfileTabController extends GetxController {
     final userFromRepo = await _userProvider.getUserProfile();
     userData.value = userFromRepo;
 
-    displayNameController.text = userData.value.DisplayName;
-    recentDisplayName = userData.value.DisplayName;
+    displayNameController.text = userData.value.displayName;
+    recentDisplayName = userData.value.displayName;
   }
 
   Future updateProfile() async {
@@ -62,19 +62,19 @@ class ProfileTabController extends GetxController {
           .update({
             'DisplayName': displayNameController.text,
           })
-          .eq('Id', userData.value.Id)
+          .eq('Id', userData.value.id)
           .select();
 
       final updatedUser = UserModel(
-        Id: response[0]['Id'],
-        DisplayName: response[0]['DisplayName'],
-        Email: response[0]['Email'],
-        ProfilePicUrl: response[0]['ProfilePictureURL'],
+        id: response[0]['Id'],
+        displayName: response[0]['DisplayName'],
+        email: response[0]['Email'],
+        profilePicUrl: response[0]['ProfilePictureURL'],
       );
 
       showSuccessSnackbar('Success', 'Profile successfully updated!');
 
-      recentDisplayName = updatedUser.DisplayName;
+      recentDisplayName = updatedUser.displayName;
       isEdited.value = false;
 
       // refresh data on dashboard
@@ -108,28 +108,28 @@ class ProfileTabController extends GetxController {
           .from('avatars')
           .uploadBinary(filePath, bytes);
 
-      if (userData.value.ProfilePicUrl != null &&
-          userData.value.ProfilePicUrl != '') {
+      if (userData.value.profilePicUrl != null &&
+          userData.value.profilePicUrl != '') {
         // delete old image storage before changing the path
         await supabaseClient.storage
             .from('avatars')
-            .remove([userData.value.ProfilePicUrl!]);
+            .remove([userData.value.profilePicUrl!]);
       }
 
       final imgFinalPath =
           supabaseClient.storage.from('avatars').getPublicUrl(filePath);
       await supabaseClient.from('Users').upsert({
-        'Id': userData.value.Id,
+        'Id': userData.value.id,
         'DisplayName': displayNameController.text,
-        'Email': userData.value.Email,
+        'Email': userData.value.email,
         'ProfilePictureURL': imgFinalPath,
       });
 
       final newUserData = UserModel(
-        Id: userData.value.Id,
-        DisplayName: userData.value.DisplayName,
-        Email: userData.value.Email,
-        ProfilePicUrl: imgFinalPath,
+        id: userData.value.id,
+        displayName: userData.value.displayName,
+        email: userData.value.email,
+        profilePicUrl: imgFinalPath,
       );
 
       userData.value = newUserData;

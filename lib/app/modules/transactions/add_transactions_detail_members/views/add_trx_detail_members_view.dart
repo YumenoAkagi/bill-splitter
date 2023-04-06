@@ -33,7 +33,8 @@ class AddTrxDetailMembersView extends GetView<AddTrxDetailMembersController> {
                       child: controller.searchBarOpened.isTrue
                           ? TextFormField(
                               controller: controller.searchController,
-                              onChanged: controller.isFetching.isTrue
+                              onChanged: controller.isFetching.isTrue ||
+                                      controller.isLoading.isTrue
                                   ? null
                                   : (_) => controller.searchFriend(),
                               decoration: const InputDecoration(
@@ -47,9 +48,11 @@ class AddTrxDetailMembersView extends GetView<AddTrxDetailMembersController> {
                     ),
                     Row(
                       children: [
-                        controller.searchBarOpened.isTrue
+                        controller.searchBarOpened.isTrue &&
+                                controller.isLoading.isFalse
                             ? IconButton(
-                                onPressed: controller.isFetching.isTrue
+                                onPressed: controller.isFetching.isTrue ||
+                                        controller.isLoading.isTrue
                                     ? null
                                     : controller.clearSearchFilter,
                                 icon: const Icon(
@@ -62,7 +65,8 @@ class AddTrxDetailMembersView extends GetView<AddTrxDetailMembersController> {
                                   FontAwesome.search,
                                   size: 15 * GOLDEN_RATIO,
                                 ),
-                                onPressed: controller.isFetching.isTrue
+                                onPressed: controller.isFetching.isTrue ||
+                                        controller.isLoading.isTrue
                                     ? null
                                     : () {
                                         controller.searchBarOpened.value = true;
@@ -116,9 +120,9 @@ class AddTrxDetailMembersView extends GetView<AddTrxDetailMembersController> {
                                   () => ListTile(
                                     contentPadding: EdgeInsets.zero,
                                     title: Text(
-                                        atdm.friendList[index].DisplayName),
+                                        atdm.friendList[index].displayName),
                                     subtitle:
-                                        Text(atdm.friendList[index].Email),
+                                        Text(atdm.friendList[index].email),
                                     leading: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
@@ -129,7 +133,7 @@ class AddTrxDetailMembersView extends GetView<AddTrxDetailMembersController> {
                                             onChanged: null),
                                         CircularProfileAvatar(
                                           atdm.friendList[index]
-                                                  .ProfilePicUrl ??
+                                                  .profilePicUrl ??
                                               '',
                                           radius: 15 * GOLDEN_RATIO,
                                           cacheImage: true,
@@ -137,7 +141,7 @@ class AddTrxDetailMembersView extends GetView<AddTrxDetailMembersController> {
                                               getColorFromHex(COLOR_1),
                                           initialsText: Text(
                                             atdm.friendList[index]
-                                                .DisplayName[0],
+                                                .displayName[0],
                                             style: Get.textTheme.titleLarge
                                                 ?.copyWith(
                                               color: Colors.white,
@@ -156,10 +160,12 @@ class AddTrxDetailMembersView extends GetView<AddTrxDetailMembersController> {
               const SizedBox(
                 height: 10 * GOLDEN_RATIO,
               ),
-              FilledButton(
-                onPressed: controller.finalizeMember,
-                child: const Text('Finalize Members'),
-              ),
+              Obx(() => FilledButton(
+                    onPressed: controller.isLoading.isFalse
+                        ? controller.finalizeMember
+                        : null,
+                    child: const Text('Finalize Members'),
+                  )),
               const SizedBox(
                 height: 10 * GOLDEN_RATIO,
               ),

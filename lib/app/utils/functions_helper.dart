@@ -12,6 +12,8 @@ final moneyFormatter = NumberFormat.currency(
   symbol: 'Rp',
 );
 
+final separatorFormatter = NumberFormat("#,##0.##");
+
 class DecimalFormatter extends TextInputFormatter {
   final int decimalDigits;
   final double minVal;
@@ -67,10 +69,12 @@ class DecimalFormatter extends TextInputFormatter {
 }
 
 SizedBox showCustomCircularProgressIndicator() {
-  return const SizedBox(
+  return SizedBox(
     width: 10 * GOLDEN_RATIO,
     height: 10 * GOLDEN_RATIO,
-    child: CircularProgressIndicator(),
+    child: CircularProgressIndicator(
+      color: getColorFromHex(COLOR_1),
+    ),
   );
 }
 

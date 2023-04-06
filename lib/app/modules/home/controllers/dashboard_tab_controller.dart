@@ -9,9 +9,9 @@ class DashboardTabController extends GetxController {
   final userProvider = UserProvider();
 
   Rx<UserModel> userData = UserModel(
-    Id: '',
-    DisplayName: '',
-    Email: '',
+    id: '',
+    displayName: '',
+    email: '',
   ).obs;
 
   Future _getUserProfile() async {

@@ -1,5 +1,3 @@
-import 'package:bill_splitter/app/modules/transactions/add_transactions_detail_members/bindings/add_trx_detail_members_binding.dart';
-import 'package:bill_splitter/app/modules/transactions/add_transactions_detail_members/views/add_trx_detail_members_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/auth/email_sent/bindings/email_sent_binding.dart';
@@ -22,12 +20,16 @@ import '../modules/manage_friend/bindings/manage_friend_binding.dart';
 import '../modules/manage_friend/views/manage_friend_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules/transactions/add_transactions_detail_members/bindings/add_trx_detail_members_binding.dart';
+import '../modules/transactions/add_transactions_detail_members/views/add_trx_detail_members_view.dart';
 import '../modules/transactions/add_transactions_details_items/bindings/add_item_manual_binding.dart';
 import '../modules/transactions/add_transactions_details_items/bindings/add_trx_details_items_binding.dart';
 import '../modules/transactions/add_transactions_details_items/views/add_item_manual_view.dart';
 import '../modules/transactions/add_transactions_details_items/views/add_trx_details_items_view.dart';
 import '../modules/transactions/history_transactions/bindings/history_transactions_binding.dart';
 import '../modules/transactions/history_transactions/views/history_transactions_view.dart';
+import '../modules/transactions/split_transactions_options/bindings/split_trx_options_binding.dart';
+import '../modules/transactions/split_transactions_options/views/split_trx_options_view.dart';
 
 part 'app_routes.dart';
 
@@ -112,6 +114,11 @@ class AppPages {
       name: _Paths.ADDTRXMEMBERS,
       page: () => const AddTrxDetailMembersView(),
       binding: AddTrxDetailMembersBinding(),
+    ),
+    GetPage(
+      name: _Paths.TRXSPLITOPTIONS,
+      page: () => const SplitTrxOptionsView(),
+      binding: SplitTrxOptionsBinding(),
     ),
   ];
 }

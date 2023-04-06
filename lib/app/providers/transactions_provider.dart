@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../models/transaction_detail_item_model.dart';
@@ -18,10 +17,10 @@ class TransactionsProvider {
     response.forEach((member) {
       trxMembers.add(
         UserModel(
-          Id: member['Users']['Id'],
-          DisplayName: member['Users']['DisplayName'],
-          Email: member['Users']['Email'],
-          ProfilePicUrl: member['Users']['ProfilePictureURL'],
+          id: member['Users']['Id'],
+          displayName: member['Users']['DisplayName'],
+          email: member['Users']['Email'],
+          profilePicUrl: member['Users']['ProfilePictureURL'],
         ),
       );
     });
@@ -63,50 +62,56 @@ class TransactionsProvider {
           .order(
             'created_at',
             ascending: false,
-          );
+          ) as List;
 
-      response.forEach((head) {
-        final existingHeader = headersList
-            .firstWhereOrNull((e) => e.id == head['TransactionHeader']['Id']);
-        if (existingHeader == null) {
-          headersList.add(
-            TransactionHeader(
-              id: head['TransactionHeader']['Id'],
-              name: head['TransactionHeader']['Name'],
-              date: DateFormat('dd MMM yyyy').format(
-                DateTime.parse(
-                  head['TransactionHeader']['Date'],
-                ),
+      for (var idx = 0; idx < response.length; idx++) {
+        final allTrxMembers = <UserModel>[
+          UserModel(
+            id: response[idx]['Users']['Id'],
+            displayName: response[idx]['Users']['DisplayName'],
+            email: response[idx]['Users']['Email'],
+            profilePicUrl: response[idx]['Users']['ProfilePictureURL'],
+          ),
+        ];
+        final otherMemberResponse = await supabaseClient
+            .from('TransactionMember')
+            .select('Users!inner(*)')
+            .eq('TransactionId', response[idx]['TransactionHeader']['Id']);
+        otherMemberResponse.forEach((mem) {
+          if (mem['Users']['Id'] !=
+              (supabaseClient.auth.currentUser?.id ?? '')) {
+            allTrxMembers.add(UserModel(
+              id: mem['Users']['Id'],
+              displayName: mem['Users']['DisplayName'],
+              email: mem['Users']['Email'],
+              profilePicUrl: mem['Users']['ProfilePictureURL'],
+            ));
+          }
+        });
+
+        headersList.add(
+          TransactionHeader(
+            id: response[idx]['TransactionHeader']['Id'],
+            name: response[idx]['TransactionHeader']['Name'],
+            date: DateFormat('dd MMM yyyy').format(
+              DateTime.parse(
+                response[idx]['TransactionHeader']['Date'],
               ),
-              grandTotal: head['TransactionHeader']['GrandTotal'] ?? 0,
-              isMemberFinalized:
-                  head['TransactionHeader']['IsMemberFinalized'] ?? false,
-              isItemFinalized:
-                  head['TransactionHeader']['IsItemFinalized'] ?? false,
-              isComplete: head['TransactionHeader']['IsComplete'] ?? false,
-              isDeletable: head['TransactionHeader']['IsDeletetable'] ?? true,
-              membersList: [
-                UserModel(
-                  Id: head['Users']['Id'],
-                  DisplayName: head['Users']['DisplayName'],
-                  Email: head['Users']['Email'],
-                  ProfilePicUrl: head['Users']['ProfilePictureURL'],
-                ),
-              ],
             ),
-          );
-        } else {
-          // add member to list
-          existingHeader.membersList.add(
-            UserModel(
-              Id: head['Users']['Id'],
-              DisplayName: head['Users']['DisplayName'],
-              Email: head['Users']['Email'],
-              ProfilePicUrl: head['Users']['ProfilePictureURL'],
-            ),
-          );
-        }
-      });
+            grandTotal: response[idx]['TransactionHeader']['GrandTotal'] ?? 0,
+            isMemberFinalized: response[idx]['TransactionHeader']
+                    ['IsMemberFinalized'] ??
+                false,
+            isItemFinalized:
+                response[idx]['TransactionHeader']['IsItemFinalized'] ?? false,
+            isComplete:
+                response[idx]['TransactionHeader']['IsComplete'] ?? false,
+            isDeletable:
+                response[idx]['TransactionHeader']['IsDeletetable'] ?? true,
+            membersList: allTrxMembers,
+          ),
+        );
+      }
     } catch (e) {
       showUnexpectedErrorSnackbar(e);
     }
@@ -180,5 +185,44 @@ class TransactionsProvider {
     }
 
     return isResponseFinalized;
+  }
+
+  Future<bool> finalizeDetailMember(
+      String headerId, List<UserModel> selectedFriend) async {
+    bool isResponseFinalized = false;
+
+    try {
+      for (var i = 0; i < selectedFriend.length; i++) {
+        await supabaseClient.from('TransactionMember').insert({
+          'TransactionId': headerId,
+          'UserId': selectedFriend[i].id,
+        });
+      }
+
+      await supabaseClient.from('TransactionHeader').update({
+        'IsMemberFinalized': true,
+      }).eq('Id', headerId);
+      isResponseFinalized = true;
+    } catch (e) {
+      showUnexpectedErrorSnackbar(e);
+    }
+
+    return isResponseFinalized;
+  }
+
+  Future<bool> isSplitted(String headerId) async {
+    bool isSplitted = true;
+    try {
+      final response = await supabaseClient
+          .from('TransactionUser')
+          .select()
+          .eq('TransactionId', headerId) as List;
+
+      if (response.isEmpty) isSplitted = false;
+    } catch (e) {
+      showUnexpectedErrorSnackbar(e);
+    }
+
+    return isSplitted;
   }
 }

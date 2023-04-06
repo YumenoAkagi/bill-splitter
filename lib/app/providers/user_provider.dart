@@ -12,10 +12,10 @@ class UserProvider {
 
       // insert user profile
       final userDataFromResponse = UserModel(
-        Id: response['Id'],
-        DisplayName: response['DisplayName'],
-        Email: response['Email'],
-        ProfilePicUrl: response['ProfilePictureURL'],
+        id: response['Id'],
+        displayName: response['DisplayName'],
+        email: response['Email'],
+        profilePicUrl: response['ProfilePictureURL'],
       );
       return userDataFromResponse;
     } catch (e) {

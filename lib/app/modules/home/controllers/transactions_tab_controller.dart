@@ -1,9 +1,9 @@
-import 'package:bill_splitter/app/utils/functions_helper.dart';
 import 'package:get/get.dart';
 
 import '../../../models/transaction_header_model.dart';
 import '../../../providers/transactions_provider.dart';
 import '../../../routes/app_pages.dart';
+import '../../../utils/functions_helper.dart';
 
 class TransactionsTabController extends GetxController {
   final TransactionsProvider _transactionsRepo = TransactionsProvider();
@@ -45,7 +45,7 @@ class TransactionsTabController extends GetxController {
     update();
   }
 
-  void viewTrxDetail(String id) {
+  void viewTrxDetail(String id) async {
     final selectedHeader =
         headersList.firstWhereOrNull((head) => head.id == id);
     if (selectedHeader != null) {
@@ -56,6 +56,11 @@ class TransactionsTabController extends GetxController {
 
       if (!selectedHeader.isMemberFinalized) {
         Get.toNamed(Routes.ADDTRXMEMBERS, arguments: selectedHeader);
+        return;
+      }
+
+      if (!(await _transactionsRepo.isSplitted(selectedHeader.id))) {
+        Get.toNamed(Routes.TRXSPLITOPTIONS, arguments: selectedHeader);
         return;
       }
     }

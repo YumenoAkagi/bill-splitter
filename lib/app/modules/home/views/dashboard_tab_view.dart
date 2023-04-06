@@ -39,7 +39,7 @@ class DashboardTabView extends StatelessWidget {
                   children: [
                     Obx(
                       () => Text(
-                        'Hi, ${dashboardController.userData.value.DisplayName}',
+                        'Hi, ${dashboardController.userData.value.displayName}',
                         style: Get.textTheme.titleLarge,
                       ),
                     ),
@@ -48,7 +48,7 @@ class DashboardTabView extends StatelessWidget {
                     ),
                     Obx(
                       () => Text(
-                        dashboardController.userData.value.Email,
+                        dashboardController.userData.value.email,
                         style: Get.textTheme.titleSmall,
                       ),
                     ),
@@ -56,17 +56,17 @@ class DashboardTabView extends StatelessWidget {
                 ),
                 Obx(
                   () => dashboardController
-                          .userData.value.DisplayName.isEmptyOrNull
+                          .userData.value.displayName.isEmptyOrNull
                       ? const SizedBox()
                       : CircularProfileAvatar(
-                          dashboardController.userData.value.ProfilePicUrl ??
+                          dashboardController.userData.value.profilePicUrl ??
                               '',
                           radius: 15 * GOLDEN_RATIO,
                           onTap: () => homeController.switchTab(3),
                           cacheImage: true,
                           backgroundColor: getColorFromHex(COLOR_1),
                           initialsText: Text(
-                            dashboardController.userData.value.DisplayName[0],
+                            dashboardController.userData.value.displayName[0],
                             style: Get.textTheme.titleLarge?.copyWith(
                               color: Colors.white,
                             ),

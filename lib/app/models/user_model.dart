@@ -1,13 +1,13 @@
 class UserModel {
   UserModel({
-    required this.Id,
-    required this.DisplayName,
-    required this.Email,
-    this.ProfilePicUrl,
+    required this.id,
+    required this.displayName,
+    required this.email,
+    this.profilePicUrl,
   });
 
-  String Id;
-  String DisplayName;
-  String Email;
-  String? ProfilePicUrl;
+  String id;
+  String displayName;
+  String email;
+  String? profilePicUrl;
 }

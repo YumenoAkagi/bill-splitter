@@ -31,12 +31,12 @@ class ProfileTabView extends StatelessWidget {
                   children: [
                     Obx(
                       () => CircularProfileAvatar(
-                        controller.userData.value.ProfilePicUrl ?? '',
+                        controller.userData.value.profilePicUrl ?? '',
                         radius: 48 * GOLDEN_RATIO,
                         cacheImage: true,
                         backgroundColor: getColorFromHex(COLOR_1),
                         initialsText: Text(
-                          controller.userData.value.DisplayName[0],
+                          controller.userData.value.displayName[0],
                           style: Get.textTheme.titleLarge?.copyWith(
                             color: Colors.white,
                           ),
@@ -100,7 +100,7 @@ class ProfileTabView extends StatelessWidget {
                 ),
                 Obx(
                   () => Text(
-                    controller.userData.value.Email,
+                    controller.userData.value.email,
                     style: Get.textTheme.titleSmall,
                   ),
                 ),

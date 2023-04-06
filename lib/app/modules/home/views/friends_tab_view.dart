@@ -57,7 +57,7 @@ class FriendsTabView extends StatelessWidget {
                           confirmDismiss: (_) async {
                             bool confirmDelete = false;
                             await showConfirmDialog(context,
-                                'Delete ${ftc.friendList[index].DisplayName}?\nThis action cannot be undone.',
+                                'Delete ${ftc.friendList[index].displayName}?\nThis action cannot be undone.',
                                 buttonColor: Colors.red.shade700,
                                 negativeText: 'Cancel',
                                 positiveText: 'Delete', onAccept: () {
@@ -71,19 +71,19 @@ class FriendsTabView extends StatelessWidget {
                                     BorderRadius.circular(8 * GOLDEN_RATIO)),
                             elevation: 2,
                             child: ListTile(
-                              title: Text(ftc.friendList[index].DisplayName,
+                              title: Text(ftc.friendList[index].displayName,
                                   style: Get.textTheme.labelMedium),
                               subtitle: Text(
-                                ftc.friendList[index].Email,
+                                ftc.friendList[index].email,
                                 style: Get.textTheme.titleSmall,
                               ),
                               leading: CircularProfileAvatar(
-                                ftc.friendList[index].ProfilePicUrl ?? '',
+                                ftc.friendList[index].profilePicUrl ?? '',
                                 radius: 15 * GOLDEN_RATIO,
                                 cacheImage: true,
                                 backgroundColor: getColorFromHex(COLOR_1),
                                 initialsText: Text(
-                                  ftc.friendList[index].DisplayName[0],
+                                  ftc.friendList[index].displayName[0],
                                   style: Get.textTheme.titleLarge?.copyWith(
                                     color: Colors.white,
                                   ),
