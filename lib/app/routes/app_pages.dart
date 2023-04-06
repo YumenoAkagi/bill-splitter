@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../middlewares/auth_middleware.dart';
 import '../modules/auth/email_sent/bindings/email_sent_binding.dart';
 import '../modules/auth/email_sent/views/email_sent_view.dart';
 import '../modules/auth/forgot_password/bindings/forgot_password_binding.dart';
@@ -45,13 +46,6 @@ class AppPages {
       binding: SplashBinding(),
     ),
     GetPage(
-      name: _Paths.HOME,
-      page: () => const HomeView(),
-      binding: HomeBinding(),
-      transition: Transition.circularReveal,
-      transitionDuration: const Duration(milliseconds: 750),
-    ),
-    GetPage(
       name: _Paths.LOGIN,
       page: () => const LoginView(),
       binding: LoginBinding(),
@@ -84,24 +78,46 @@ class AppPages {
       transitionDuration: const Duration(milliseconds: 625),
     ),
     GetPage(
+      name: _Paths.HOME,
+      page: () => const HomeView(),
+      binding: HomeBinding(),
+      transition: Transition.circularReveal,
+      transitionDuration: const Duration(milliseconds: 750),
+      middlewares: [
+        AuthMiddleware(),
+      ],
+    ),
+    GetPage(
       name: _Paths.MANAGE_FRIEND,
       page: () => const ManageFriendView(),
       binding: ManageFriendBinding(),
+      middlewares: [
+        AuthMiddleware(),
+      ],
     ),
     GetPage(
       name: _Paths.CONFIGS,
       page: () => const ConfigsView(),
       binding: ConfigsBinding(),
+      middlewares: [
+        AuthMiddleware(),
+      ],
     ),
     GetPage(
       name: _Paths.HISTORYTRX,
       page: () => const HistoryTransactionsView(),
       binding: HistoryTransactionsBinding(),
+      middlewares: [
+        AuthMiddleware(),
+      ],
     ),
     GetPage(
       name: _Paths.ADDTRXITEM,
       page: () => const AddTrxDetailsItemsView(),
       binding: AddTrxDetailsItemsBinding(),
+      middlewares: [
+        AuthMiddleware(),
+      ],
       children: [
         GetPage(
           name: _Paths.ADDITEMMANUAL,
@@ -114,11 +130,17 @@ class AppPages {
       name: _Paths.ADDTRXMEMBERS,
       page: () => const AddTrxDetailMembersView(),
       binding: AddTrxDetailMembersBinding(),
+      middlewares: [
+        AuthMiddleware(),
+      ],
     ),
     GetPage(
       name: _Paths.TRXSPLITOPTIONS,
       page: () => const SplitTrxOptionsView(),
       binding: SplitTrxOptionsBinding(),
+      middlewares: [
+        AuthMiddleware(),
+      ],
     ),
   ];
 }
