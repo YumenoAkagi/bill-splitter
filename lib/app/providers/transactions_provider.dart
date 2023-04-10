@@ -1,3 +1,4 @@
+import 'package:bill_splitter/app/models/trx_member_pays_the_bill.dart';
 import 'package:intl/intl.dart';
 
 import '../models/transaction_detail_item_model.dart';
@@ -124,6 +125,10 @@ class TransactionsProvider {
     try {
       // delete header and its relations
       await supabaseClient
+          .from('TransactionUser')
+          .delete()
+          .eq('TransactionId', headerId);
+      await supabaseClient
           .from('TransactionMember')
           .delete()
           .eq('TransactionId', headerId);
@@ -224,5 +229,34 @@ class TransactionsProvider {
     }
 
     return isSplitted;
+  }
+
+  Future<bool> addTransactionUser(String headerId, String fromUserId,
+      String toUserId, double amount) async {
+    bool isSucceed = false;
+    try {
+      await supabaseClient.from('TransactionUser').insert({
+        'TransactionId': headerId,
+        'FromUserId': fromUserId,
+        'ToUserId': toUserId,
+        'TotalAmountOwed': amount,
+        'HasPaid': false,
+      });
+      isSucceed = true;
+    } catch (e) {
+      showUnexpectedErrorSnackbar(e);
+    }
+    return isSucceed;
+  }
+
+  Future deleteAllTransactionUser(String headerId) async {
+    try {
+      await supabaseClient
+          .from('TransactionUser')
+          .delete()
+          .eq('TransactionId', headerId);
+    } catch (e) {
+      showUnexpectedErrorSnackbar(e);
+    }
   }
 }

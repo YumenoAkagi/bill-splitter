@@ -1,3 +1,5 @@
+import 'package:bill_splitter/app/modules/transactions/split_success/bindings/split_success_binding.dart';
+import 'package:bill_splitter/app/modules/transactions/split_success/views/split_success_view.dart';
 import 'package:bill_splitter/app/modules/transactions/who_paid_trx_bill/bindings/who_paid_trx_binding.dart';
 import 'package:bill_splitter/app/modules/transactions/who_paid_trx_bill/views/who_paid_trx_bill_view.dart';
 import 'package:get/get.dart';
@@ -148,6 +150,14 @@ class AppPages {
       name: _Paths.TRXSPLITOPTIONS,
       page: () => const SplitTrxOptionsView(),
       binding: SplitTrxOptionsBinding(),
+      middlewares: [
+        AuthMiddleware(),
+      ],
+    ),
+    GetPage(
+      name: _Paths.SPLITSUCCESS,
+      page: () => const SplitSuccessView(),
+      binding: SplitSuccessBinding(),
       middlewares: [
         AuthMiddleware(),
       ],

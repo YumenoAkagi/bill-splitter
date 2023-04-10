@@ -7,7 +7,7 @@ import '../utils/app_constants.dart';
 class AuthMiddleware extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
-    return supabaseClient.auth.currentSession != null
+    return (supabaseClient.auth.currentSession != null && (supabaseClient.auth.currentSession?.expiresAt ?? DateTime.now().millisecondsSinceEpoch) < DateTime.now().millisecondsSinceEpoch)
         ? null
         : const RouteSettings(name: Routes.SPLASH);
   }

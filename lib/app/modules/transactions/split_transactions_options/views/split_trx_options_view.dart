@@ -38,7 +38,7 @@ class SplitTrxOptionsView extends GetView<SplitTrxOptionsController> {
               Expanded(
                 child: InkWell(
                   borderRadius: BorderRadius.circular(BUTTON_BORDER_RAD),
-                  onTap: () {},
+                  onTap: controller.splitEqually,
                   child: Card(
                     elevation: 0,
                     shape: RoundedRectangleBorder(

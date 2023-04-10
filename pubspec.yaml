@@ -52,4 +52,5 @@ flutter:
     - assets/images/undraw_Transfer_money.png
     - assets/images/undraw_My_password.png
     - assets/images/undraw_Empty.png
+    - assets/images/undraw_Done.png
   uses-material-design: true
