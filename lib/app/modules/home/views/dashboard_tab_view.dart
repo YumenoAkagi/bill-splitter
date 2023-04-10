@@ -123,10 +123,13 @@ class DashboardTabView extends StatelessWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  'Your Last Active Transactions',
-                  style: Get.textTheme.labelMedium,
+                Expanded(
+                  child: Text(
+                    'Your Last Active Transactions',
+                    style: Get.textTheme.labelMedium,
+                  ),
                 ),
                 TextButton(
                   onPressed: () {

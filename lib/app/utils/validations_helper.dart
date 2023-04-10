@@ -28,7 +28,7 @@ class GreaterThanZeroValidator extends FieldValidator<String> {
   @override
   bool isValid(String value) {
     final val = separatorFormatter.parse(value);
-    if (val < 0) return false;
+    if (val <= 0) return false;
     return true;
   }
 }

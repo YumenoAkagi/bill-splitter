@@ -60,7 +60,7 @@ class TransactionsTabController extends GetxController {
       }
 
       if (!(await _transactionsRepo.isSplitted(selectedHeader.id))) {
-        Get.toNamed(Routes.TRXSPLITOPTIONS, arguments: selectedHeader);
+        Get.toNamed(Routes.TRXMEMBERWHOPAID, arguments: selectedHeader);
         return;
       }
     }

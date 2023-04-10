@@ -11,6 +11,7 @@ dependencies:
   calendar_date_picker2: ^0.4.6
   carousel_slider: ^4.2.1
   circular_profile_avatar: ^2.0.5
+  dropdown_button2: ^2.0.0
   flutter:
     sdk: flutter
   fluttericon: ^2.0.0

@@ -129,7 +129,7 @@ class AddTrxDetailsItemsController extends GetxController {
         await trxRepo.finalizeDetailItem(trxHeader.id, grandTotal);
 
     if (isFinalized) {
-      trxHeader.isMemberFinalized = true;
+      trxHeader.isItemFinalized = true;
       // update list in tab and dashboard
       try {
         final transactionTabController = Get.find<TransactionsTabController>();

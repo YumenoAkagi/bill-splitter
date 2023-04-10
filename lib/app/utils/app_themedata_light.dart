@@ -38,6 +38,9 @@ final outlinedButtonThemeDataLight = OutlinedButtonThemeData(
     minimumSize: const Size.fromHeight(
       BUTTON_MINHEIGHT, // match parent width
     ),
+    side: BorderSide(
+      color: getColorFromHex(COLOR_1),
+    ),
   ),
 );
 

@@ -82,7 +82,7 @@ class AddTrxDetailMembersController extends GetxController {
         // do nothing
       }
       isLoading.value = false;
-      Get.offNamed(Routes.TRXSPLITOPTIONS, arguments: trxHeader);
+      Get.offNamed(Routes.TRXMEMBERWHOPAID, arguments: trxHeader);
     } else {
       isLoading.value = false;
     }

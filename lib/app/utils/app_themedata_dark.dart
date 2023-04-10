@@ -41,7 +41,7 @@ final elevatedButtonThemeDataDark = ElevatedButtonThemeData(
 
 final outlinedButtonThemeDataDark = OutlinedButtonThemeData(
   style: OutlinedButton.styleFrom(
-    foregroundColor: getColorFromHex(COLOR_1),
+    foregroundColor: Colors.white,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(BUTTON_BORDER_RAD),
     ),
@@ -53,6 +53,7 @@ final outlinedButtonThemeDataDark = OutlinedButtonThemeData(
 
 const textThemeDark = TextTheme(
   labelLarge: TextStyle(
+    // fontWeight: FontWeight.w900,
     fontSize: 10 * GOLDEN_RATIO,
     color: Colors.white,
   ), // button

@@ -1,3 +1,5 @@
+import 'package:bill_splitter/app/modules/transactions/who_paid_trx_bill/bindings/who_paid_trx_binding.dart';
+import 'package:bill_splitter/app/modules/transactions/who_paid_trx_bill/views/who_paid_trx_bill_view.dart';
 import 'package:get/get.dart';
 
 import '../middlewares/auth_middleware.dart';
@@ -130,6 +132,14 @@ class AppPages {
       name: _Paths.ADDTRXMEMBERS,
       page: () => const AddTrxDetailMembersView(),
       binding: AddTrxDetailMembersBinding(),
+      middlewares: [
+        AuthMiddleware(),
+      ],
+    ),
+    GetPage(
+      name: _Paths.TRXMEMBERWHOPAID,
+      page: () => const WhoPaidTrxBillView(),
+      binding: WhoPaidTrxBillBinding(),
       middlewares: [
         AuthMiddleware(),
       ],

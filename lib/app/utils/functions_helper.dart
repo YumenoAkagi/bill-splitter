@@ -53,6 +53,8 @@ class DecimalFormatter extends TextInputFormatter {
       return newValue;
     }
 
+    if (newText.isEmpty) return newValue;
+
     double newDouble = double.parse(newText);
     var selectionIndexFromTheRight =
         newValue.text.length - newValue.selection.end;
