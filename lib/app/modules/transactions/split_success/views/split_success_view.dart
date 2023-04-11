@@ -1,7 +1,7 @@
-import 'package:bill_splitter/app/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../utils/app_constants.dart';
 import '../controllers/split_success_controller.dart';
 
 class SplitSuccessView extends GetView<SplitSuccessController> {

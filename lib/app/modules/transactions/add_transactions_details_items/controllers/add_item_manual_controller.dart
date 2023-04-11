@@ -19,10 +19,9 @@ class AddItemManualController extends GetxController {
     if (!formKey.currentState!.validate()) return;
     isLoading.value = true;
     try {
-      final qtyRaw = qtyController.text;
-      final priceRaw = priceController.text;
-      final num totalPriceRaw =
-          double.parse(qtyController.text) * double.parse(priceController.text);
+      final qtyRaw = separatorFormatter.parse(qtyController.text);
+      final priceRaw = separatorFormatter.parse(priceController.text);
+      final num totalPriceRaw = qtyRaw * priceRaw;
       final response = await supabaseClient.from('TransactionDetail').insert({
         'TransactionId': addTrxController.trxHeader.id,
         'Name': nameController.text,

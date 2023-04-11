@@ -1,13 +1,12 @@
-import 'package:bill_splitter/app/utils/validations_helper.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../../utils/app_constants.dart';
 import '../../../utils/functions_helper.dart';
+import '../../../utils/validations_helper.dart';
 import '../controllers/bs_add_paid_bill_member_controller.dart';
 
 class BsAddPaidBillMemberView extends StatelessWidget {
@@ -99,9 +98,10 @@ class BsAddPaidBillMemberView extends StatelessWidget {
                   keyboardType: TextInputType.number,
                   controller: controller.amountPaidController,
                   decoration: const InputDecoration(
-                    hintText: 'Amount Paid',
+                    hintText: '0.0',
                     prefixText: 'Rp ',
                   ),
+                  textAlign: TextAlign.end,
                   inputFormatters: [
                     DecimalFormatter(
                       maxVal: double.maxFinite,

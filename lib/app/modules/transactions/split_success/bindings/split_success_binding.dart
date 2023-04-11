@@ -1,5 +1,6 @@
-import 'package:bill_splitter/app/modules/transactions/split_success/controllers/split_success_controller.dart';
 import 'package:get/get.dart';
+
+import '../controllers/split_success_controller.dart';
 
 class SplitSuccessBinding extends Bindings {
   @override

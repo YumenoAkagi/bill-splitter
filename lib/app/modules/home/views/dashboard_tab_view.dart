@@ -1,15 +1,13 @@
-import 'package:fluttericon/font_awesome5_icons.dart';
-
-import '../../../routes/app_pages.dart';
-import '../../../widgets/icon_button_with_text.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
-import 'package:fluttericon/font_awesome_icons.dart';
+import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 
+import '../../../routes/app_pages.dart';
 import '../../../utils/app_constants.dart';
+import '../../../widgets/icon_button_with_text.dart';
 import '../controllers/dashboard_tab_controller.dart';
 import '../controllers/home_controller.dart';
 

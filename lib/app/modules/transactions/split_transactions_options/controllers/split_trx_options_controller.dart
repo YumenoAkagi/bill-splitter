@@ -4,6 +4,7 @@ import '../../../../models/transaction_header_model.dart';
 import '../../../../providers/transactions_provider.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../utils/functions_helper.dart';
+import '../../../home/controllers/transactions_tab_controller.dart';
 import '../../who_paid_trx_bill/controllers/who_paid_trx_bill_controller.dart';
 
 class SplitTrxOptionsController extends GetxController {
@@ -18,53 +19,63 @@ class SplitTrxOptionsController extends GetxController {
       final membersWhoPaidBill = whoPaidController.membersWhoPaidBill;
       final totalEquallySplitted =
           trxHeader.grandTotal / trxHeader.membersList.length;
-      final totalAmountPaidByMembers = whoPaidController.membersWhoPaidBill
-          .fold(0.0, (prev, trxPaid) => prev + trxPaid.paidAmount);
+      final allSurplusMember = membersWhoPaidBill
+          .where((e) => (e.paidAmount - totalEquallySplitted) > 0.0)
+          .toList(); // member who paid and will not have debts
+      final totalSurplus = membersWhoPaidBill
+          .where((mem) => (mem.paidAmount - totalEquallySplitted) > 0.0)
+          .fold(0.0, (prev, e) => prev + (e.paidAmount - totalEquallySplitted));
 
       bool isSucceed = true;
 
       for (var i = 0; i < trxHeader.membersList.length; i++) {
         final currentMember = trxHeader.membersList[i];
-        for (var j = 0; i < membersWhoPaidBill.length; j++) {
-          if (membersWhoPaidBill.firstWhereOrNull(
-                  (trxPaid) => trxPaid.member.id == currentMember.id) ==
-              null) {
-            // if the member not paying the bill, then the member gets all the total amount owed splitted
-            isSucceed = await _transactionRepo.addTransactionUser(
-              trxHeader.id,
-              currentMember.id,
-              membersWhoPaidBill[j].member.id,
-              membersWhoPaidBill[j].paidAmount /
-                  totalAmountPaidByMembers *
-                  totalEquallySplitted,
-            );
-          } else {
-            // if the member is also paying for the bill, check if the member has debts
-            final debtsOrSurplusAmount =
-                membersWhoPaidBill[j].paidAmount - totalAmountPaidByMembers;
-            if (debtsOrSurplusAmount < 0.0 &&
-                membersWhoPaidBill[j].member.id != currentMember.id) {
-              // if have debts, share equally to other members excl. this member
+        final isMemberPaidForBill = membersWhoPaidBill
+            .firstWhereOrNull((mem) => mem.member.id == currentMember.id);
+
+        if (isMemberPaidForBill != null) {
+          // if minus then split
+          final debtsOrSurplusAmount =
+              isMemberPaidForBill.paidAmount - totalEquallySplitted;
+          if (debtsOrSurplusAmount < 0.0) {
+            // the member paid splitted for all surplus
+            for (var j = 0; j < allSurplusMember.length; j++) {
               isSucceed = await _transactionRepo.addTransactionUser(
                 trxHeader.id,
                 currentMember.id,
-                membersWhoPaidBill[j].member.id,
-                (membersWhoPaidBill[j].paidAmount /
-                        totalAmountPaidByMembers *
-                        debtsOrSurplusAmount)
-                    .abs(),
+                allSurplusMember[j].member.id,
+                (allSurplusMember[j].paidAmount - totalEquallySplitted) /
+                    totalSurplus *
+                    debtsOrSurplusAmount.abs(),
               );
             }
           }
-
-          if (!isSucceed) {
-            // revert
-            await _transactionRepo.deleteAllTransactionUser(trxHeader.id);
-            return;
+        } else {
+          // if not paying the bill, member split to all surplus from eq split
+          for (var j = 0; j < allSurplusMember.length; j++) {
+            isSucceed = await _transactionRepo.addTransactionUser(
+                trxHeader.id,
+                currentMember.id,
+                allSurplusMember[j].member.id,
+                (allSurplusMember[j].paidAmount - totalEquallySplitted) /
+                    totalSurplus *
+                    totalEquallySplitted);
           }
+        }
+
+        if (!isSucceed) {
+          // revert
+          await _transactionRepo.deleteAllTransactionUser(trxHeader.id);
+          return;
         }
       }
       isLoading.value = false;
+      try {
+        final transactionTabController = Get.find<TransactionsTabController>();
+        await transactionTabController.getActiveTransactions();
+      } catch (e) {
+        // do nothing
+      }
       Get.offNamed(Routes.SPLITSUCCESS);
     } catch (e) {
       showUnexpectedErrorSnackbar(e);

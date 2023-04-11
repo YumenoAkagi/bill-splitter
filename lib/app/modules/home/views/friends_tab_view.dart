@@ -9,10 +9,10 @@ import '../../../utils/functions_helper.dart';
 import '../controllers/friend_tab_controller.dart';
 
 class FriendsTabView extends StatelessWidget {
-  FriendsTabView({super.key});
-  final controller = Get.put<FriendTabController>(FriendTabController());
+  const FriendsTabView({super.key});
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put<FriendTabController>(FriendTabController());
     return SafeArea(
       child: Container(
         margin: const EdgeInsets.symmetric(

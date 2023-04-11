@@ -1,8 +1,8 @@
-import 'package:bill_splitter/app/models/trx_member_pays_the_bill.dart';
 import 'package:intl/intl.dart';
 
 import '../models/transaction_detail_item_model.dart';
 import '../models/transaction_header_model.dart';
+import '../models/transaction_user_model.dart';
 import '../models/user_model.dart';
 import '../utils/app_constants.dart';
 import '../utils/functions_helper.dart';
@@ -258,5 +258,83 @@ class TransactionsProvider {
     } catch (e) {
       showUnexpectedErrorSnackbar(e);
     }
+  }
+
+  Future<double> getTotalDebtsForCurrentUser(
+      String userId, String headerId) async {
+    double totalDebts = 0.0;
+
+    try {
+      final response = await supabaseClient
+          .from('TransactionUser')
+          .select()
+          .eq('TransactionId', headerId)
+          .eq('FromUserId', userId);
+
+      response.forEach(
+          (tu) => totalDebts += (tu['TotalAmountOwed'] - tu['AmountPaid']));
+    } catch (e) {
+      showUnexpectedErrorSnackbar(e);
+    }
+
+    return totalDebts;
+  }
+
+  Future<List<TransactionUserModel>> getTransactionUsers(
+      String headerId, String userId) async {
+    List<TransactionUserModel> transactionUsersList = [];
+    try {
+      final response = await supabaseClient
+          .from('TransactionUser')
+          .select('*, fromUser:Users!FromUserId(*), toUser:Users!ToUserId(*)')
+          .eq('TransactionId', headerId)
+          .or('FromUserId.eq.$userId,ToUserId.eq.$userId');
+
+      response.forEach(
+        (tu) => transactionUsersList.add(
+          TransactionUserModel(
+            id: tu['Id'],
+            fromUser: UserModel(
+              id: tu['fromUser']['Id'],
+              displayName: tu['fromUser']['DisplayName'],
+              email: tu['fromUser']['Email'],
+              profilePicUrl: tu['fromUser']['ProfilePictureURL'],
+            ),
+            toUser: UserModel(
+              id: tu['toUser']['Id'],
+              displayName: tu['toUser']['DisplayName'],
+              email: tu['toUser']['Email'],
+              profilePicUrl: tu['toUser']['ProfilePictureURL'],
+            ),
+            totalAmountOwed: tu['TotalAmountOwed'],
+            amountPaid: tu['AmountPaid'],
+          ),
+        ),
+      );
+    } catch (e) {
+      showUnexpectedErrorSnackbar(e);
+    }
+
+    return transactionUsersList;
+  }
+
+  Future<double> getTotalReceivablesForCurrentUser(
+      String userId, String headerId) async {
+    double totalReceivables = 0.0;
+
+    try {
+      final response = await supabaseClient
+          .from('TransactionUser')
+          .select()
+          .eq('TransactionId', headerId)
+          .eq('ToUserId', userId);
+
+      response.forEach((tu) =>
+          totalReceivables += (tu['TotalAmountOwed'] - tu['AmountPaid']));
+    } catch (e) {
+      showUnexpectedErrorSnackbar(e);
+    }
+
+    return totalReceivables;
   }
 }

@@ -9,12 +9,11 @@ import '../../../utils/functions_helper.dart';
 import '../controllers/profile_tab_controller.dart';
 
 class ProfileTabView extends StatelessWidget {
-  ProfileTabView({super.key});
-
-  final controller = Get.put<ProfileTabController>(ProfileTabController());
+  const ProfileTabView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put<ProfileTabController>(ProfileTabController());
     return SafeArea(
       child: Container(
         margin: const EdgeInsets.symmetric(
@@ -36,7 +35,9 @@ class ProfileTabView extends StatelessWidget {
                         cacheImage: true,
                         backgroundColor: getColorFromHex(COLOR_1),
                         initialsText: Text(
-                          controller.userData.value.displayName[0],
+                          controller.userData.value.displayName.isEmptyOrNull
+                              ? ''
+                              : controller.userData.value.displayName[0],
                           style: Get.textTheme.titleLarge?.copyWith(
                             color: Colors.white,
                           ),

@@ -1,7 +1,3 @@
-import 'package:bill_splitter/app/modules/transactions/split_success/bindings/split_success_binding.dart';
-import 'package:bill_splitter/app/modules/transactions/split_success/views/split_success_view.dart';
-import 'package:bill_splitter/app/modules/transactions/who_paid_trx_bill/bindings/who_paid_trx_binding.dart';
-import 'package:bill_splitter/app/modules/transactions/who_paid_trx_bill/views/who_paid_trx_bill_view.dart';
 import 'package:get/get.dart';
 
 import '../middlewares/auth_middleware.dart';
@@ -33,8 +29,14 @@ import '../modules/transactions/add_transactions_details_items/views/add_item_ma
 import '../modules/transactions/add_transactions_details_items/views/add_trx_details_items_view.dart';
 import '../modules/transactions/history_transactions/bindings/history_transactions_binding.dart';
 import '../modules/transactions/history_transactions/views/history_transactions_view.dart';
+import '../modules/transactions/split_success/bindings/split_success_binding.dart';
+import '../modules/transactions/split_success/views/split_success_view.dart';
 import '../modules/transactions/split_transactions_options/bindings/split_trx_options_binding.dart';
 import '../modules/transactions/split_transactions_options/views/split_trx_options_view.dart';
+import '../modules/transactions/transactions_detail/bindings/transaction_detail_binding.dart';
+import '../modules/transactions/transactions_detail/views/transaction_detail_view.dart';
+import '../modules/transactions/who_paid_trx_bill/bindings/who_paid_trx_binding.dart';
+import '../modules/transactions/who_paid_trx_bill/views/who_paid_trx_bill_view.dart';
 
 part 'app_routes.dart';
 
@@ -158,6 +160,14 @@ class AppPages {
       name: _Paths.SPLITSUCCESS,
       page: () => const SplitSuccessView(),
       binding: SplitSuccessBinding(),
+      middlewares: [
+        AuthMiddleware(),
+      ],
+    ),
+    GetPage(
+      name: _Paths.TRXDETAIL,
+      page: () => const TransactionDetailView(),
+      binding: TransactionDetailBinding(),
       middlewares: [
         AuthMiddleware(),
       ],

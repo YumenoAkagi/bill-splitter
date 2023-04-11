@@ -62,10 +62,17 @@ class AddItemManualView extends GetView<AddItemManualController> {
                             TextFormField(
                               controller: controller.qtyController,
                               keyboardType: TextInputType.number,
-                              decoration:
-                                  const InputDecoration(hintText: 'Quantity'),
+                              decoration: const InputDecoration(
+                                hintText: 'Quantity',
+                              ),
+                              inputFormatters: [
+                                DecimalFormatter(
+                                  maxVal: double.maxFinite,
+                                ),
+                              ],
                               validator: RequiredValidator(
-                                  errorText: requiredErrorText),
+                                errorText: requiredErrorText,
+                              ),
                             ),
                           ],
                         ),
@@ -87,10 +94,19 @@ class AddItemManualView extends GetView<AddItemManualController> {
                             TextFormField(
                               controller: controller.priceController,
                               keyboardType: TextInputType.number,
-                              decoration:
-                                  const InputDecoration(hintText: 'Price'),
+                              decoration: const InputDecoration(
+                                hintText: '0.0',
+                                prefixText: 'Rp ',
+                              ),
+                              textAlign: TextAlign.end,
+                              inputFormatters: [
+                                DecimalFormatter(
+                                  maxVal: double.maxFinite,
+                                ),
+                              ],
                               validator: RequiredValidator(
-                                  errorText: requiredErrorText),
+                                errorText: requiredErrorText,
+                              ),
                             ),
                           ],
                         ),

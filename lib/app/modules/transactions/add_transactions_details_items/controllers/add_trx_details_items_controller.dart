@@ -122,7 +122,8 @@ class AddTrxDetailsItemsController extends GetxController {
     if (makeGrandTotalSameAsSubTotal.isTrue) {
       grandTotal = subtotal.value;
     } else {
-      grandTotal = separatorFormatter.parse(grandTotalController.text);
+      grandTotal =
+          separatorFormatter.parse(grandTotalController.text).toDouble();
     }
 
     final isFinalized =
@@ -130,6 +131,7 @@ class AddTrxDetailsItemsController extends GetxController {
 
     if (isFinalized) {
       trxHeader.isItemFinalized = true;
+      trxHeader.grandTotal = grandTotal;
       // update list in tab and dashboard
       try {
         final transactionTabController = Get.find<TransactionsTabController>();

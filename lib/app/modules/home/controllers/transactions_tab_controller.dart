@@ -63,6 +63,8 @@ class TransactionsTabController extends GetxController {
         Get.toNamed(Routes.TRXMEMBERWHOPAID, arguments: selectedHeader);
         return;
       }
+
+      Get.toNamed(Routes.TRXDETAIL, arguments: selectedHeader);
     }
   }
 

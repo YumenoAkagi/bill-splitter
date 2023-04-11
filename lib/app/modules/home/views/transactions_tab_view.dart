@@ -114,7 +114,7 @@ class TransactionsTabView extends StatelessWidget {
                                     children: [
                                       SizedBox(
                                         height: 20 * GOLDEN_RATIO,
-                                        width: Get.width * 0.3 * GOLDEN_RATIO,
+                                        width: Get.width * 0.33 * GOLDEN_RATIO,
                                         child: WidgetStack(
                                           positions: RestrictedPositions(
                                             align: StackAlign.left,

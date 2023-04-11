@@ -136,14 +136,17 @@ class AddTrxDetailsItemsView extends GetView<AddTrxDetailsItemsController> {
                             child: Form(
                               key: controller.formKey,
                               child: TextFormField(
+                                controller: controller.grandTotalController,
                                 keyboardType: TextInputType.number,
-                                inputFormatters: [
-                                  DecimalFormatter(maxVal: double.maxFinite),
-                                ],
                                 textAlign: TextAlign.end,
+                                inputFormatters: [
+                                  DecimalFormatter(
+                                    maxVal: double.maxFinite,
+                                  ),
+                                ],
                                 decoration: const InputDecoration(
                                   hintText: '0.0',
-                                  prefix: Text('Rp'),
+                                  prefix: Text('Rp '),
                                 ),
                                 validator: qtyAndPriceValidator,
                               ),

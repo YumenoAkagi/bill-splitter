@@ -130,8 +130,8 @@ class HomeController extends GetxController {
   final tabViewsList = [
     DashboardTabView(),
     const TransactionsTabView(),
-    FriendsTabView(),
-    ProfileTabView(),
+    const FriendsTabView(),
+    const ProfileTabView(),
   ];
   final tabNames = [
     'Home',

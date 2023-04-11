@@ -1,15 +1,13 @@
-import 'package:bill_splitter/app/providers/transactions_provider.dart';
-
-import '../../../home/controllers/transactions_tab_controller.dart';
-import '../../../../routes/app_pages.dart';
-import '../../../../utils/app_constants.dart';
-import '../../../../utils/functions_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../models/transaction_header_model.dart';
 import '../../../../models/user_model.dart';
 import '../../../../providers/friend_provider.dart';
+import '../../../../providers/transactions_provider.dart';
+import '../../../../routes/app_pages.dart';
+import '../../../../utils/functions_helper.dart';
+import '../../../home/controllers/transactions_tab_controller.dart';
 
 class AddTrxDetailMembersController extends GetxController {
   final _friendRepo = FriendProvider();
