@@ -5,6 +5,7 @@ import 'package:nb_utils/nb_utils.dart';
 
 import '../../../../utils/app_constants.dart';
 import '../../../../utils/functions_helper.dart';
+import '../../../../widgets/bs_trx_members/views/bs_trx_members_view.dart';
 import '../controllers/transaction_detail_controller.dart';
 
 class TransactionDetailView extends GetView<TransactionDetailController> {
@@ -26,6 +27,13 @@ class TransactionDetailView extends GetView<TransactionDetailController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              Text(
+                'Transaction Date:\t${controller.trxHeader.date}',
+                style: Get.textTheme.labelSmall,
+              ),
+              const SizedBox(
+                height: 6 * GOLDEN_RATIO,
+              ),
               Text(
                 'Your Statistics',
                 style: Get.textTheme.labelMedium,
@@ -94,7 +102,9 @@ class TransactionDetailView extends GetView<TransactionDetailController> {
               ),
               Text(
                 'Details',
-                style: Get.textTheme.labelMedium,
+                style: Get.textTheme.labelMedium?.copyWith(
+                  fontSize: 9 * GOLDEN_RATIO,
+                ),
               ),
               const SizedBox(
                 height: 8 * GOLDEN_RATIO,
@@ -102,77 +112,98 @@ class TransactionDetailView extends GetView<TransactionDetailController> {
               Expanded(
                 child: GetBuilder<TransactionDetailController>(
                   id: controller.transactionUserId,
-                  builder: (tdc) => tdc.trxMembers.isEmpty
-                      ? const Center(
-                          child: Text('No data'),
-                        )
-                      : ListView.separated(
-                          separatorBuilder: (context, index) => const Divider(),
-                          itemCount: controller.trxMembers.length,
-                          itemBuilder: (context, index) => ListTile(
-                            contentPadding: EdgeInsets.zero,
-                            leading: CircularProfileAvatar(
-                              tdc.trxMembers[index].toUser.id ==
-                                      supabaseClient.auth.currentUser!.id
-                                  ? tdc.trxMembers[index].fromUser
-                                          .profilePicUrl ??
-                                      ''
-                                  : tdc.trxMembers[index].toUser
-                                          .profilePicUrl ??
-                                      '',
-                              radius: 13 * GOLDEN_RATIO,
-                              cacheImage: true,
-                              backgroundColor: getColorFromHex(COLOR_1),
-                              initialsText: Text(
-                                tdc.trxMembers[index].toUser.id ==
-                                        supabaseClient.auth.currentUser!.id
-                                    ? tdc.trxMembers[index].fromUser
-                                        .displayName[0]
-                                    : tdc.trxMembers[index].toUser
-                                        .displayName[0],
-                                style: Get.textTheme.titleLarge?.copyWith(
-                                  color: Colors.white,
-                                ),
-                              ),
-                              imageFit: BoxFit.cover,
-                            ),
-                            title: Text(
-                              tdc.trxMembers[index].toUser.id ==
-                                      supabaseClient.auth.currentUser!.id
-                                  ? tdc.trxMembers[index].fromUser.displayName
-                                  : tdc.trxMembers[index].toUser.displayName,
-                              style: Get.textTheme.labelMedium?.copyWith(
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            subtitle: Text(
-                              tdc.trxMembers[index].toUser.id ==
-                                      supabaseClient.auth.currentUser!.id
-                                  ? tdc.trxMembers[index].fromUser.email
-                                  : tdc.trxMembers[index].toUser.email,
-                              style: Get.textTheme.titleSmall?.copyWith(
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  moneyFormatter.format(
-                                      tdc.trxMembers[index].totalAmountOwed -
-                                          tdc.trxMembers[index].amountPaid),
-                                  style: Get.textTheme.labelMedium?.copyWith(
-                                    color: tdc.trxMembers[index].toUser.id ==
+                  builder: (tdc) => tdc.isFetchingUser.isTrue
+                      ? showFetchingScreen()
+                      : tdc.trxMembers.isEmpty
+                          ? const Center(
+                              child: Text('No data'),
+                            )
+                          : ListView.separated(
+                              separatorBuilder: (context, index) =>
+                                  const Divider(),
+                              itemCount: controller.trxMembers.length,
+                              itemBuilder: (context, index) => ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                leading: CircularProfileAvatar(
+                                  tdc.trxMembers[index].toUser.id ==
+                                          supabaseClient.auth.currentUser!.id
+                                      ? tdc.trxMembers[index].fromUser
+                                              .profilePicUrl ??
+                                          ''
+                                      : tdc.trxMembers[index].toUser
+                                              .profilePicUrl ??
+                                          '',
+                                  radius: 13 * GOLDEN_RATIO,
+                                  cacheImage: true,
+                                  backgroundColor: getColorFromHex(COLOR_1),
+                                  initialsText: Text(
+                                    tdc.trxMembers[index].toUser.id ==
                                             supabaseClient.auth.currentUser!.id
-                                        ? getColorFromHex(COLOR_5)
-                                        : Colors.red.shade700,
+                                        ? tdc.trxMembers[index].fromUser
+                                            .displayName[0]
+                                        : tdc.trxMembers[index].toUser
+                                            .displayName[0],
+                                    style: Get.textTheme.titleLarge?.copyWith(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  imageFit: BoxFit.cover,
+                                ),
+                                title: Text(
+                                  tdc.trxMembers[index].toUser.id ==
+                                          supabaseClient.auth.currentUser!.id
+                                      ? tdc.trxMembers[index].fromUser
+                                          .displayName
+                                      : tdc
+                                          .trxMembers[index].toUser.displayName,
+                                  style: Get.textTheme.labelMedium?.copyWith(
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
-                              ],
+                                subtitle: Text(
+                                  tdc.trxMembers[index].toUser.id ==
+                                          supabaseClient.auth.currentUser!.id
+                                      ? tdc.trxMembers[index].fromUser.email
+                                      : tdc.trxMembers[index].toUser.email,
+                                  style: Get.textTheme.titleSmall?.copyWith(
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      moneyFormatter.format(tdc
+                                              .trxMembers[index]
+                                              .totalAmountOwed -
+                                          tdc.trxMembers[index].amountPaid),
+                                      style:
+                                          Get.textTheme.labelMedium?.copyWith(
+                                        color:
+                                            tdc.trxMembers[index].toUser.id ==
+                                                    supabaseClient
+                                                        .auth.currentUser!.id
+                                                ? getColorFromHex(COLOR_5)
+                                                : Colors.red.shade700,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
                 ),
+              ),
+              const SizedBox(
+                height: 10 * GOLDEN_RATIO,
+              ),
+              OutlinedButton(
+                onPressed: () async {
+                  await Get.bottomSheet(
+                    const BsTrxMembersView(),
+                    isScrollControlled: true,
+                  );
+                },
+                child: const Text('View Transaction Members'),
               ),
               const Divider(
                 thickness: 1 * GOLDEN_RATIO,
@@ -185,51 +216,118 @@ class TransactionDetailView extends GetView<TransactionDetailController> {
               const SizedBox(
                 height: 8 * GOLDEN_RATIO,
               ),
-              Expanded(
-                child: GetBuilder<TransactionDetailController>(
-                  id: controller.transactionDetailId,
-                  builder: (tdc) => tdc.trxItems.isEmpty
-                      ? const Center(
-                          child: Text('No data'),
-                        )
-                      : Table(
-                          columnWidths: <int, TableColumnWidth>{
-                            0: FixedColumnWidth(Get.width * 0.1 * GOLDEN_RATIO),
-                            1: const IntrinsicColumnWidth(),
-                            2: const FlexColumnWidth()
-                          },
-                          children: controller.trxItems
-                              .map(
-                                (item) => TableRow(
-                                  children: [
-                                    TableCell(
-                                      child: Text(
-                                        '${item.qty}x',
-                                        textAlign: TextAlign.start,
-                                      ),
+              SizedBox(
+                height: Get.height * 0.15 * GOLDEN_RATIO,
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: GetBuilder<TransactionDetailController>(
+                        id: controller.transactionDetailId,
+                        builder: (tdc) => tdc.isFetchingDetail.isTrue
+                            ? showFetchingScreen()
+                            : tdc.trxItems.isEmpty
+                                ? const Center(
+                                    child: Text('No data'),
+                                  )
+                                : SingleChildScrollView(
+                                    child: Table(
+                                      columnWidths: <int, TableColumnWidth>{
+                                        0: FixedColumnWidth(
+                                            Get.width * 0.1 * GOLDEN_RATIO),
+                                        1: const IntrinsicColumnWidth(),
+                                        2: const FlexColumnWidth()
+                                      },
+                                      children: controller.trxItems
+                                          .map(
+                                            (item) => TableRow(
+                                              children: [
+                                                TableCell(
+                                                  child: SizedBox(
+                                                    height: 14 * GOLDEN_RATIO,
+                                                    child: Text(
+                                                      '${item.qty.toInt()}x',
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                    ),
+                                                  ),
+                                                ),
+                                                TableCell(
+                                                  child: SizedBox(
+                                                    height: 14 * GOLDEN_RATIO,
+                                                    child: Text(
+                                                      item.name,
+                                                      textAlign:
+                                                          TextAlign.start,
+                                                    ),
+                                                  ),
+                                                ),
+                                                TableCell(
+                                                  child: SizedBox(
+                                                    height: 14 * GOLDEN_RATIO,
+                                                    child: Text(
+                                                      moneyFormatter.format(
+                                                          item.totalPrice),
+                                                      textAlign: TextAlign.end,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                          .toList(),
                                     ),
-                                    TableCell(
-                                      child: Text(
-                                        item.name,
-                                        textAlign: TextAlign.start,
-                                      ),
-                                    ),
-                                    TableCell(
-                                      child: Text(
-                                        moneyFormatter.format(item.totalPrice),
-                                        textAlign: TextAlign.end,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                              .toList(),
+                                  ),
+                      ),
+                    ),
+                    const Divider(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Subtotal:',
+                          style: Get.textTheme.labelSmall,
                         ),
+                        Obx(
+                          () => Text(
+                            moneyFormatter.format(controller.subtotal.value),
+                            style: Get.textTheme.labelSmall,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 2 * GOLDEN_RATIO,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Final Price:',
+                          style: Get.textTheme.labelMedium,
+                        ),
+                        Text(
+                          moneyFormatter
+                              .format(controller.trxHeader.grandTotal),
+                          style: Get.textTheme.labelMedium,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 15 * GOLDEN_RATIO,
+                    ),
+                    Obx(
+                      () => controller.hasDebts.isTrue
+                          ? FilledButton(
+                              onPressed: () {},
+                              child: const Text('I have paid my bills'),
+                            )
+                          : FilledButton(
+                              onPressed: () {},
+                              child: const Text('View Transaction Proofs'),
+                            ),
+                    ),
+                  ],
                 ),
-              ),
-              FilledButton(
-                onPressed: () {},
-                child: const Text('I have paid my bills'),
               ),
               const SizedBox(
                 height: 10 * GOLDEN_RATIO,

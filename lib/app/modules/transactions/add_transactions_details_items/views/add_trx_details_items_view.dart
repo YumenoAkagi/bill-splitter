@@ -61,7 +61,7 @@ class AddTrxDetailsItemsView extends GetView<AddTrxDetailsItemsController> {
                                 },
                                 title: Text(trxdc.detailItemsList[index].name),
                                 subtitle: Text(
-                                  '${trxdc.detailItemsList[index].qty} x ${moneyFormatter.format(trxdc.detailItemsList[index].price)}',
+                                  '${trxdc.detailItemsList[index].qty.toInt()} x ${moneyFormatter.format(trxdc.detailItemsList[index].price)}',
                                 ),
                                 trailing: Text(
                                   moneyFormatter.format(

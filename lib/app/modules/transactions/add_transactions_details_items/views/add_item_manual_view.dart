@@ -67,6 +67,7 @@ class AddItemManualView extends GetView<AddItemManualController> {
                               ),
                               inputFormatters: [
                                 DecimalFormatter(
+                                  decimalDigits: 0,
                                   maxVal: double.maxFinite,
                                 ),
                               ],

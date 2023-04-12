@@ -9,6 +9,7 @@ class TransactionsTabController extends GetxController {
   final TransactionsProvider _transactionsRepo = TransactionsProvider();
   List<TransactionHeader> headersList = [];
 
+  bool isDeleting = false;
   bool isFetching = false;
 
   void _toggleFetchingStatus(bool newStat) {
@@ -24,6 +25,7 @@ class TransactionsTabController extends GetxController {
 
   Future deleteTransaction(String id) async {
     final selectedTrx = await _transactionsRepo.getTransactionHeader(id);
+    _toggleIsDeleting(true);
 
     if (selectedTrx == null) {
       return;
@@ -42,6 +44,12 @@ class TransactionsTabController extends GetxController {
     if (isDeleted) {
       headersList.removeAt(deletedIdx);
     }
+    _toggleIsDeleting(false);
+    update();
+  }
+
+  void _toggleIsDeleting(bool newStat) {
+    isDeleting = newStat;
     update();
   }
 

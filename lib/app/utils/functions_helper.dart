@@ -80,6 +80,24 @@ SizedBox showCustomCircularProgressIndicator() {
   );
 }
 
+Widget showCustomHandleBar() {
+  return FractionallySizedBox(
+    widthFactor: 0.25,
+    child: Container(
+      margin: const EdgeInsets.symmetric(
+        vertical: 10 * GOLDEN_RATIO,
+      ),
+      child: Container(
+        height: 3 * GOLDEN_RATIO,
+        decoration: BoxDecoration(
+          color: Get.theme.dividerColor,
+          borderRadius: const BorderRadius.all(Radius.circular(2.5)),
+        ),
+      ),
+    ),
+  );
+}
+
 Widget showFetchingScreen() {
   return Center(
     child: Column(

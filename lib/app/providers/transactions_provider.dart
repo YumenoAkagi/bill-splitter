@@ -52,6 +52,30 @@ class TransactionsProvider {
     return selectedTrx;
   }
 
+  Future<List<UserModel>> getTransactionMembers(String headerId) async {
+    final List<UserModel> membersList = [];
+    try {
+      final response = await supabaseClient
+          .from('TransactionMember')
+          .select('Users!inner(*)')
+          .eq('TransactionId', headerId);
+
+      response.forEach((tm) {
+        membersList.add(
+          UserModel(
+            id: tm['Users']['Id'],
+            displayName: tm['Users']['DisplayName'],
+            email: tm['Users']['Email'],
+            profilePicUrl: tm['Users']['ProfilePictureURL'],
+          ),
+        );
+      });
+    } catch (e) {
+      showUnexpectedErrorSnackbar(e);
+    }
+    return membersList;
+  }
+
   Future<List<TransactionHeader>> getTransactionHeaders(bool isComplete) async {
     final List<TransactionHeader> headersList = [];
     try {

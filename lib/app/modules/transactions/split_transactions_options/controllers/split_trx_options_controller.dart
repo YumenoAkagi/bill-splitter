@@ -44,9 +44,10 @@ class SplitTrxOptionsController extends GetxController {
                 trxHeader.id,
                 currentMember.id,
                 allSurplusMember[j].member.id,
-                (allSurplusMember[j].paidAmount - totalEquallySplitted) /
-                    totalSurplus *
-                    debtsOrSurplusAmount.abs(),
+                ((allSurplusMember[j].paidAmount - totalEquallySplitted) /
+                        totalSurplus *
+                        debtsOrSurplusAmount.abs())
+                    .ceilToDouble(),
               );
             }
           }
@@ -54,12 +55,13 @@ class SplitTrxOptionsController extends GetxController {
           // if not paying the bill, member split to all surplus from eq split
           for (var j = 0; j < allSurplusMember.length; j++) {
             isSucceed = await _transactionRepo.addTransactionUser(
-                trxHeader.id,
-                currentMember.id,
-                allSurplusMember[j].member.id,
-                (allSurplusMember[j].paidAmount - totalEquallySplitted) /
-                    totalSurplus *
-                    totalEquallySplitted);
+              trxHeader.id,
+              currentMember.id,
+              allSurplusMember[j].member.id,
+              ((allSurplusMember[j].paidAmount - totalEquallySplitted) /
+                  totalSurplus *
+                  totalEquallySplitted.ceilToDouble()),
+            );
           }
         }
 

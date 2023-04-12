@@ -59,6 +59,8 @@ class TransactionsTabView extends StatelessWidget {
                           ),
                         ),
                         confirmDismiss: (_) async {
+                          if (controller.isDeleting) return false;
+
                           if (!ttc.headersList[index].isDeletable) {
                             showErrorSnackbar(
                                 'This transaction has been partially paid by you/other members');

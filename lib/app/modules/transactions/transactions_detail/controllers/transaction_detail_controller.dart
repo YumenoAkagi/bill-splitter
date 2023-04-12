@@ -17,9 +17,12 @@ class TransactionDetailController extends GetxController {
 
   RxDouble totalDebts = 0.0.obs;
   RxDouble totalReceivables = 0.0.obs;
+  RxDouble subtotal = 0.0.obs;
 
   RxBool isFetchingUser = false.obs;
   RxBool isFetchingDetail = false.obs;
+  RxBool hasDebts = false.obs;
+  RxBool hasReceivables = false.obs;
 
   void _toggleFetchingStatusUser(bool newStat) {
     isFetchingUser.value = newStat;
@@ -31,7 +34,7 @@ class TransactionDetailController extends GetxController {
     update([transactionDetailId]);
   }
 
-  Future calculateTotalDebtsReceivables() async {
+  Future calculateRemainingDebtsReceivables() async {
     totalDebts.value = await _transactionRepo.getTotalDebtsForCurrentUser(
         supabaseClient.auth.currentUser!.id, trxHeader.id);
 
@@ -44,19 +47,28 @@ class TransactionDetailController extends GetxController {
     _toggleFetchingStatusUser(true);
     trxMembers = await _transactionRepo.getTransactionUsers(
         trxHeader.id, supabaseClient.auth.currentUser!.id);
+    if (trxMembers
+        .any((tu) => tu.toUser.id == supabaseClient.auth.currentUser!.id)) {
+      hasReceivables.value = true;
+    }
+    if (trxMembers
+        .any((tu) => tu.fromUser.id == supabaseClient.auth.currentUser!.id)) {
+      hasDebts.value = true;
+    }
     _toggleFetchingStatusUser(false);
   }
 
   Future fetchTransactionDetail() async {
     _toggleFetchingStatusDetail(true);
     trxItems = await _transactionRepo.fetchDetailsItems(trxHeader.id);
+    subtotal.value = trxItems.fold(0.0, (prev, item) => prev + item.totalPrice);
     _toggleFetchingStatusDetail(false);
   }
 
   @override
   void onReady() async {
     super.onReady();
-    await calculateTotalDebtsReceivables();
+    await calculateRemainingDebtsReceivables();
     await fetchTransactionUser();
     await fetchTransactionDetail();
   }

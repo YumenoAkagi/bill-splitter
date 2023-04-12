@@ -111,7 +111,7 @@ class AddTransactionBottomSheet extends StatelessWidget {
                   },
                 ),
                 const SizedBox(
-                  height: 25 * GOLDEN_RATIO,
+                  height: 20 * GOLDEN_RATIO,
                 ),
                 Obx(
                   () => FilledButton.icon(
