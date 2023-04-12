@@ -104,7 +104,7 @@ class BsAddPaidBillMemberView extends StatelessWidget {
                   textAlign: TextAlign.end,
                   inputFormatters: [
                     DecimalFormatter(
-                      maxVal: double.maxFinite,
+                      maxVal: controller.maxAmountPaid,
                     ),
                   ],
                   validator: qtyAndPriceValidator,

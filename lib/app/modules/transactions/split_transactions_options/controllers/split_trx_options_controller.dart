@@ -84,5 +84,8 @@ class SplitTrxOptionsController extends GetxController {
     }
   }
 
-  Future splitByItem() async {}
+  Future splitByItem() async {
+    Get.toNamed('${Routes.TRXSPLITOPTIONS}/${Routes.TRXASSIGNMEMBERTOITEM}',
+        arguments: trxHeader);
+  }
 }

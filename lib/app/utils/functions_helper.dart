@@ -56,6 +56,7 @@ class DecimalFormatter extends TextInputFormatter {
     if (newText.isEmpty) return newValue;
 
     double newDouble = double.parse(newText);
+    if (newDouble > maxVal) newDouble = maxVal;
     var selectionIndexFromTheRight =
         newValue.text.length - newValue.selection.end;
 

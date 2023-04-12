@@ -33,6 +33,8 @@ import '../modules/transactions/split_success/bindings/split_success_binding.dar
 import '../modules/transactions/split_success/views/split_success_view.dart';
 import '../modules/transactions/split_transactions_options/bindings/split_trx_options_binding.dart';
 import '../modules/transactions/split_transactions_options/views/split_trx_options_view.dart';
+import '../modules/transactions/split_trx_by_item/bindings/split_trx_by_item_binding.dart';
+import '../modules/transactions/split_trx_by_item/views/split_trx_by_item_view.dart';
 import '../modules/transactions/transactions_detail/bindings/transaction_detail_binding.dart';
 import '../modules/transactions/transactions_detail/views/transaction_detail_view.dart';
 import '../modules/transactions/who_paid_trx_bill/bindings/who_paid_trx_binding.dart';
@@ -154,6 +156,13 @@ class AppPages {
       binding: SplitTrxOptionsBinding(),
       middlewares: [
         AuthMiddleware(),
+      ],
+      children: [
+        GetPage(
+          name: _Paths.TRXASSIGNMEMBERTOITEM,
+          page: () => const SplitTrxByItemView(),
+          binding: SplitTrxByItemBinding(),
+        ),
       ],
     ),
     GetPage(

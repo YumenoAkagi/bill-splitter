@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../../models/trx_member_pays_the_bill.dart';
 import '../../../models/user_model.dart';
@@ -11,11 +12,13 @@ class BsAddPaidBillMemberController extends GetxController {
   UserModel? selectedMember;
   final amountPaidController = TextEditingController();
   RxList<UserModel> trxMembers = <UserModel>[].obs;
+  late final double maxAmountPaid;
 
   void _refreshTrxMembers() {
     try {
       final whoPaidController = Get.find<WhoPaidTrxBillController>();
       trxMembers.value = whoPaidController.trxHeader.membersList;
+      maxAmountPaid = whoPaidController.remainingAmount.value;
     } catch (e) {
       // do nothing
     }

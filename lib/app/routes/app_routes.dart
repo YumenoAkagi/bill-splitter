@@ -22,6 +22,7 @@ abstract class Routes {
 
   static const TRXMEMBERWHOPAID = _Paths.TRXMEMBERWHOPAID;
   static const TRXSPLITOPTIONS = _Paths.TRXSPLITOPTIONS;
+  static const TRXASSIGNMEMBERTOITEM = _Paths.TRXASSIGNMEMBERTOITEM;
 
   static const SPLITSUCCESS = _Paths.SPLITSUCCESS;
 
@@ -49,6 +50,7 @@ abstract class _Paths {
 
   static const TRXMEMBERWHOPAID = '/trx-member-who-paid-the-bill';
   static const TRXSPLITOPTIONS = '/trx-split-options';
+  static const TRXASSIGNMEMBERTOITEM = '/trx-assign-member-to-item';
 
   static const SPLITSUCCESS = '/split-success';
 
