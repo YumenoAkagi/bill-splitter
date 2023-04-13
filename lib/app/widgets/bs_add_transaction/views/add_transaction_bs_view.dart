@@ -43,6 +43,7 @@ class AddTransactionBottomSheet extends StatelessWidget {
               children: [
                 Text(
                   'Add Transaction',
+                  textAlign: TextAlign.center,
                   style: Get.textTheme.labelMedium?.copyWith(
                     fontSize: 12 * GOLDEN_RATIO,
                     fontWeight: FontWeight.w900,
@@ -129,7 +130,8 @@ class AddTransactionBottomSheet extends StatelessWidget {
                                   : getColorFromHex(COLOR_1),
                               onAccept: () {
                                 Get.toNamed(Routes.ADDTRXITEM,
-                                    arguments: header as TransactionHeader);
+                                    arguments:
+                                        header as TransactionHeaderModel);
                               },
                             );
                           }

@@ -1,7 +1,7 @@
 import 'user_model.dart';
 
-class TrxMemberPaysTheBill {
-  TrxMemberPaysTheBill({
+class TrxMemberPaysTheBillModel {
+  TrxMemberPaysTheBillModel({
     required this.member,
     required this.paidAmount,
   });

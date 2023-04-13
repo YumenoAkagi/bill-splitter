@@ -13,7 +13,7 @@ import '../../../../utils/functions_helper.dart';
 import '../../../home/controllers/transactions_tab_controller.dart';
 
 class AddTrxDetailsItemsController extends GetxController {
-  TransactionHeader trxHeader = Get.arguments as TransactionHeader;
+  TransactionHeaderModel trxHeader = Get.arguments as TransactionHeaderModel;
   final trxRepo = TransactionsProvider();
   final grandTotalController = TextEditingController();
   final formKey = GlobalKey<FormState>();

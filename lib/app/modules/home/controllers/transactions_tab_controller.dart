@@ -7,7 +7,7 @@ import '../../../utils/functions_helper.dart';
 
 class TransactionsTabController extends GetxController {
   final TransactionsProvider _transactionsRepo = TransactionsProvider();
-  List<TransactionHeader> headersList = [];
+  List<TransactionHeaderModel> headersList = [];
 
   bool isDeleting = false;
   bool isFetching = false;

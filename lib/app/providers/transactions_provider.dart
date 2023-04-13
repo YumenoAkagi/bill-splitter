@@ -8,7 +8,7 @@ import '../utils/app_constants.dart';
 import '../utils/functions_helper.dart';
 
 class TransactionsProvider {
-  Future<TransactionHeader?> getTransactionHeader(String headerId) async {
+  Future<TransactionHeaderModel?> getTransactionHeader(String headerId) async {
     final response = await supabaseClient
         .from('TransactionMember')
         .select('Users!inner(*)')
@@ -37,7 +37,7 @@ class TransactionsProvider {
       return null;
     }
 
-    final selectedTrx = TransactionHeader(
+    final selectedTrx = TransactionHeaderModel(
       id: headerFromResponse['Id'],
       name: headerFromResponse['Name'],
       date: headerFromResponse['Date'],
@@ -76,8 +76,9 @@ class TransactionsProvider {
     return membersList;
   }
 
-  Future<List<TransactionHeader>> getTransactionHeaders(bool isComplete) async {
-    final List<TransactionHeader> headersList = [];
+  Future<List<TransactionHeaderModel>> getTransactionHeaders(
+      bool isComplete) async {
+    final List<TransactionHeaderModel> headersList = [];
     try {
       final response = await supabaseClient
           .from('TransactionMember')
@@ -115,7 +116,7 @@ class TransactionsProvider {
         });
 
         headersList.add(
-          TransactionHeader(
+          TransactionHeaderModel(
             id: response[idx]['TransactionHeader']['Id'],
             name: response[idx]['TransactionHeader']['Name'],
             date: DateFormat('dd MMM yyyy').format(
@@ -304,13 +305,52 @@ class TransactionsProvider {
     return totalDebts;
   }
 
+  Future<List<TransactionUserModel>> getUserDebts(
+      String headerId, String userId) async {
+    List<TransactionUserModel> debts = [];
+    try {
+      final response = await supabaseClient
+          .from('TransactionUser')
+          .select('*,fromUser:Users!FromUserId(*),toUser:Users!ToUserId(*)')
+          .eq('TransactionId', headerId)
+          .eq('FromUserId', userId)
+          .eq('HasPaid', false);
+
+      response.forEach(
+        (res) => debts.add(
+          TransactionUserModel(
+            id: res['Id'],
+            fromUser: UserModel(
+              id: res['fromUser']['Id'],
+              displayName: res['fromUser']['DisplayName'],
+              email: res['fromUser']['Email'],
+              profilePicUrl: res['fromUser']['ProfilePictureURL'],
+            ),
+            toUser: UserModel(
+              id: res['toUser']['Id'],
+              displayName: res['toUser']['DisplayName'],
+              email: res['toUser']['Email'],
+              profilePicUrl: res['toUser']['ProfilePictureURL'],
+            ),
+            totalAmountOwed: res['TotalAmountOwed'],
+            amountPaid: res['AmountPaid'],
+          ),
+        ),
+      );
+    } catch (e) {
+      showUnexpectedErrorSnackbar(e);
+    }
+
+    return debts;
+  }
+
   Future<List<TransactionUserModel>> getTransactionUsers(
       String headerId, String userId) async {
     List<TransactionUserModel> transactionUsersList = [];
     try {
       final response = await supabaseClient
           .from('TransactionUser')
-          .select('*, fromUser:Users!FromUserId(*), toUser:Users!ToUserId(*)')
+          .select('*,fromUser:Users!FromUserId(*),toUser:Users!ToUserId(*)')
           .eq('TransactionId', headerId)
           .or('FromUserId.eq.$userId,ToUserId.eq.$userId');
 

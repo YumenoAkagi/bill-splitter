@@ -6,7 +6,7 @@ import '../../../../utils/functions_helper.dart';
 
 class HistoryTransactionsController extends GetxController {
   final transactionsRepo = TransactionsProvider();
-  List<TransactionHeader> historyTransactionsList = [];
+  List<TransactionHeaderModel> historyTransactionsList = [];
 
   bool isFetching = false;
 

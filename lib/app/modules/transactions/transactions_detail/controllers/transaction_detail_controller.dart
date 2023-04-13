@@ -7,7 +7,7 @@ import '../../../../providers/transactions_provider.dart';
 import '../../../../utils/app_constants.dart';
 
 class TransactionDetailController extends GetxController {
-  TransactionHeader trxHeader = Get.arguments as TransactionHeader;
+  TransactionHeaderModel trxHeader = Get.arguments as TransactionHeaderModel;
   final transactionUserId = 'transaction-user';
   final transactionDetailId = 'transaction-detail';
   final _transactionRepo = TransactionsProvider();

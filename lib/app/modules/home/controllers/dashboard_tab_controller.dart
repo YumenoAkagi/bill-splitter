@@ -13,7 +13,7 @@ class DashboardTabController extends GetxController {
   final _userProvider = UserProvider();
   final _transactionsRepo = TransactionsProvider();
   final recentTrxId = 'recent-transaction';
-  List<TransactionHeader> recentTrx = [];
+  List<TransactionHeaderModel> recentTrx = [];
 
   RxBool isFetching = false.obs;
 

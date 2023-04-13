@@ -8,7 +8,7 @@ import '../../../home/controllers/transactions_tab_controller.dart';
 import '../../who_paid_trx_bill/controllers/who_paid_trx_bill_controller.dart';
 
 class SplitTrxOptionsController extends GetxController {
-  TransactionHeader trxHeader = Get.arguments as TransactionHeader;
+  TransactionHeaderModel trxHeader = Get.arguments as TransactionHeaderModel;
   final _transactionRepo = TransactionsProvider();
   RxBool isLoading = false.obs;
 

@@ -1,3 +1,4 @@
+import 'package:bill_splitter/app/widgets/bx_add_trx_proof/views/bs_add_trx_proof_view.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -318,7 +319,11 @@ class TransactionDetailView extends GetView<TransactionDetailController> {
                     Obx(
                       () => controller.hasDebts.isTrue
                           ? FilledButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                await Get.bottomSheet(
+                                  const BsAddTrxProofView(),
+                                );
+                              },
                               child: const Text('I have paid my bills'),
                             )
                           : FilledButton(

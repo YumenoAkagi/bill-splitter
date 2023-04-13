@@ -1,7 +1,7 @@
 import 'user_model.dart';
 
-class TransactionHeader {
-  TransactionHeader({
+class TransactionHeaderModel {
+  TransactionHeaderModel({
     required this.id,
     required this.name,
     required this.date,

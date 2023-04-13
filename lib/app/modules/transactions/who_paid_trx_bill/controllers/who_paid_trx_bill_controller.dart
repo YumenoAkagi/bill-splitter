@@ -1,15 +1,15 @@
 import 'package:get/get.dart';
 
 import '../../../../models/transaction_header_model.dart';
-import '../../../../models/trx_member_pays_the_bill.dart';
+import '../../../../models/trx_member_pays_the_bill_model.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../utils/functions_helper.dart';
 
 class WhoPaidTrxBillController extends GetxController {
-  TransactionHeader trxHeader = Get.arguments as TransactionHeader;
+  TransactionHeaderModel trxHeader = Get.arguments as TransactionHeaderModel;
   RxDouble remainingAmount = 0.0.obs;
-  RxList<TrxMemberPaysTheBill> membersWhoPaidBill =
-      <TrxMemberPaysTheBill>[].obs;
+  RxList<TrxMemberPaysTheBillModel> membersWhoPaidBill =
+      <TrxMemberPaysTheBillModel>[].obs;
 
   void recalculateRemainingAmount() {
     remainingAmount.value = trxHeader.grandTotal.toDouble();
@@ -20,12 +20,12 @@ class WhoPaidTrxBillController extends GetxController {
     update();
   }
 
-  void addMemberPaidBill(TrxMemberPaysTheBill memberPaysTheBill) {
+  void addMemberPaidBill(TrxMemberPaysTheBillModel memberPaysTheBill) {
     membersWhoPaidBill.add(memberPaysTheBill);
     recalculateRemainingAmount();
   }
 
-  void removeMemberPaidBill(TrxMemberPaysTheBill memberPaysTheBill) {
+  void removeMemberPaidBill(TrxMemberPaysTheBillModel memberPaysTheBill) {
     membersWhoPaidBill.remove(memberPaysTheBill);
     recalculateRemainingAmount();
   }

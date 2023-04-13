@@ -64,7 +64,7 @@ class AddTransactionBsController extends GetxController {
       }
 
       // showSuccessSnackbar('Success', 'New Transaction successfully added.');
-      final createdHeader = TransactionHeader(
+      final createdHeader = TransactionHeaderModel(
         id: response['Id'],
         name: response['Name'],
         date: response['Date'],

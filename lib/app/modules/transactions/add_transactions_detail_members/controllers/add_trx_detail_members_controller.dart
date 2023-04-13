@@ -12,7 +12,7 @@ import '../../../home/controllers/transactions_tab_controller.dart';
 class AddTrxDetailMembersController extends GetxController {
   final _friendRepo = FriendProvider();
   final _transactionRepo = TransactionsProvider();
-  TransactionHeader trxHeader = Get.arguments as TransactionHeader;
+  TransactionHeaderModel trxHeader = Get.arguments as TransactionHeaderModel;
   List<UserModel> unfilteredFL = [];
   RxList<UserModel> friendList = <UserModel>[].obs;
   RxList<UserModel> selectedFriend = <UserModel>[].obs;

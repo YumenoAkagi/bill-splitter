@@ -1,19 +1,19 @@
-import 'package:bill_splitter/app/models/trx_member_pays_the_bill.dart';
-import 'package:bill_splitter/app/modules/home/controllers/transactions_tab_controller.dart';
-import 'package:bill_splitter/app/modules/transactions/who_paid_trx_bill/controllers/who_paid_trx_bill_controller.dart';
-import 'package:bill_splitter/app/routes/app_pages.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../../../models/assigned_item_model.dart';
 import '../../../../models/transaction_header_model.dart';
+import '../../../../models/trx_member_pays_the_bill_model.dart';
 import '../../../../models/user_model.dart';
 import '../../../../providers/transactions_provider.dart';
+import '../../../../routes/app_pages.dart';
 import '../../../../utils/functions_helper.dart';
+import '../../../home/controllers/transactions_tab_controller.dart';
+import '../../who_paid_trx_bill/controllers/who_paid_trx_bill_controller.dart';
 
 class SplitTrxByItemController extends GetxController {
-  TransactionHeader trxHeader = Get.arguments as TransactionHeader;
+  TransactionHeaderModel trxHeader = Get.arguments as TransactionHeaderModel;
   final _transactionRepo = TransactionsProvider();
   List<AssignedItemModel> assignedItemMemberList = [];
   List<UserModel> memberList = [];
@@ -63,8 +63,8 @@ class SplitTrxByItemController extends GetxController {
       }
 
       bool isSucceed = true;
-      List<TrxMemberPaysTheBill> surplusMembers = [];
-      List<TrxMemberPaysTheBill> debtsMembers = [];
+      List<TrxMemberPaysTheBillModel> surplusMembers = [];
+      List<TrxMemberPaysTheBillModel> debtsMembers = [];
       double totalSurplus = 0.0;
 
       for (var i = 0; i < membersWhoPaidBill.length; i++) {

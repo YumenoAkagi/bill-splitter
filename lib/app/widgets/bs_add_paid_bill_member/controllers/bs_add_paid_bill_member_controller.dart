@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
-import '../../../models/trx_member_pays_the_bill.dart';
+import '../../../models/trx_member_pays_the_bill_model.dart';
 import '../../../models/user_model.dart';
 import '../../../modules/transactions/who_paid_trx_bill/controllers/who_paid_trx_bill_controller.dart';
 import '../../../utils/functions_helper.dart';
@@ -38,7 +37,7 @@ class BsAddPaidBillMemberController extends GetxController {
         return;
       }
       whoPaidController.addMemberPaidBill(
-        TrxMemberPaysTheBill(
+        TrxMemberPaysTheBillModel(
             member: selectedMember!, paidAmount: amountPaid.toDouble()),
       );
     } catch (e) {
