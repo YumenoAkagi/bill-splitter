@@ -145,7 +145,14 @@ class ProfileTabView extends StatelessWidget {
                 ),
                 OutlinedButton.icon(
                   onPressed: () async {
-                    await controller.logout();
+                    await showConfirmDialog(
+                      context,
+                      'Log out from this account?',
+                      positiveText: 'Log Out',
+                      negativeText: 'Cancel',
+                      buttonColor: Colors.red.shade700,
+                      onAccept: controller.logout,
+                    );
                   },
                   icon: const Icon(Entypo.logout),
                   label: const Text('Log Out'),
