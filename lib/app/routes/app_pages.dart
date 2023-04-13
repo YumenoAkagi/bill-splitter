@@ -1,6 +1,10 @@
 import 'package:get/get.dart';
 
 import '../middlewares/auth_middleware.dart';
+import '../modules/auth/change_password/bindings/change_password_bindings.dart';
+import '../modules/auth/change_password/bindings/done_change_password_bindings.dart';
+import '../modules/auth/change_password/views/change_password_view.dart';
+import '../modules/auth/change_password/views/done_change_password_view.dart';
 import '../modules/auth/email_sent/bindings/email_sent_binding.dart';
 import '../modules/auth/email_sent/views/email_sent_view.dart';
 import '../modules/auth/forgot_password/bindings/forgot_password_binding.dart';
@@ -180,6 +184,16 @@ class AppPages {
       middlewares: [
         AuthMiddleware(),
       ],
+    ),
+    GetPage(
+      name: _Paths.CHANGE_PASSWORD,
+      page: () => const ChangePasswordView(),
+      binding: ChangePasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.DONE_CHANGE_PASSWORD,
+      page: () => const DoneChangePasswordView(),
+      binding: DoneChangePasswordBinding(),
     ),
   ];
 }

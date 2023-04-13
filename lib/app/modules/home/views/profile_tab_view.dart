@@ -1,3 +1,4 @@
+import 'package:bill_splitter/app/routes/app_pages.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
@@ -133,7 +134,9 @@ class ProfileTabView extends StatelessWidget {
                   height: 40 * GOLDEN_RATIO,
                 ),
                 FilledButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(Routes.CHANGE_PASSWORD);
+                  },
                   icon: const Icon(Entypo.lock),
                   label: const Text('Change Password'),
                 ),
