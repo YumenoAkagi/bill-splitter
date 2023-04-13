@@ -18,6 +18,9 @@ class BsAddPaidBillMemberController extends GetxController {
     try {
       final whoPaidController = Get.find<WhoPaidTrxBillController>();
       trxMembers.value = whoPaidController.trxHeader.membersList;
+      whoPaidController.membersWhoPaidBill.forEach((wp) {
+        trxMembers.removeWhere((mem) => mem.id == wp.member.id);
+      });
       maxAmountPaid = whoPaidController.remainingAmount.value;
     } catch (e) {
       // do nothing

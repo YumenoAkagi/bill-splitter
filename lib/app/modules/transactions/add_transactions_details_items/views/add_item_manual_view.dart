@@ -71,9 +71,7 @@ class AddItemManualView extends GetView<AddItemManualController> {
                                   maxVal: double.maxFinite,
                                 ),
                               ],
-                              validator: RequiredValidator(
-                                errorText: requiredErrorText,
-                              ),
+                              validator: qtyAndPriceValidator,
                             ),
                           ],
                         ),
