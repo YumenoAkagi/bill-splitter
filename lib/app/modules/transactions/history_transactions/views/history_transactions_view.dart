@@ -50,7 +50,7 @@ class HistoryTransactionsView extends GetView<HistoryTransactionsController> {
                                   child: WidgetStack(
                                     positions: RestrictedPositions(
                                       align: StackAlign.left,
-                                      maxCoverage: -0.75 * GOLDEN_RATIO,
+                                      maxCoverage: -0.1 * GOLDEN_RATIO,
                                       minCoverage: 0.2 * GOLDEN_RATIO,
                                     ),
                                     stackedWidgets: [

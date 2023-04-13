@@ -211,91 +211,91 @@ class DashboardTabView extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          SizedBox(
-                                            height: 20 * GOLDEN_RATIO,
-                                            width:
-                                                Get.width * 0.33 * GOLDEN_RATIO,
-                                            child: WidgetStack(
-                                              positions: RestrictedPositions(
-                                                align: StackAlign.left,
-                                                maxCoverage:
-                                                    -0.75 * GOLDEN_RATIO,
-                                                minCoverage: 0.2 * GOLDEN_RATIO,
-                                              ),
-                                              stackedWidgets: [
-                                                for (var i = 0;
-                                                    i <
-                                                        dtc.recentTrx[index]
-                                                            .membersList.length;
-                                                    i++)
-                                                  CircularProfileAvatar(
-                                                    dtc
+                                          Expanded(
+                                            child: SizedBox(
+                                              height: 20 * GOLDEN_RATIO,
+                                              width: Get.width,
+                                              child: WidgetStack(
+                                                positions: RestrictedPositions(
+                                                  align: StackAlign.left,
+                                                  maxCoverage:
+                                                      -0.1 * GOLDEN_RATIO,
+                                                  minCoverage:
+                                                      0.2 * GOLDEN_RATIO,
+                                                ),
+                                                stackedWidgets: [
+                                                  for (var i = 0;
+                                                      i <
+                                                          dtc
+                                                              .recentTrx[index]
+                                                              .membersList
+                                                              .length;
+                                                      i++)
+                                                    CircularProfileAvatar(
+                                                      dtc
+                                                              .recentTrx[index]
+                                                              .membersList[i]
+                                                              .profilePicUrl ??
+                                                          '',
+                                                      radius: 20 * GOLDEN_RATIO,
+                                                      cacheImage: true,
+                                                      backgroundColor:
+                                                          getColorFromHex(
+                                                              COLOR_1),
+                                                      initialsText: Text(
+                                                        dtc
                                                             .recentTrx[index]
                                                             .membersList[i]
-                                                            .profilePicUrl ??
-                                                        '',
-                                                    radius: 20 * GOLDEN_RATIO,
-                                                    cacheImage: true,
-                                                    backgroundColor:
-                                                        getColorFromHex(
-                                                            COLOR_1),
-                                                    initialsText: Text(
-                                                      dtc
-                                                          .recentTrx[index]
-                                                          .membersList[i]
-                                                          .displayName[0],
-                                                      style: Get
-                                                          .textTheme.titleLarge
-                                                          ?.copyWith(
-                                                        color: Colors.white,
+                                                            .displayName[0],
+                                                        style: Get.textTheme
+                                                            .titleLarge
+                                                            ?.copyWith(
+                                                          color: Colors.white,
+                                                        ),
                                                       ),
+                                                      imageFit: BoxFit.cover,
                                                     ),
-                                                    imageFit: BoxFit.cover,
-                                                  ),
-                                              ],
-                                              buildInfoWidget: (surplus) =>
-                                                  CircularProfileAvatar(
-                                                '',
-                                                radius: 20 * GOLDEN_RATIO,
-                                                backgroundColor:
-                                                    getColorFromHex(COLOR_1),
-                                                initialsText: Text(
-                                                  '+$surplus',
-                                                  style: Get
-                                                      .textTheme.titleLarge
-                                                      ?.copyWith(
-                                                    color: Colors.white,
+                                                ],
+                                                buildInfoWidget: (surplus) =>
+                                                    CircularProfileAvatar(
+                                                  '',
+                                                  radius: 20 * GOLDEN_RATIO,
+                                                  backgroundColor:
+                                                      getColorFromHex(COLOR_1),
+                                                  initialsText: Text(
+                                                    '+$surplus',
+                                                    style: Get
+                                                        .textTheme.titleLarge
+                                                        ?.copyWith(
+                                                      color: Colors.white,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.end,
-                                              children: [
-                                                Text(
-                                                  'Total',
-                                                  style: Get
-                                                      .textTheme.labelMedium
-                                                      ?.copyWith(
-                                                    fontSize: 7 * GOLDEN_RATIO,
-                                                  ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                'Total',
+                                                style: Get.textTheme.labelMedium
+                                                    ?.copyWith(
+                                                  fontSize: 7 * GOLDEN_RATIO,
                                                 ),
-                                                Text(
-                                                  moneyFormatter.format(dtc
-                                                      .recentTrx[index]
-                                                      .grandTotal),
-                                                  style: Get
-                                                      .textTheme.labelSmall
-                                                      ?.copyWith(
-                                                    fontSize: 9 * GOLDEN_RATIO,
-                                                  ),
+                                              ),
+                                              Text(
+                                                moneyFormatter.format(dtc
+                                                    .recentTrx[index]
+                                                    .grandTotal),
+                                                style: Get.textTheme.labelSmall
+                                                    ?.copyWith(
+                                                  fontSize: 9 * GOLDEN_RATIO,
                                                 ),
-                                              ],
-                                            ),
-                                          )
+                                              ),
+                                            ],
+                                          ),
                                         ],
                                       ),
                                     ],

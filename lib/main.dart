@@ -1,7 +1,9 @@
+import 'package:bill_splitter/app/utils/functions_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -25,34 +27,41 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]).then(
     (value) => runApp(
-      GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: APP_NAME,
-        initialRoute: AppPages.INITIAL,
-        getPages: AppPages.routes,
-        theme: ThemeData(
-          fontFamily: MAIN_FONT,
-          appBarTheme: appBarThemeLight,
-          brightness: Brightness.light,
-          scaffoldBackgroundColor: Colors.white,
-          filledButtonTheme: filledButtonThemeDataLight,
-          elevatedButtonTheme: elevatedButtonThemeDataLight,
-          outlinedButtonTheme: outlinedButtonThemeDataLight,
-          textTheme: textThemeLight,
-          inputDecorationTheme: inputDecorationThemeLight,
+      GlobalLoaderOverlay(
+        disableBackButton: true,
+        useDefaultLoading: false,
+        overlayWidget: Center(
+          child: showCustomCircularProgressIndicator(),
         ),
-        darkTheme: ThemeData(
-          fontFamily: MAIN_FONT,
-          appBarTheme: appBarThemeDark,
-          brightness: Brightness.dark,
-          scaffoldBackgroundColor: getColorFromHex(COLOR_DARK_MAIN),
-          filledButtonTheme: filledButtonThemeDataDark,
-          elevatedButtonTheme: elevatedButtonThemeDataDark,
-          outlinedButtonTheme: outlinedButtonThemeDataDark,
-          textTheme: textThemeDark,
-          inputDecorationTheme: inputDecorationThemeDark,
+        child: GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: APP_NAME,
+          initialRoute: AppPages.INITIAL,
+          getPages: AppPages.routes,
+          theme: ThemeData(
+            fontFamily: MAIN_FONT,
+            appBarTheme: appBarThemeLight,
+            brightness: Brightness.light,
+            scaffoldBackgroundColor: Colors.white,
+            filledButtonTheme: filledButtonThemeDataLight,
+            elevatedButtonTheme: elevatedButtonThemeDataLight,
+            outlinedButtonTheme: outlinedButtonThemeDataLight,
+            textTheme: textThemeLight,
+            inputDecorationTheme: inputDecorationThemeLight,
+          ),
+          darkTheme: ThemeData(
+            fontFamily: MAIN_FONT,
+            appBarTheme: appBarThemeDark,
+            brightness: Brightness.dark,
+            scaffoldBackgroundColor: getColorFromHex(COLOR_DARK_MAIN),
+            filledButtonTheme: filledButtonThemeDataDark,
+            elevatedButtonTheme: elevatedButtonThemeDataDark,
+            outlinedButtonTheme: outlinedButtonThemeDataDark,
+            textTheme: textThemeDark,
+            inputDecorationTheme: inputDecorationThemeDark,
+          ),
+          themeMode: ThemeMode.light,
         ),
-        themeMode: ThemeMode.light,
       ),
     ),
   );

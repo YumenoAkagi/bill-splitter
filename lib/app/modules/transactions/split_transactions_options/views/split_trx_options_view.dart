@@ -1,10 +1,10 @@
-import 'package:bill_splitter/app/utils/functions_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 import '../../../../utils/app_constants.dart';
+import '../../../../utils/functions_helper.dart';
 import '../controllers/split_trx_options_controller.dart';
 
 class SplitTrxOptionsView extends GetView<SplitTrxOptionsController> {
@@ -17,128 +17,133 @@ class SplitTrxOptionsView extends GetView<SplitTrxOptionsController> {
         title: Text(controller.trxHeader.name),
         centerTitle: true,
       ),
-      body: controller.isLoading.isTrue
-          ? Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  showCustomCircularProgressIndicator(),
-                  Text(
-                    'Loading...',
-                    style: Get.textTheme.labelSmall,
-                  ),
-                ],
-              ),
-            )
-          : SafeArea(
-              child: Container(
-                margin: const EdgeInsets.symmetric(
-                  horizontal: SAFEAREA_CONTAINER_MARGIN_H,
-                  vertical: SAFEAREA_CONTAINER_MARGIN_V,
-                ),
+      body: Obx(
+        () => controller.isLoading.isTrue
+            ? Center(
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    showCustomCircularProgressIndicator(),
                     Text(
-                      'How do you want to split the bill?',
-                      style: Get.textTheme.labelLarge
-                          ?.copyWith(fontSize: 12 * GOLDEN_RATIO),
-                      textAlign: TextAlign.center,
+                      'Loading...',
+                      style: Get.textTheme.labelSmall,
                     ),
-                    const SizedBox(
-                      height: 15 * GOLDEN_RATIO,
-                    ),
-                    Expanded(
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(BUTTON_BORDER_RAD),
-                        onTap: controller.splitEqually,
-                        child: Card(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(BUTTON_BORDER_RAD),
-                            side: BorderSide(
-                              color: Get.isDarkMode
-                                  ? Colors.white
-                                  : getColorFromHex(COLOR_1),
-                            ),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Icon(
-                                FontAwesome.balance_scale,
-                                size: 30 * GOLDEN_RATIO,
-                                color: Get.isDarkMode
-                                    ? null
-                                    : getColorFromHex(COLOR_2),
-                              ),
-                              const SizedBox(
-                                height: 15 * GOLDEN_RATIO,
-                              ),
-                              Text(
-                                'Split Equally',
-                                style: Get.textTheme.labelMedium,
-                                textAlign: TextAlign.center,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8 * GOLDEN_RATIO,
-                    ),
-                    Expanded(
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(BUTTON_BORDER_RAD),
-                        onTap: controller.splitByItem,
-                        child: Card(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(BUTTON_BORDER_RAD),
-                            side: BorderSide(
-                              color: Get.isDarkMode
-                                  ? Colors.white
-                                  : getColorFromHex(COLOR_1),
-                            ),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Icon(
-                                FontAwesome.shopping_basket,
-                                size: 30 * GOLDEN_RATIO,
-                                color: Get.isDarkMode
-                                    ? null
-                                    : getColorFromHex(COLOR_2),
-                              ),
-                              const SizedBox(
-                                height: 15 * GOLDEN_RATIO,
-                              ),
-                              Text(
-                                'Split per Item',
-                                style: Get.textTheme.labelMedium,
-                                textAlign: TextAlign.center,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10 * GOLDEN_RATIO,
-                    )
                   ],
                 ),
+              )
+            : SafeArea(
+                child: Container(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: SAFEAREA_CONTAINER_MARGIN_H,
+                    vertical: SAFEAREA_CONTAINER_MARGIN_V,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        'How do you want to split the bill?',
+                        style: Get.textTheme.labelLarge
+                            ?.copyWith(fontSize: 12 * GOLDEN_RATIO),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(
+                        height: 15 * GOLDEN_RATIO,
+                      ),
+                      Expanded(
+                        child: InkWell(
+                          borderRadius:
+                              BorderRadius.circular(BUTTON_BORDER_RAD),
+                          onTap: controller.splitEqually,
+                          child: Card(
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(BUTTON_BORDER_RAD),
+                              side: BorderSide(
+                                color: Get.isDarkMode
+                                    ? Colors.white
+                                    : getColorFromHex(COLOR_1),
+                              ),
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Icon(
+                                  FontAwesome.balance_scale,
+                                  size: 30 * GOLDEN_RATIO,
+                                  color: Get.isDarkMode
+                                      ? null
+                                      : getColorFromHex(COLOR_2),
+                                ),
+                                const SizedBox(
+                                  height: 15 * GOLDEN_RATIO,
+                                ),
+                                Text(
+                                  'Split Equally',
+                                  style: Get.textTheme.labelMedium,
+                                  textAlign: TextAlign.center,
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8 * GOLDEN_RATIO,
+                      ),
+                      Expanded(
+                        child: InkWell(
+                          borderRadius:
+                              BorderRadius.circular(BUTTON_BORDER_RAD),
+                          onTap: controller.splitByItem,
+                          child: Card(
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(BUTTON_BORDER_RAD),
+                              side: BorderSide(
+                                color: Get.isDarkMode
+                                    ? Colors.white
+                                    : getColorFromHex(COLOR_1),
+                              ),
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Icon(
+                                  FontAwesome.shopping_basket,
+                                  size: 30 * GOLDEN_RATIO,
+                                  color: Get.isDarkMode
+                                      ? null
+                                      : getColorFromHex(COLOR_2),
+                                ),
+                                const SizedBox(
+                                  height: 15 * GOLDEN_RATIO,
+                                ),
+                                Text(
+                                  'Split per Item',
+                                  style: Get.textTheme.labelMedium,
+                                  textAlign: TextAlign.center,
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10 * GOLDEN_RATIO,
+                      )
+                    ],
+                  ),
+                ),
               ),
-            ),
+      ),
     );
   }
 }
