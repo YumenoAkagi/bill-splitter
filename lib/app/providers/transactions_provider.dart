@@ -427,7 +427,7 @@ class TransactionsProvider {
     return isSucceed;
   }
 
-  Future updateCompleteStatusOnTrxHeader(String headerId) async {
+  Future updateStatusOnTrxHeader(String headerId) async {
     try {
       final response = await supabaseClient
           .from('TransactionUser')
@@ -439,8 +439,12 @@ class TransactionsProvider {
       if ((response.count ?? 0) <= 0) {
         await supabaseClient
             .from('TransactionHeader')
-            .update({'IsComplete': true});
+            .update({'IsComplete': true}).eq('Id', headerId);
       }
+
+      await supabaseClient
+          .from('TransactionHeader')
+          .update({'IsDeletable': false}).eq('Id', headerId);
     } catch (e) {
       showUnexpectedErrorSnackbar(e);
     }

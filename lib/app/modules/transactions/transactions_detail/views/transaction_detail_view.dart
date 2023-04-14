@@ -318,14 +318,20 @@ class TransactionDetailView extends GetView<TransactionDetailController> {
                     ),
                     Obx(
                       () => controller.hasDebts.isTrue
-                          ? FilledButton(
-                              onPressed: () async {
-                                await Get.bottomSheet(
-                                  const BsAddTrxProofView(),
-                                );
-                              },
-                              child: const Text('I have paid my bills'),
-                            )
+                          ? controller.totalDebts.value > 0.0
+                              ? FilledButton(
+                                  onPressed: () async {
+                                    await Get.bottomSheet(
+                                      const BsAddTrxProofView(),
+                                    );
+                                  },
+                                  child: const Text('I Have Paid My Bills'),
+                                )
+                              : FilledButton(
+                                  onPressed: () {},
+                                  child: const Text(
+                                      'View My Payment Confirmation'),
+                                )
                           : FilledButton(
                               onPressed: () {},
                               child: const Text('View Transaction Proofs'),

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../models/transaction_user_model.dart';
+import '../../../modules/home/controllers/transactions_tab_controller.dart';
 import '../../../modules/transactions/transactions_detail/controllers/transaction_detail_controller.dart';
 import '../../../providers/transactions_provider.dart';
 import '../../../utils/app_constants.dart';
@@ -92,10 +93,17 @@ class BsAddTrxProofController extends GetxController {
       );
       if (!succeed) return;
       await _transactionRepo
-          .updateCompleteStatusOnTrxHeader(_trxDetailController.trxHeader.id);
+          .updateStatusOnTrxHeader(_trxDetailController.trxHeader.id);
 
       await _trxDetailController.calculateRemainingDebtsReceivables();
       await _trxDetailController.fetchTransactionUser();
+
+      try {
+        final transactionTabController = Get.find<TransactionsTabController>();
+        await transactionTabController.getActiveTransactions();
+      } catch (e) {
+        // do nothing
+      }
 
       Get.back();
       showSuccessSnackbar(
