@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../models/transaction_detail_item_model.dart';
 import '../models/transaction_header_model.dart';
@@ -400,5 +401,48 @@ class TransactionsProvider {
     }
 
     return totalReceivables;
+  }
+
+  Future<bool> addTransactionProof(int transactionUserId, double amountPaid,
+      double totalAmountPaid, bool hasPaid, String? imgUrl) async {
+    bool isSucceed = false;
+
+    try {
+      await supabaseClient.from('TransactionProof').insert({
+        'ImageURL': imgUrl,
+        'TransactionUserId': transactionUserId,
+        'AmountPaid': amountPaid,
+      });
+
+      // update transactionUser
+      await supabaseClient.from('TransactionUser').update({
+        'AmountPaid': totalAmountPaid,
+        'HasPaid': hasPaid,
+      }).eq('Id', transactionUserId);
+      isSucceed = true;
+    } catch (e) {
+      showUnexpectedErrorSnackbar(e);
+    }
+
+    return isSucceed;
+  }
+
+  Future updateCompleteStatusOnTrxHeader(String headerId) async {
+    try {
+      final response = await supabaseClient
+          .from('TransactionUser')
+          .select<PostgrestListResponse>(
+              '*', const FetchOptions(count: CountOption.exact))
+          .eq('TransactionId', headerId)
+          .eq('HasPaid', false);
+
+      if ((response.count ?? 0) <= 0) {
+        await supabaseClient
+            .from('TransactionHeader')
+            .update({'IsComplete': true});
+      }
+    } catch (e) {
+      showUnexpectedErrorSnackbar(e);
+    }
   }
 }

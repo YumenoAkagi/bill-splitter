@@ -1,14 +1,17 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:nb_utils/nb_utils.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../models/transaction_detail_item_model.dart';
 import '../../../../models/transaction_header_model.dart';
 import '../../../../providers/transactions_provider.dart';
 import '../../../../routes/app_pages.dart';
 import '../../../../utils/app_constants.dart';
+import '../../../../utils/enums.dart';
 import '../../../../utils/functions_helper.dart';
 import '../../../home/controllers/transactions_tab_controller.dart';
 
@@ -17,6 +20,9 @@ class AddTrxDetailsItemsController extends GetxController {
   final trxRepo = TransactionsProvider();
   final grandTotalController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  final _imagePicker = ImagePicker();
+  Uint8List? selectedImage;
+
   RxList<TransactionDetailItemModel> detailItemsList =
       List<TransactionDetailItemModel>.empty(growable: true).obs;
   RxBool makeGrandTotalSameAsSubTotal = true.obs;
@@ -73,7 +79,7 @@ class AddTrxDetailsItemsController extends GetxController {
             child: Row(
               children: const [
                 Icon(
-                  Entypo.camera,
+                  FontAwesome.doc_text_inv,
                 ),
                 SizedBox(
                   width: 10 * GOLDEN_RATIO,
@@ -104,6 +110,14 @@ class AddTrxDetailsItemsController extends GetxController {
 
     if (result == null) return;
     if (result == 1) {
+      final imagePickMethod =
+          await askImagePickMethod(Get.context as BuildContext);
+      if (imagePickMethod == ImagePickMethod.camera) {
+        return await proceedImageFromCamera();
+      }
+      if (imagePickMethod == ImagePickMethod.gallery) {
+        return await proceedImageFromGallery();
+      }
       return;
     }
     if (result == 2) {
@@ -147,9 +161,39 @@ class AddTrxDetailsItemsController extends GetxController {
     }
   }
 
+  Future proceedImageFromGallery() async {
+    final imgFile = await _imagePicker.pickImage(
+      source: ImageSource.gallery,
+    );
+
+    if (imgFile == null) return;
+
+    try {
+      final imgBytes = await imgFile.readAsBytes();
+      selectedImage = imgBytes;
+      Get.toNamed('${Routes.ADDTRXITEM}/${Routes.ADDITEMOCR}');
+    } catch (e) {
+      showUnexpectedErrorSnackbar(e);
+    }
+  }
+
+  Future proceedImageFromCamera() async {
+    final imgFile = await _imagePicker.pickImage(source: ImageSource.camera);
+
+    if (imgFile == null) return;
+
+    try {
+      final imgBytes = await imgFile.readAsBytes();
+      selectedImage = imgBytes;
+      Get.toNamed('${Routes.ADDTRXITEM}/${Routes.ADDITEMOCR}');
+    } catch (e) {
+      showUnexpectedErrorSnackbar(e);
+    }
+  }
+
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    getAllDetailItems();
+    await getAllDetailItems();
   }
 }

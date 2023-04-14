@@ -18,6 +18,7 @@ abstract class Routes {
 
   static const ADDTRXITEM = _Paths.ADDTRXITEM;
   static const ADDITEMMANUAL = _Paths.ADDITEMMANUAL;
+  static const ADDITEMOCR = _Paths.ADDITEMOCR;
   static const ADDTRXMEMBERS = _Paths.ADDTRXMEMBERS;
 
   static const TRXMEMBERWHOPAID = _Paths.TRXMEMBERWHOPAID;
@@ -49,6 +50,7 @@ abstract class _Paths {
 
   static const ADDTRXITEM = '/add-trx-details-items';
   static const ADDITEMMANUAL = '/add-item-manual';
+  static const ADDITEMOCR = '/add-item-ocr';
   static const ADDTRXMEMBERS = '/add-detail-members';
 
   static const TRXMEMBERWHOPAID = '/trx-member-who-paid-the-bill';

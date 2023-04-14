@@ -97,6 +97,7 @@ class BsAddTrxProofView extends StatelessWidget {
                 Obx(
                   () => TextFormField(
                     keyboardType: TextInputType.number,
+                    enabled: controller.selectedTrxUser != null,
                     controller: controller.amountPaidController,
                     decoration: const InputDecoration(
                       hintText: '0.0',
@@ -126,20 +127,26 @@ class BsAddTrxProofView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'No image selected',
-                        style: Get.textTheme.labelSmall
-                            ?.copyWith(overflow: TextOverflow.ellipsis),
+                      GetBuilder<BsAddTrxProofController>(
+                        builder: (batpc) => Text(
+                          controller.selectedImg?.name ?? 'No image selected',
+                          style: Get.textTheme.labelSmall
+                              ?.copyWith(overflow: TextOverflow.ellipsis),
+                        ),
                       ),
                       SizedBox(
                         width: Get.width * 0.3 * GOLDEN_RATIO,
-                        child: OutlinedButton.icon(
-                          onPressed: () {},
-                          icon: const Icon(
-                            FontAwesome.picture,
-                            size: 10 * GOLDEN_RATIO,
+                        child: Obx(
+                          () => OutlinedButton.icon(
+                            onPressed: controller.remainingAmount > 0.0
+                                ? controller.pickImage
+                                : null,
+                            icon: const Icon(
+                              FontAwesome.picture,
+                              size: 10 * GOLDEN_RATIO,
+                            ),
+                            label: const Text('Select Image'),
                           ),
-                          label: const Text('Select Image'),
                         ),
                       ),
                     ],
@@ -151,7 +158,15 @@ class BsAddTrxProofView extends StatelessWidget {
                 Obx(
                   () => FilledButton.icon(
                     onPressed: controller.isLoading.isFalse
-                        ? controller.addTransactionProof
+                        ? () async {
+                            await showConfirmDialog(
+                              context,
+                              'Submit Payment Confirmation?\nMake sure the recipient and amount is correct.',
+                              positiveText: 'Submit',
+                              negativeText: 'Cancel',
+                              onAccept: controller.addTransactionProof,
+                            );
+                          }
                         : null,
                     icon: controller.isLoading.isFalse
                         ? const Icon(

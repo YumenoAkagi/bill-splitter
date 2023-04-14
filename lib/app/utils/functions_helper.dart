@@ -1,5 +1,8 @@
+import 'package:bill_splitter/app/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttericon/entypo_icons.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -149,4 +152,48 @@ Future<void> showErrorSnackbar(String message) async {
     'Error',
     message,
   );
+}
+
+Future<ImagePickMethod?> askImagePickMethod(BuildContext ctx) async {
+  ImagePickMethod? result;
+  result = await showDialog<ImagePickMethod>(
+    context: ctx,
+    builder: (context) => SimpleDialog(
+      children: [
+        SimpleDialogOption(
+          onPressed: () {
+            Get.back(result: ImagePickMethod.camera);
+          },
+          child: Row(
+            children: const [
+              Icon(
+                FontAwesome.camera_alt,
+              ),
+              SizedBox(
+                width: 10 * GOLDEN_RATIO,
+              ),
+              Text('Take a Photo'),
+            ],
+          ),
+        ),
+        SimpleDialogOption(
+          onPressed: () {
+            Get.back(result: ImagePickMethod.gallery);
+          },
+          child: Row(
+            children: const [
+              Icon(
+                FontAwesome.picture,
+              ),
+              SizedBox(
+                width: 10 * GOLDEN_RATIO,
+              ),
+              Text('Pick from Gallery'),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+  return result;
 }

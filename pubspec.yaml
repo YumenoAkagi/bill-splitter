@@ -11,18 +11,22 @@ dependencies:
   calendar_date_picker2: ^0.4.6
   carousel_slider: ^4.2.1
   circular_profile_avatar: ^2.0.5
+  crop_your_image: ^0.7.4
   dropdown_button2: ^2.0.0
   flutter:
     sdk: flutter
+  flutter_tesseract_ocr: ^0.4.20
   fluttericon: ^2.0.0
   form_field_validator: ^1.1.0
   get: 4.6.5
   get_storage: ^2.1.1
+  image: ^4.0.15
   image_picker: ^0.8.7
   intl: ^0.18.0
   list_tile_switch: ^1.0.0
   loader_overlay: ^2.2.0
   nb_utils: ^5.0.5
+  path_provider: ^2.0.14
   stylish_bottom_bar: ^1.0.0
   supabase_flutter: ^1.5.0
 
@@ -54,4 +58,7 @@ flutter:
     - assets/images/undraw_My_password.png
     - assets/images/undraw_Empty.png
     - assets/images/undraw_Done.png
+    - assets/tessdata/eng.traineddata
+    - assets/tessdata/ind.traineddata
+    - assets/tessdata_config.json
   uses-material-design: true

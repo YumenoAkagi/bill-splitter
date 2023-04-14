@@ -28,8 +28,10 @@ import '../modules/splash/views/splash_view.dart';
 import '../modules/transactions/add_transactions_detail_members/bindings/add_trx_detail_members_binding.dart';
 import '../modules/transactions/add_transactions_detail_members/views/add_trx_detail_members_view.dart';
 import '../modules/transactions/add_transactions_details_items/bindings/add_item_manual_binding.dart';
+import '../modules/transactions/add_transactions_details_items/bindings/add_item_ocr_binding.dart';
 import '../modules/transactions/add_transactions_details_items/bindings/add_trx_details_items_binding.dart';
 import '../modules/transactions/add_transactions_details_items/views/add_item_manual_view.dart';
+import '../modules/transactions/add_transactions_details_items/views/add_item_ocr_view.dart';
 import '../modules/transactions/add_transactions_details_items/views/add_trx_details_items_view.dart';
 import '../modules/transactions/history_transactions/bindings/history_transactions_binding.dart';
 import '../modules/transactions/history_transactions/views/history_transactions_view.dart';
@@ -135,6 +137,11 @@ class AppPages {
           name: _Paths.ADDITEMMANUAL,
           page: () => const AddItemManualView(),
           binding: AddItemManualBinding(),
+        ),
+        GetPage(
+          name: _Paths.ADDITEMOCR,
+          page: () => const AddItemOCRView(),
+          binding: AddItemOCRBinding(),
         ),
       ],
     ),
