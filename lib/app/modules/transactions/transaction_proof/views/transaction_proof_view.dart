@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
 
 import '../../../../routes/app_pages.dart';
@@ -37,13 +38,52 @@ class TransactionProofView extends GetView<TransactionProofController> {
                           children: [
                             ListTile(
                               contentPadding: EdgeInsets.zero,
-                              title: Text(
-                                tpc.trxProofs[index].fromUser.id ==
-                                        supabaseClient.auth.currentUser!.id
-                                    ? 'You paid ${moneyFormatter.format(tpc.trxProofs[index].paidAmount)} to ${tpc.trxProofs[index].fromUser.displayName}'
-                                    : '${tpc.trxProofs[index].fromUser.displayName} paid ${moneyFormatter.format(tpc.trxProofs[index].paidAmount)} to you',
+                              title: Text.rich(
+                                TextSpan(
+                                  style: Get.textTheme.labelMedium,
+                                  children: [
+                                    TextSpan(
+                                      text: tpc.trxProofs[index].fromUser.id ==
+                                              supabaseClient
+                                                  .auth.currentUser!.id
+                                          ? 'You '
+                                          : tpc.trxProofs[index].fromUser
+                                              .displayName,
+                                      style:
+                                          Get.textTheme.labelMedium?.copyWith(
+                                        fontWeight: FontWeight.w900,
+                                      ),
+                                    ),
+                                    const TextSpan(text: 'paid '),
+                                    TextSpan(
+                                      text:
+                                          '${moneyFormatter.format(tpc.trxProofs[index].paidAmount)} ',
+                                      style:
+                                          Get.textTheme.labelMedium?.copyWith(
+                                        fontWeight: FontWeight.w900,
+                                      ),
+                                    ),
+                                    const TextSpan(text: 'to '),
+                                    TextSpan(
+                                      text: tpc.trxProofs[index].fromUser.id ==
+                                              supabaseClient
+                                                  .auth.currentUser!.id
+                                          ? tpc.trxProofs[index].toUser
+                                              .displayName
+                                          : 'You',
+                                      style:
+                                          Get.textTheme.labelMedium?.copyWith(
+                                        fontWeight: FontWeight.w900,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                               subtitle: Text(tpc.trxProofs[index].createdDate),
+                              trailing: tpc.trxProofs[index].fromUser.id ==
+                                      supabaseClient.auth.currentUser!.id
+                                  ? const Icon(FontAwesome.up_circled)
+                                  : const Icon(FontAwesome.down_circled),
                             ),
                             tpc.trxProofs[index].imgUrl == null
                                 ? const SizedBox()
