@@ -18,6 +18,7 @@ dependencies:
   flutter_tesseract_ocr: ^0.4.20
   fluttericon: ^2.0.0
   form_field_validator: ^1.1.0
+  full_screen_image_null_safe: ^2.0.0
   get: 4.6.5
   get_storage: ^2.1.1
   image: ^4.0.15

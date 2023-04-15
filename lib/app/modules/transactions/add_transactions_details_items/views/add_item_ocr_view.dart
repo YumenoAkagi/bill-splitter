@@ -36,15 +36,15 @@ class AddItemOCRView extends GetView<AddItemOCRController> {
                   },
                 ),
               ),
-              // Expanded(
-              //   child: GetBuilder<AddItemOCRController>(
-              //     builder: (c) => c.croppedImage == null
-              //         ? const SizedBox(
-              //             child: Text('No Data'),
-              //           )
-              //         : Image.memory(c.croppedImage as Uint8List),
-              //   ),
-              // ),
+              Expanded(
+                child: GetBuilder<AddItemOCRController>(
+                  builder: (c) => c.croppedImage == null
+                      ? const SizedBox(
+                          child: Text('No Data'),
+                        )
+                      : Image.memory(c.croppedImage as Uint8List),
+                ),
+              ),
               const SizedBox(
                 height: 20 * GOLDEN_RATIO,
               ),

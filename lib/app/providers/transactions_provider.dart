@@ -1,3 +1,4 @@
+import 'package:bill_splitter/app/models/transaction_proof_model.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -394,8 +395,9 @@ class TransactionsProvider {
           .eq('TransactionId', headerId)
           .eq('ToUserId', userId);
 
-      response.forEach((tu) =>
-          totalReceivables += (tu['TotalAmountOwed'] - tu['AmountPaid']));
+      response.forEach(
+        (tu) => totalReceivables += (tu['TotalAmountOwed'] - tu['AmountPaid']),
+      );
     } catch (e) {
       showUnexpectedErrorSnackbar(e);
     }
@@ -448,5 +450,56 @@ class TransactionsProvider {
     } catch (e) {
       showUnexpectedErrorSnackbar(e);
     }
+  }
+
+  Future<List<TransactionProofModel>> getUserTransactionProofs(
+      String headerId, String userId) async {
+    final List<TransactionProofModel> proofs = [];
+    try {
+      final response = await supabaseClient
+          .from('TransactionProof')
+          .select<PostgrestListResponse>(
+            '*,TransactionUser!inner(*)',
+            const FetchOptions(count: CountOption.exact),
+          )
+          .eq('TransactionUser.TransactionId', headerId);
+
+      for (int i = 0; i < (response.count ?? 0); i++) {
+        final trxUserResponse = await supabaseClient
+            .from('TransactionUser')
+            .select('fromUser:Users!FromUserId(*),toUser:Users!ToUserId(*)')
+            .eq(
+              'Id',
+              response.data![i]['TransactionUser']['Id'],
+            )
+            .or('FromUserId.eq.$userId,ToUserId.eq.$userId')
+            .single();
+
+        proofs.add(
+          TransactionProofModel(
+            id: response.data![i]['id'],
+            paidAmount: response.data![i]['AmountPaid'],
+            fromUser: UserModel(
+                id: trxUserResponse['fromUser']['Id'],
+                displayName: trxUserResponse['fromUser']['DisplayName'],
+                email: trxUserResponse['fromUser']['Email'],
+                profilePicUrl: trxUserResponse['fromUser']
+                    ['ProfilePictureURL']),
+            toUser: UserModel(
+              id: trxUserResponse['toUser']['Id'],
+              displayName: trxUserResponse['toUser']['DisplayName'],
+              email: trxUserResponse['toUser']['Email'],
+              profilePicUrl: trxUserResponse['toUser']['ProfilePictureURL'],
+            ),
+            imgUrl: response.data![i]['ImageURL'],
+            createdDate: DateFormat('dd MMM yyyy')
+                .format(DateTime.parse(response.data![i]['created_at'])),
+          ),
+        );
+      }
+    } catch (e) {
+      showUnexpectedErrorSnackbar(e);
+    }
+    return proofs;
   }
 }

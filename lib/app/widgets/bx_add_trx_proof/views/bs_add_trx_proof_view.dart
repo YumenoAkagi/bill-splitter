@@ -127,11 +127,13 @@ class BsAddTrxProofView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      GetBuilder<BsAddTrxProofController>(
-                        builder: (batpc) => Text(
-                          controller.selectedImg?.name ?? 'No image selected',
-                          style: Get.textTheme.labelSmall
-                              ?.copyWith(overflow: TextOverflow.ellipsis),
+                      Expanded(
+                        child: GetBuilder<BsAddTrxProofController>(
+                          builder: (batpc) => Text(
+                            controller.selectedImg?.name ?? 'No image selected',
+                            style: Get.textTheme.labelSmall
+                                ?.copyWith(overflow: TextOverflow.ellipsis),
+                          ),
                         ),
                       ),
                       SizedBox(

@@ -34,6 +34,7 @@ class TransactionsTabController extends GetxController {
     if (selectedTrx.isDeletable == false) {
       showErrorSnackbar(
           'Delete failed. Reason: This transaction has been processed');
+      _toggleIsDeleting(false);
       return;
     }
 

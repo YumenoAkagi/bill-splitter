@@ -72,11 +72,13 @@ class BsAddTrxProofController extends GetxController {
         final newFileName = 'TP-${DateTime.now().toIso8601String()}.$fileExt';
         final filePath = newFileName; // change path if necessary
 
-        // await supabaseClient.storage
-        //     .from('avatars')
-        //     .uploadBinary(filePath, bytes);
+        await supabaseClient.storage
+            .from('transactionproof')
+            .uploadBinary(filePath, bytes);
 
-        // imgUrl = supabaseClient.storage.from('avatars').getPublicUrl(filePath);
+        imgUrl = supabaseClient.storage
+            .from('transactionproof')
+            .getPublicUrl(filePath);
       }
 
       final amountPaid =

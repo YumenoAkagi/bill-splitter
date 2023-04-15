@@ -28,9 +28,12 @@ abstract class Routes {
   static const SPLITSUCCESS = _Paths.SPLITSUCCESS;
 
   static const TRXDETAIL = _Paths.TRXDETAIL;
+  static const TRXPROOFS = _Paths.TRXPROOFS;
 
   static const CHANGE_PASSWORD = _Paths.CHANGE_PASSWORD;
   static const DONE_CHANGE_PASSWORD = _Paths.DONE_CHANGE_PASSWORD;
+
+  static const SHOWIMAGE = _Paths.SHOWIMAGE;
 }
 
 abstract class _Paths {
@@ -60,7 +63,10 @@ abstract class _Paths {
   static const SPLITSUCCESS = '/split-success';
 
   static const TRXDETAIL = '/transaction-detail';
+  static const TRXPROOFS = '/transaction-proofs';
 
   static const CHANGE_PASSWORD = '/change-password';
   static const DONE_CHANGE_PASSWORD = '/done-change-password';
+
+  static const SHOWIMAGE = '/show-image';
 }

@@ -1,3 +1,7 @@
+import 'package:bill_splitter/app/modules/transactions/transaction_proof/bindings/transaction_proof_binding.dart';
+import 'package:bill_splitter/app/modules/transactions/transaction_proof/views/transaction_proof_view.dart';
+import 'package:bill_splitter/app/widgets/image_show/bindings/image_show_binding.dart';
+import 'package:bill_splitter/app/widgets/image_show/views/image_show_view.dart';
 import 'package:get/get.dart';
 
 import '../middlewares/auth_middleware.dart';
@@ -193,6 +197,14 @@ class AppPages {
       ],
     ),
     GetPage(
+      name: _Paths.TRXPROOFS,
+      page: () => const TransactionProofView(),
+      binding: TransactionProofBinding(),
+      middlewares: [
+        AuthMiddleware(),
+      ],
+    ),
+    GetPage(
       name: _Paths.CHANGE_PASSWORD,
       page: () => const ChangePasswordView(),
       binding: ChangePasswordBinding(),
@@ -201,6 +213,14 @@ class AppPages {
       name: _Paths.DONE_CHANGE_PASSWORD,
       page: () => const DoneChangePasswordView(),
       binding: DoneChangePasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.SHOWIMAGE,
+      page: () => const ImageShowView(),
+      binding: ImageShowBinding(),
+      middlewares: [
+        AuthMiddleware(),
+      ],
     ),
   ];
 }
