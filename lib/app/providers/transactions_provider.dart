@@ -203,6 +203,24 @@ class TransactionsProvider {
     return itemsList;
   }
 
+  Future<bool> editDetailsItem(
+      int id, String name, double price, double qty, double totalPrice) async {
+    bool isEdited = false;
+    try {
+      await supabaseClient.from('TransactionDetail').update({
+        'Price': price,
+        'Name': name,
+        'Quantity': qty,
+        'TotalPrice': totalPrice,
+      }).eq('Id', id);
+      isEdited = true;
+    } catch (e) {
+      showUnexpectedErrorSnackbar(e);
+    }
+
+    return isEdited;
+  }
+
   Future<bool> finalizeDetailItem(String headerId, num grandTotal) async {
     bool isResponseFinalized = false;
 

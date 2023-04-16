@@ -7,6 +7,7 @@ import 'package:nb_utils/nb_utils.dart';
 import '../../../../utils/app_constants.dart';
 import '../../../../utils/functions_helper.dart';
 import '../../../../utils/validations_helper.dart';
+import '../../../../widgets/bs_edit_item/views/bs_edit_item_view.dart';
 import '../controllers/add_trx_details_items_controller.dart';
 
 class AddTrxDetailsItemsView extends GetView<AddTrxDetailsItemsController> {
@@ -46,6 +47,11 @@ class AddTrxDetailsItemsView extends GetView<AddTrxDetailsItemsController> {
                           : ListView.builder(
                               itemCount: trxdc.detailItemsList.length,
                               itemBuilder: (context, index) => ListTile(
+                                onTap: () async {
+                                  controller.selectedItem =
+                                      trxdc.detailItemsList[index];
+                                  await Get.bottomSheet(const BsEditItemView());
+                                },
                                 onLongPress: () async {
                                   await showConfirmDialog(
                                     context,

@@ -17,7 +17,7 @@ import '../../../home/controllers/transactions_tab_controller.dart';
 
 class AddTrxDetailsItemsController extends GetxController {
   TransactionHeaderModel trxHeader = Get.arguments as TransactionHeaderModel;
-  final trxRepo = TransactionsProvider();
+  final _trxRepo = TransactionsProvider();
   final grandTotalController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   final _imagePicker = ImagePicker();
@@ -29,6 +29,7 @@ class AddTrxDetailsItemsController extends GetxController {
   RxDouble subtotal = 0.0.obs;
   bool isFetching = false;
   RxBool isLoading = false.obs;
+  TransactionDetailItemModel? selectedItem;
 
   void _toggleFetchingStatus(bool newStat) {
     isFetching = newStat;
@@ -37,7 +38,7 @@ class AddTrxDetailsItemsController extends GetxController {
 
   Future getAllDetailItems() async {
     _toggleFetchingStatus(true);
-    detailItemsList.value = await trxRepo.fetchDetailsItems(trxHeader.id);
+    detailItemsList.value = await _trxRepo.fetchDetailsItems(trxHeader.id);
     recalculateSubtotal();
     _toggleFetchingStatus(false);
   }
@@ -141,7 +142,7 @@ class AddTrxDetailsItemsController extends GetxController {
     }
 
     final isFinalized =
-        await trxRepo.finalizeDetailItem(trxHeader.id, grandTotal);
+        await _trxRepo.finalizeDetailItem(trxHeader.id, grandTotal);
 
     if (isFinalized) {
       trxHeader.isItemFinalized = true;
