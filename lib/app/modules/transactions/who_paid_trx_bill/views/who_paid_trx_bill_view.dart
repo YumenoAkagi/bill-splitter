@@ -7,6 +7,7 @@ import 'package:nb_utils/nb_utils.dart';
 import '../../../../utils/app_constants.dart';
 import '../../../../utils/functions_helper.dart';
 import '../../../../widgets/bs_add_paid_bill_member/views/bs_add_paid_bill_member_view.dart';
+import '../../../../widgets/bs_edit_paid_bill_member/views/bs_edit_paid_bill_view.dart';
 import '../controllers/who_paid_trx_bill_controller.dart';
 
 class WhoPaidTrxBillView extends GetView<WhoPaidTrxBillController> {
@@ -56,6 +57,25 @@ class WhoPaidTrxBillView extends GetView<WhoPaidTrxBillController> {
                           separatorBuilder: (context, index) => const Divider(),
                           itemCount: wptb.membersWhoPaidBill.length,
                           itemBuilder: (context, index) => ListTile(
+                            onTap: () async {
+                              controller.selectedPayer =
+                                  wptb.membersWhoPaidBill[index];
+                              await Get.bottomSheet(
+                                  const BsEditPaidMemberView());
+                            },
+                            onLongPress: () async {
+                              await showConfirmDialog(
+                                context,
+                                'Delete selected payer?',
+                                negativeText: 'Cancel',
+                                positiveText: 'Delete',
+                                buttonColor: Colors.red.shade700,
+                                onAccept: () {
+                                  wptb.removeMemberPaidBill(
+                                      wptb.membersWhoPaidBill[index]);
+                                },
+                              );
+                            },
                             contentPadding: EdgeInsets.zero,
                             leading: CircularProfileAvatar(
                               wptb.membersWhoPaidBill[index].member

@@ -10,6 +10,7 @@ class WhoPaidTrxBillController extends GetxController {
   RxDouble remainingAmount = 0.0.obs;
   RxList<TrxMemberPaysTheBillModel> membersWhoPaidBill =
       <TrxMemberPaysTheBillModel>[].obs;
+  TrxMemberPaysTheBillModel? selectedPayer;
 
   void recalculateRemainingAmount() {
     remainingAmount.value = trxHeader.grandTotal.toDouble();
@@ -22,6 +23,13 @@ class WhoPaidTrxBillController extends GetxController {
 
   void addMemberPaidBill(TrxMemberPaysTheBillModel memberPaysTheBill) {
     membersWhoPaidBill.add(memberPaysTheBill);
+    recalculateRemainingAmount();
+  }
+
+  void editMemberPaidBill(double amount, String userId) {
+    final selected =
+        membersWhoPaidBill.firstWhere((mp) => mp.member.id == userId);
+    selected.paidAmount = amount;
     recalculateRemainingAmount();
   }
 
