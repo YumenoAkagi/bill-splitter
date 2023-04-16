@@ -9,6 +9,7 @@ import '../../home/controllers/home_controller.dart';
 class ManageFriendController extends GetxController {
   final friendProvider = FriendProvider();
   final homeController = Get.find<HomeController>();
+  final friendTabController = Get.find<FriendTabController>();
   final friendEmailController = TextEditingController();
   List<UserModel> pendingFriendList = [];
   List<UserModel> requestFriendList = [];
@@ -46,8 +47,7 @@ class ManageFriendController extends GetxController {
     await friendProvider.acceptRequest(userModel);
     requestFriendList.clear();
     getRequestFriendList();
-    var ftc = Get.find<FriendTabController>();
-    ftc.getFriendList();
+    friendTabController.getFriendList();
     homeController.recalcFriendRequest();
   }
 
@@ -55,6 +55,7 @@ class ManageFriendController extends GetxController {
     await friendProvider.rejectRequest(userModel);
     requestFriendList.clear;
     getRequestFriendList();
+    homeController.recalcFriendRequest();
   }
 
   @override
