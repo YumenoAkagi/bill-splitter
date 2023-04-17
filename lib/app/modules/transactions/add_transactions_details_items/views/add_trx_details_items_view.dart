@@ -44,7 +44,9 @@ class AddTrxDetailsItemsView extends GetView<AddTrxDetailsItemsController> {
                                 style: Get.textTheme.labelSmall,
                               ),
                             )
-                          : ListView.builder(
+                          : ListView.separated(
+                              separatorBuilder: (context, index) =>
+                                  const Divider(),
                               itemCount: trxdc.detailItemsList.length,
                               itemBuilder: (context, index) => ListTile(
                                 onTap: () async {
@@ -65,13 +67,31 @@ class AddTrxDetailsItemsView extends GetView<AddTrxDetailsItemsController> {
                                     },
                                   );
                                 },
-                                title: Text(trxdc.detailItemsList[index].name),
+                                title: Text(
+                                  trxdc.detailItemsList[index].name,
+                                  style: Get.textTheme.labelMedium,
+                                ),
                                 subtitle: Text(
                                   '${trxdc.detailItemsList[index].qty.toInt()} x ${moneyFormatter.format(trxdc.detailItemsList[index].price)}',
+                                  style: Get.textTheme.labelSmall,
                                 ),
-                                trailing: Text(
-                                  moneyFormatter.format(
-                                      trxdc.detailItemsList[index].totalPrice),
+                                trailing: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      moneyFormatter.format(
+                                        trxdc.detailItemsList[index].totalPrice,
+                                      ),
+                                      style: Get.textTheme.labelMedium,
+                                    ),
+                                    trxdc.detailItemsList[index].discount > 0.0
+                                        ? Text(
+                                            '(-${separatorFormatter.format(trxdc.detailItemsList[index].discount)})',
+                                            style: Get.textTheme.labelSmall,
+                                          )
+                                        : const SizedBox(),
+                                  ],
                                 ),
                               ),
                             ),

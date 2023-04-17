@@ -22,11 +22,16 @@ final qtyAndPriceValidator = MultiValidator([
   GreaterThanZeroValidator('Value must be greater than 0'),
 ]);
 
+final discValidator = MultiValidator([
+  GreaterThanZeroValidator('Value must be greater than 0'),
+]);
+
 class GreaterThanZeroValidator extends FieldValidator<String> {
   GreaterThanZeroValidator(String errorText) : super(errorText);
 
   @override
   bool isValid(String value) {
+    if (value == '') return true;
     final val = separatorFormatter.parse(value);
     if (val <= 0) return false;
     return true;

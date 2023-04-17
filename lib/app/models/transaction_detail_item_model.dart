@@ -6,6 +6,7 @@ class TransactionDetailItemModel {
     required this.qty,
     required this.price,
     required this.totalPrice,
+    this.discount = 0,
   });
 
   int id;
@@ -14,4 +15,5 @@ class TransactionDetailItemModel {
   num qty;
   num price;
   num totalPrice;
+  num discount;
 }

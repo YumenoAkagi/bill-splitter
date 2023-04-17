@@ -75,6 +75,8 @@ class AddItemManualView extends GetView<AddItemManualController> {
                                 ),
                               ],
                               validator: qtyAndPriceValidator,
+                              onChanged: (_) =>
+                                  controller.recalculateMaxDiscount(),
                             ),
                           ],
                         ),
@@ -94,6 +96,7 @@ class AddItemManualView extends GetView<AddItemManualController> {
                               height: 3 * GOLDEN_RATIO,
                             ),
                             TextFormField(
+                              textInputAction: TextInputAction.next,
                               controller: controller.priceController,
                               keyboardType: TextInputType.number,
                               decoration: const InputDecoration(
@@ -107,11 +110,41 @@ class AddItemManualView extends GetView<AddItemManualController> {
                                 ),
                               ],
                               validator: qtyAndPriceValidator,
+                              onChanged: (_) =>
+                                  controller.recalculateMaxDiscount(),
                             ),
                           ],
                         ),
                       ),
                     ],
+                  ),
+                  const SizedBox(
+                    height: 10 * GOLDEN_RATIO,
+                  ),
+                  Text(
+                    'Item Discount (Optional)',
+                    style: Get.textTheme.labelMedium,
+                  ),
+                  const SizedBox(
+                    height: 3 * GOLDEN_RATIO,
+                  ),
+                  Obx(
+                    () => TextFormField(
+                      textInputAction: TextInputAction.done,
+                      controller: controller.discountController,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        hintText: '0.0',
+                        prefixText: 'Rp ',
+                      ),
+                      textAlign: TextAlign.end,
+                      inputFormatters: [
+                        DecimalFormatter(
+                          maxVal: controller.maxDiscount.value,
+                        ),
+                      ],
+                      validator: discValidator,
+                    ),
                   ),
                   const SizedBox(
                     height: 20 * GOLDEN_RATIO,

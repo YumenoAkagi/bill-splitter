@@ -192,6 +192,7 @@ class TransactionsProvider {
           qty: item['Quantity'],
           price: item['Price'],
           totalPrice: item['TotalPrice'],
+          discount: item['Discount'],
         );
         itemsList.add(
           newTrx,
@@ -203,8 +204,8 @@ class TransactionsProvider {
     return itemsList;
   }
 
-  Future<bool> editDetailsItem(
-      int id, String name, double price, double qty, double totalPrice) async {
+  Future<bool> editDetailsItem(int id, String name, double price, double qty,
+      double totalPrice, double discount) async {
     bool isEdited = false;
     try {
       await supabaseClient.from('TransactionDetail').update({
@@ -212,6 +213,7 @@ class TransactionsProvider {
         'Name': name,
         'Quantity': qty,
         'TotalPrice': totalPrice,
+        'Discount': discount,
       }).eq('Id', id);
       isEdited = true;
     } catch (e) {

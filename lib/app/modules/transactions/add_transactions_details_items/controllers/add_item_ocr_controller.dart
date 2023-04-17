@@ -2,8 +2,6 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:bill_splitter/app/models/transaction_detail_item_model.dart';
-import 'package:bill_splitter/app/utils/app_constants.dart';
 import 'package:crop_your_image/crop_your_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tesseract_ocr/android_ios.dart';
@@ -12,6 +10,8 @@ import 'package:image/image.dart' as image_pkg;
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../../../models/transaction_detail_item_model.dart';
+import '../../../../utils/app_constants.dart';
 import '../../../../utils/functions_helper.dart';
 import 'add_trx_details_items_controller.dart';
 
@@ -34,8 +34,13 @@ class AddItemOCRController extends GetxController {
       addTrxDetailItemController.update();
       Get.back();
 
-      await showSuccessSnackbar('Success',
-          'Successfully inserted $insertedItemCount item(s)!\nPlease double check the inserted item(s).');
+      if (insertedItemCount > 0) {
+        await showSuccessSnackbar('Success',
+            'Successfully inserted $insertedItemCount item(s)!\nPlease double check the inserted item(s).');
+      } else {
+        await showErrorSnackbar(
+            'No items scanned. Please make sure the receipt is in correct angle and can be seen properly.');
+      }
     } catch (e) {
       showUnexpectedErrorSnackbar(e);
     } finally {

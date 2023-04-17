@@ -34,6 +34,7 @@ class BsEditItemView extends StatelessWidget {
           ),
           child: Form(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
                   'Edit Item',
@@ -41,9 +42,17 @@ class BsEditItemView extends StatelessWidget {
                     fontSize: 12 * GOLDEN_RATIO,
                     fontWeight: FontWeight.w900,
                   ),
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(
                   height: 12 * GOLDEN_RATIO,
+                ),
+                Text(
+                  'Item Name',
+                  style: Get.textTheme.labelMedium,
+                ),
+                const SizedBox(
+                  height: 3 * GOLDEN_RATIO,
                 ),
                 TextFormField(
                   controller: controller.itemNameController,
@@ -80,6 +89,8 @@ class BsEditItemView extends StatelessWidget {
                               ),
                             ],
                             validator: qtyAndPriceValidator,
+                            onChanged: (_) =>
+                                controller.recalculateMaxDiscount(),
                           ),
                         ],
                       ),
@@ -112,11 +123,41 @@ class BsEditItemView extends StatelessWidget {
                               ),
                             ],
                             validator: qtyAndPriceValidator,
+                            onChanged: (_) =>
+                                controller.recalculateMaxDiscount(),
                           ),
                         ],
                       ),
                     ),
                   ],
+                ),
+                const SizedBox(
+                  height: 10 * GOLDEN_RATIO,
+                ),
+                Text(
+                  'Item Discount (Optional)',
+                  style: Get.textTheme.labelMedium,
+                ),
+                const SizedBox(
+                  height: 3 * GOLDEN_RATIO,
+                ),
+                Obx(
+                  () => TextFormField(
+                    textInputAction: TextInputAction.done,
+                    controller: controller.discController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      hintText: '0.0',
+                      prefixText: 'Rp ',
+                    ),
+                    textAlign: TextAlign.end,
+                    inputFormatters: [
+                      DecimalFormatter(
+                        maxVal: controller.maxDiscount.value,
+                      ),
+                    ],
+                    validator: discValidator,
+                  ),
                 ),
                 const SizedBox(
                   height: 20 * GOLDEN_RATIO,

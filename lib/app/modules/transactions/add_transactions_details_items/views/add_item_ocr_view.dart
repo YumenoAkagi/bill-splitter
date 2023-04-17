@@ -16,7 +16,7 @@ class AddItemOCRView extends GetView<AddItemOCRController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Crop Image'),
+        title: const Text('Scan Image'),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -26,7 +26,22 @@ class AddItemOCRView extends GetView<AddItemOCRController> {
             vertical: SAFEAREA_CONTAINER_MARGIN_V,
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              Text(
+                'Select the part of the image you want to scan',
+                style: Get.textTheme.labelMedium,
+              ),
+              const SizedBox(
+                height: 3 * GOLDEN_RATIO,
+              ),
+              Text(
+                'Please make sure the text should be seen clearly part should consists of item name, quantity, and price for this app to work properly.',
+                style: Get.textTheme.labelSmall,
+              ),
+              const SizedBox(
+                height: 10 * GOLDEN_RATIO,
+              ),
               Expanded(
                 child: Crop(
                   controller: controller.imgCropperController,
@@ -46,7 +61,7 @@ class AddItemOCRView extends GetView<AddItemOCRController> {
                   controller.imgCropperController.crop();
                 },
                 icon: const Icon(FontAwesome.crop),
-                label: const Text('Crop Image'),
+                label: const Text('Crop and Scan'),
               ),
               const SizedBox(
                 height: 10 * GOLDEN_RATIO,
