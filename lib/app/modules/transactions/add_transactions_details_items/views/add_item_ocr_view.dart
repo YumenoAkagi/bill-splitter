@@ -4,6 +4,7 @@ import 'package:crop_your_image/crop_your_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../../../utils/app_constants.dart';
 import '../controllers/add_item_ocr_controller.dart';
@@ -36,20 +37,14 @@ class AddItemOCRView extends GetView<AddItemOCRController> {
                   },
                 ),
               ),
-              Expanded(
-                child: GetBuilder<AddItemOCRController>(
-                  builder: (c) => c.croppedImage == null
-                      ? const SizedBox(
-                          child: Text('No Data'),
-                        )
-                      : Image.memory(c.croppedImage as Uint8List),
-                ),
-              ),
               const SizedBox(
                 height: 20 * GOLDEN_RATIO,
               ),
               FilledButton.icon(
-                onPressed: controller.imgCropperController.crop,
+                onPressed: () {
+                  context.loaderOverlay.show();
+                  controller.imgCropperController.crop();
+                },
                 icon: const Icon(FontAwesome.crop),
                 label: const Text('Crop Image'),
               ),
