@@ -38,6 +38,8 @@ class AddItemManualView extends GetView<AddItemManualController> {
                     height: 3 * GOLDEN_RATIO,
                   ),
                   TextFormField(
+                    textInputAction: TextInputAction.next,
+                    autofocus: true,
                     controller: controller.nameController,
                     decoration: const InputDecoration(hintText: 'Name'),
                     textCapitalization: TextCapitalization.words,
@@ -60,6 +62,7 @@ class AddItemManualView extends GetView<AddItemManualController> {
                               height: 3 * GOLDEN_RATIO,
                             ),
                             TextFormField(
+                              textInputAction: TextInputAction.next,
                               controller: controller.qtyController,
                               keyboardType: TextInputType.number,
                               decoration: const InputDecoration(
