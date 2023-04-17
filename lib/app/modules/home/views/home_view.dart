@@ -96,8 +96,9 @@ class HomeView extends GetView<HomeController> {
           backgroundColor: controller.isDarkMode.isTrue
               ? getColorFromHex(COLOR_1)
               : getColorFromHex(COLOR_2),
-          child: const Icon(
+          child: Icon(
             Entypo.plus,
+            color: controller.isDarkMode.isTrue ? Colors.white : null,
             size: 18 * GOLDEN_RATIO,
           ),
         ),

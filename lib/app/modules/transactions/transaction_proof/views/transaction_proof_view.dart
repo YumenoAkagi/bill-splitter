@@ -46,7 +46,7 @@ class TransactionProofView extends GetView<TransactionProofController> {
                                       text: tpc.trxProofs[index].fromUser.id ==
                                               supabaseClient
                                                   .auth.currentUser!.id
-                                          ? 'You '
+                                          ? 'You'
                                           : tpc.trxProofs[index].fromUser
                                               .displayName,
                                       style:
@@ -54,7 +54,7 @@ class TransactionProofView extends GetView<TransactionProofController> {
                                         fontWeight: FontWeight.w900,
                                       ),
                                     ),
-                                    const TextSpan(text: 'paid '),
+                                    const TextSpan(text: ' paid '),
                                     TextSpan(
                                       text:
                                           '${moneyFormatter.format(tpc.trxProofs[index].paidAmount)} ',

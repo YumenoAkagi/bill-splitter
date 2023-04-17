@@ -510,7 +510,7 @@ class TransactionsProvider {
               profilePicUrl: trxUserResponse['toUser']['ProfilePictureURL'],
             ),
             imgUrl: response.data![i]['ImageURL'],
-            createdDate: DateFormat('dd MMM yyyy')
+            createdDate: DateFormat('dd MMM yyyy - hh:mm:ss a')
                 .format(DateTime.parse(response.data![i]['created_at'])),
           ),
         );

@@ -19,6 +19,7 @@ class AddItemOCRController extends GetxController {
   final addTrxDetailItemController = Get.find<AddTrxDetailsItemsController>();
   final imgCropperController = CropController();
   Uint8List? croppedImage;
+  int insertedItemCount = 0;
 
   Future processOCR() async {
     if (croppedImage == null) return;
@@ -32,8 +33,9 @@ class AddItemOCRController extends GetxController {
       addTrxDetailItemController.recalculateSubtotal();
       addTrxDetailItemController.update();
       Get.back();
+
       await showSuccessSnackbar('Success',
-          'Items successfully added!\nPlease check the inserted items again.');
+          'Successfully inserted $insertedItemCount item(s)!\nPlease double check the inserted item(s).');
     } catch (e) {
       showUnexpectedErrorSnackbar(e);
     } finally {
@@ -42,20 +44,18 @@ class AddItemOCRController extends GetxController {
   }
 
   Future preprocessImage() async {
-    // grayscaling & binarization
+    //binarization
     final decodedImg = image_pkg.decodeImage(croppedImage as Uint8List);
     image_pkg.Image grayscaledImg = image_pkg.grayscale(decodedImg!);
-    final binarizedImage = image_pkg.copyResize(
-      grayscaledImg,
-      width: decodedImg.width ~/ 2,
-      height: decodedImg.height ~/ 2,
-    );
-    final thresholdImage = image_pkg.luminanceThreshold(binarizedImage);
+    final thresholdImage =
+        image_pkg.luminanceThreshold(grayscaledImg, threshold: 0.575);
 
     final enhancedImg =
-        image_pkg.adjustColor(thresholdImage, contrast: 1.5, saturation: 1.5);
+        image_pkg.adjustColor(thresholdImage, contrast: 1.1, saturation: 1.1);
 
     croppedImage = image_pkg.encodePng(enhancedImg);
+
+    update();
   }
 
   Future readItems() async {
@@ -69,6 +69,7 @@ class AddItemOCRController extends GetxController {
           "preserve_interword_spaces": "1",
         });
 
+    print(text);
     final textPerLine = text.split('\n');
 
     for (final line in textPerLine) {
@@ -131,6 +132,7 @@ class AddItemOCRController extends GetxController {
             totalPrice: response['TotalPrice'],
           ),
         );
+        insertedItemCount += 1;
       }
     }
   }

@@ -44,6 +44,8 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                     height: 2 * GOLDEN_RATIO,
                   ),
                   TextFormField(
+                    autofocus: true,
+                    textInputAction: TextInputAction.next,
                     obscureText: true,
                     controller: controller.newPasswordController,
                     decoration: const InputDecoration(
