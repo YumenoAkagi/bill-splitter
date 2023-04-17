@@ -54,6 +54,8 @@ class AddItemOCRController extends GetxController {
         image_pkg.adjustColor(thresholdImage, contrast: 1.1, saturation: 1.1);
 
     croppedImage = image_pkg.encodePng(enhancedImg);
+
+    update();
   }
 
   Future readItems() async {

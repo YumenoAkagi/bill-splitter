@@ -37,6 +37,13 @@ class AddItemOCRView extends GetView<AddItemOCRController> {
                   },
                 ),
               ),
+              GetBuilder<AddItemOCRController>(
+                builder: (c) => c.croppedImage == null
+                    ? const Center(
+                        child: Text('No Data'),
+                      )
+                    : Image.memory(c.croppedImage!),
+              ),
               const SizedBox(
                 height: 20 * GOLDEN_RATIO,
               ),
