@@ -44,6 +44,8 @@ class RegisterView extends GetView<RegisterController> {
                     height: 10 * GOLDEN_RATIO,
                   ),
                   TextFormField(
+                    autofocus: true,
+                    textInputAction: TextInputAction.next,
                     controller: controller.displayNameController,
                     textCapitalization: TextCapitalization.words,
                     decoration: const InputDecoration(
@@ -58,6 +60,7 @@ class RegisterView extends GetView<RegisterController> {
                     height: 10 * GOLDEN_RATIO,
                   ),
                   TextFormField(
+                    textInputAction: TextInputAction.next,
                     controller: controller.emailController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
@@ -72,6 +75,7 @@ class RegisterView extends GetView<RegisterController> {
                     height: 10 * GOLDEN_RATIO,
                   ),
                   TextFormField(
+                    textInputAction: TextInputAction.done,
                     controller: controller.passwordController,
                     obscureText: true,
                     decoration: const InputDecoration(
