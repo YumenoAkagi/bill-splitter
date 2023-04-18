@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../routes/app_pages.dart';
@@ -29,6 +30,10 @@ class LoginController extends GetxController {
         email: emailController.text,
         password: passwordController.text,
       );
+
+      if (response.session?.user != null) {
+        await OneSignal.shared.setExternalUserId(response.session!.user.id);
+      }
 
       await strg.write(SESSION_KEY, response.session?.persistSessionString);
       Get.offAllNamed(Routes.HOME);

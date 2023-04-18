@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../models/user_model.dart';
@@ -35,6 +36,7 @@ class ProfileTabController extends GetxController {
   RxBool isLoading = false.obs;
 
   Future<void> logout() async {
+    await OneSignal.shared.removeExternalUserId();
     strg.remove(SESSION_KEY);
     await supabaseClient.auth.signOut();
   }

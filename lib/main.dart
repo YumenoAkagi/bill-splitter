@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'app/routes/app_pages.dart';
@@ -15,12 +17,18 @@ import 'app/utils/functions_helper.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await dotenv.load();
+
   // init supabase client
   await Supabase.initialize(
-    url: SUPABASE_URL,
-    anonKey: SUPABASE_ANONKEY,
+    url: dotenv.env['SUPABASE_URL']!,
+    anonKey: dotenv.env['SUPABASE_ANONKEY']!,
   );
   Get.put<GetStorage>(GetStorage());
+
+  await OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
+  await OneSignal.shared.setAppId(dotenv.env['ONESIGNAL_APP_ID']!);
+  await OneSignal.shared.promptUserForPushNotificationPermission();
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

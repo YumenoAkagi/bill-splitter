@@ -107,6 +107,10 @@ class BsAddTrxProofController extends GetxController {
         // do nothing
       }
 
+      // send notif to userid
+      await sendNotification([selectedTrxUser!.toUser.id], 'Payment Received',
+          '${selectedTrxUser!.fromUser.displayName} paid you ${moneyFormatter.format(amountPaid)}');
+
       Get.back();
       showSuccessSnackbar(
           'Success', 'Payment Confirmation successfully added.');

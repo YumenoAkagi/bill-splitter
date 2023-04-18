@@ -1,14 +1,45 @@
-import 'enums.dart';
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttericon/entypo_icons.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import 'app_constants.dart';
+import 'enums.dart';
 import 'validations_helper.dart';
+
+Future<void> sendNotification(
+    List<String> userIds, String title, String message) async {
+  try {
+    final devState = await OneSignal.shared.getDeviceState();
+    if (devState == null || devState.userId == null) return;
+
+    final uri = Uri.parse('https://api.onesignal.com/notifications/');
+    final headers = {
+      'Authorization': "Basic ${dotenv.env['ONESIGNAL_REST_API_KEY']}",
+      'Content-Type': 'application/json',
+    };
+    final body = {
+      'app_id': dotenv.env['ONESIGNAL_APP_ID'],
+      'include_external_user_ids': userIds,
+      'contents': {'en': message},
+      'headings': {'en': title},
+    };
+
+    final response =
+        await http.post(uri, headers: headers, body: json.encode(body));
+    print(response.statusCode);
+    print(response.body);
+  } catch (e) {
+    // do nothing
+  }
+}
 
 final moneyFormatter = NumberFormat.currency(
   locale: 'id-ID',

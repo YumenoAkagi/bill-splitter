@@ -15,6 +15,7 @@ dependencies:
   dropdown_button2: ^2.0.0
   flutter:
     sdk: flutter
+  flutter_dotenv: ^5.0.2
   flutter_tesseract_ocr: ^0.4.20
   fluttericon: ^2.0.0
   form_field_validator: ^1.1.0
@@ -27,6 +28,7 @@ dependencies:
   list_tile_switch: ^1.0.0
   loader_overlay: ^2.2.0
   nb_utils: ^5.0.5
+  onesignal_flutter: ^3.5.1
   path_provider: ^2.0.14
   stylish_bottom_bar: ^1.0.0
   supabase_flutter: ^1.5.0
@@ -49,6 +51,7 @@ flutter:
         - asset: assets/fonts/Lato-Black.ttf
           weight: 900
   assets:
+    - .env
     - assets/images/undraw_Login.png
     - assets/images/undraw_signUp.png
     - assets/images/undraw_Forgot_password.png
