@@ -34,8 +34,6 @@ Future<void> sendNotification(
 
     final response =
         await http.post(uri, headers: headers, body: json.encode(body));
-    print(response.statusCode);
-    print(response.body);
   } catch (e) {
     // do nothing
   }
