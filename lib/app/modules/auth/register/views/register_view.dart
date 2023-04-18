@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttericon/entypo_icons.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 
@@ -50,7 +50,7 @@ class RegisterView extends GetView<RegisterController> {
                     textCapitalization: TextCapitalization.words,
                     decoration: const InputDecoration(
                       icon: Icon(
-                        Entypo.user,
+                        FontAwesome.user,
                       ),
                       hintText: 'Display Name',
                     ),
@@ -65,7 +65,7 @@ class RegisterView extends GetView<RegisterController> {
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
                       icon: Icon(
-                        Entypo.mail,
+                        FontAwesome.mail,
                       ),
                       hintText: 'Email',
                     ),
@@ -80,7 +80,7 @@ class RegisterView extends GetView<RegisterController> {
                     obscureText: true,
                     decoration: const InputDecoration(
                       icon: Icon(
-                        Entypo.lock_open,
+                        FontAwesome.lock_open,
                       ),
                       hintText: 'Password',
                     ),

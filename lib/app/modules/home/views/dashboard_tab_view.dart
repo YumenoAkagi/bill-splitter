@@ -1,10 +1,11 @@
 import 'package:avatar_stack/avatar_stack.dart';
 import 'package:avatar_stack/positions.dart';
-import 'package:bill_splitter/app/utils/functions_helper.dart';
+import '../../../utils/functions_helper.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -107,14 +108,14 @@ class DashboardTabView extends StatelessWidget {
                     ),
                   ),
                   IconButtonWithText(
-                    iconData: Entypo.back_in_time,
+                    iconData: FontAwesome.history,
                     description: 'View History',
                     onTap: () {
                       Get.toNamed(Routes.HISTORYTRX);
                     },
                   ),
                   IconButtonWithText(
-                    iconData: Entypo.help_circled,
+                    iconData: FontAwesome.help_circled,
                     description: 'Help',
                     onTap: () {},
                   ),

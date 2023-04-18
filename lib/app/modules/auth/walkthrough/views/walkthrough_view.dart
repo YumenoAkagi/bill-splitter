@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttericon/entypo_icons.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
 
 import '../../../../routes/app_pages.dart';
@@ -48,7 +48,10 @@ class WalkthroughView extends GetView<WalkthroughController> {
                       onPressed: () {
                         Get.toNamed(Routes.REGISTER);
                       },
-                      icon: const Icon(Entypo.mail),
+                      icon: const Icon(
+                        FontAwesome.mail,
+                        size: BUTTON_ICON_SIZE,
+                      ),
                       label: const Text('Sign Up With Email'),
                     ),
                     const SizedBox(

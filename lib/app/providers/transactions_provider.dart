@@ -1,4 +1,4 @@
-import 'package:bill_splitter/app/models/transaction_proof_model.dart';
+import '../models/transaction_proof_model.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

@@ -51,7 +51,7 @@ class HomeView extends GetView<HomeController> {
                               Get.toNamed(Routes.HISTORYTRX);
                             },
                             iconSize: 12 * GOLDEN_RATIO,
-                            icon: const Icon(Entypo.back_in_time),
+                            icon: const Icon(FontAwesome.history),
                             padding:
                                 const EdgeInsets.only(right: 5 * GOLDEN_RATIO),
                           )
@@ -63,7 +63,7 @@ class HomeView extends GetView<HomeController> {
                     onPressed: () {
                       Get.offNamed(Routes.CONFIGS);
                     },
-                    icon: const Icon(FontAwesome5.cog),
+                    icon: const Icon(FontAwesome.cog),
                     iconSize: 12 * GOLDEN_RATIO,
                     padding: const EdgeInsets.only(right: 5 * GOLDEN_RATIO),
                   )
@@ -97,9 +97,9 @@ class HomeView extends GetView<HomeController> {
               ? getColorFromHex(COLOR_1)
               : getColorFromHex(COLOR_2),
           child: Icon(
-            Entypo.plus,
+            FontAwesome.plus,
             color: controller.isDarkMode.isTrue ? Colors.white : null,
-            size: 18 * GOLDEN_RATIO,
+            size: 15 * GOLDEN_RATIO,
           ),
         ),
       ),

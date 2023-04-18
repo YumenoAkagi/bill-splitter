@@ -3,6 +3,7 @@ import 'package:avatar_stack/positions.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -53,7 +54,7 @@ class TransactionsTabView extends StatelessWidget {
                           child: const Align(
                             alignment: Alignment.centerRight,
                             child: Icon(
-                              Entypo.trash,
+                              FontAwesome.trash,
                               color: Colors.white,
                             ),
                           ),

@@ -1,7 +1,8 @@
-import 'package:bill_splitter/app/routes/app_pages.dart';
+import '../../../routes/app_pages.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -57,8 +58,8 @@ class ProfileTabView extends StatelessWidget {
                               }
                             : null,
                         icon: const Icon(
-                          Entypo.camera,
-                          size: 10 * GOLDEN_RATIO,
+                          FontAwesome.camera,
+                          size: BUTTON_ICON_SIZE,
                         ),
                         label: const Text('Edit Photo'),
                         style: FilledButton.styleFrom(
@@ -118,7 +119,10 @@ class ProfileTabView extends StatelessWidget {
                                 }
                               : null,
                           icon: (controller.isLoading.isFalse)
-                              ? const Icon(Entypo.floppy)
+                              ? const Icon(
+                                  FontAwesome.floppy,
+                                  size: BUTTON_ICON_SIZE,
+                                )
                               : showCustomCircularProgressIndicator(),
                           label: (controller.isLoading.isFalse)
                               ? const Text('Save Changes')
@@ -126,7 +130,10 @@ class ProfileTabView extends StatelessWidget {
                         )
                       : FilledButton.icon(
                           onPressed: null,
-                          icon: const Icon(Entypo.floppy),
+                          icon: const Icon(
+                            FontAwesome.floppy,
+                            size: BUTTON_ICON_SIZE,
+                          ),
                           label: const Text('Save Changes'),
                         ),
                 ),
@@ -137,7 +144,10 @@ class ProfileTabView extends StatelessWidget {
                   onPressed: () {
                     Get.toNamed(Routes.CHANGE_PASSWORD);
                   },
-                  icon: const Icon(Entypo.lock),
+                  icon: const Icon(
+                    FontAwesome.lock,
+                    size: BUTTON_ICON_SIZE,
+                  ),
                   label: const Text('Change Password'),
                 ),
                 const SizedBox(
@@ -154,7 +164,10 @@ class ProfileTabView extends StatelessWidget {
                       onAccept: controller.logout,
                     );
                   },
-                  icon: const Icon(Entypo.logout),
+                  icon: const Icon(
+                    FontAwesome.logout,
+                    size: BUTTON_ICON_SIZE,
+                  ),
                   label: const Text('Log Out'),
                   style: OutlinedButton.styleFrom(
                     foregroundColor: Colors.red.shade700,

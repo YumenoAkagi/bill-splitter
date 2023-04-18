@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../routes/app_pages.dart';
@@ -41,8 +42,10 @@ class SplashController extends GetxController {
     final themeMode = strg.read(THEME_KEY);
     if (themeMode == 'Dark') {
       Get.changeThemeMode(ThemeMode.dark);
+      textPrimaryColorGlobal = Colors.white;
     } else {
       Get.changeThemeMode(ThemeMode.light);
+      textPrimaryColorGlobal = getColorFromHex(COLOR_2);
     }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 
@@ -44,7 +45,7 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
                     controller: controller.newPasswordController,
                     obscureText: true,
                     decoration: const InputDecoration(
-                      icon: Icon(Entypo.lock_open),
+                      icon: Icon(FontAwesome.lock_open),
                       hintText: 'Enter New Password',
                     ),
                     validator: strongPasswordValidator,
@@ -55,7 +56,7 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
                   TextFormField(
                     obscureText: true,
                     decoration: const InputDecoration(
-                      icon: Icon(Entypo.lock_open),
+                      icon: Icon(FontAwesome.lock_open),
                       hintText: 'Confirm Password',
                     ),
                     onChanged: (value) =>

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttericon/entypo_icons.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 
@@ -49,7 +49,7 @@ class LoginView extends GetView<LoginController> {
                     textInputAction: TextInputAction.next,
                     autofocus: true,
                     decoration: const InputDecoration(
-                      icon: Icon(Entypo.mail),
+                      icon: Icon(FontAwesome.mail),
                       hintText: 'Enter email address',
                     ),
                     validator: emailValidator,
@@ -62,7 +62,7 @@ class LoginView extends GetView<LoginController> {
                     obscureText: true,
                     decoration: const InputDecoration(
                       hintText: 'Enter password',
-                      icon: Icon(Entypo.lock_open),
+                      icon: Icon(FontAwesome.lock_open),
                     ),
                     validator: RequiredValidator(errorText: requiredErrorText),
                   ),

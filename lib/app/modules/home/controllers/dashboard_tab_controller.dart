@@ -1,4 +1,4 @@
-import 'package:bill_splitter/app/routes/app_pages.dart';
+import '../../../routes/app_pages.dart';
 
 import '../../../models/transaction_header_model.dart';
 import '../../../providers/transactions_provider.dart';

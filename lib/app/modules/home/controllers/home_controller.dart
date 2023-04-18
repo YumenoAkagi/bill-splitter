@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -21,8 +22,8 @@ class HomeController extends GetxController {
 
   final List<BottomBarItem> bottomNavbarItemsLight = [
     BottomBarItem(
-      icon: const Icon(Entypo.home),
-      selectedIcon: const Icon(Entypo.home),
+      icon: const Icon(FontAwesome.home),
+      selectedIcon: const Icon(FontAwesome.home),
       unSelectedColor: getColorFromHex(COLOR_3),
       selectedColor: getColorFromHex(COLOR_2),
       title: Text(
@@ -33,8 +34,8 @@ class HomeController extends GetxController {
       ),
     ),
     BottomBarItem(
-      icon: const Icon(Entypo.doc_text_inv),
-      selectedIcon: const Icon(Entypo.doc_text_inv),
+      icon: const Icon(FontAwesome.doc_text_inv),
+      selectedIcon: const Icon(FontAwesome.doc_text_inv),
       unSelectedColor: getColorFromHex(COLOR_3),
       selectedColor: getColorFromHex(COLOR_2),
       title: Text(
@@ -45,8 +46,8 @@ class HomeController extends GetxController {
       ),
     ),
     BottomBarItem(
-      icon: const Icon(Entypo.users),
-      selectedIcon: const Icon(Entypo.users),
+      icon: const Icon(FontAwesome.users),
+      selectedIcon: const Icon(FontAwesome.users),
       unSelectedColor: getColorFromHex(COLOR_3),
       selectedColor: getColorFromHex(COLOR_2),
       title: Text(
@@ -57,8 +58,8 @@ class HomeController extends GetxController {
       ),
     ),
     BottomBarItem(
-      icon: const Icon(Entypo.user),
-      selectedIcon: const Icon(Entypo.user),
+      icon: const Icon(FontAwesome.user),
+      selectedIcon: const Icon(FontAwesome.user),
       unSelectedColor: getColorFromHex(COLOR_3),
       selectedColor: getColorFromHex(COLOR_2),
       title: Text(
@@ -71,8 +72,8 @@ class HomeController extends GetxController {
   ];
   final List<BottomBarItem> bottomNavbarItemsDark = [
     BottomBarItem(
-      icon: const Icon(Entypo.home),
-      selectedIcon: const Icon(Entypo.home),
+      icon: const Icon(FontAwesome.home),
+      selectedIcon: const Icon(FontAwesome.home),
       unSelectedColor: getColorFromHex(COLOR_3),
       selectedColor: Colors.white,
       title: Text(
@@ -84,8 +85,8 @@ class HomeController extends GetxController {
       ),
     ),
     BottomBarItem(
-      icon: const Icon(Entypo.doc_text_inv),
-      selectedIcon: const Icon(Entypo.doc_text_inv),
+      icon: const Icon(FontAwesome.doc_text_inv),
+      selectedIcon: const Icon(FontAwesome.doc_text_inv),
       unSelectedColor: getColorFromHex(COLOR_3),
       selectedColor: Colors.white,
       title: Text(
@@ -97,8 +98,8 @@ class HomeController extends GetxController {
       ),
     ),
     BottomBarItem(
-      icon: const Icon(Entypo.users),
-      selectedIcon: const Icon(Entypo.users),
+      icon: const Icon(FontAwesome.users),
+      selectedIcon: const Icon(FontAwesome.users),
       unSelectedColor: getColorFromHex(COLOR_3),
       selectedColor: Colors.white,
       title: Text(
@@ -110,8 +111,8 @@ class HomeController extends GetxController {
       ),
     ),
     BottomBarItem(
-      icon: const Icon(Entypo.user),
-      selectedIcon: const Icon(Entypo.user),
+      icon: const Icon(FontAwesome.user),
+      selectedIcon: const Icon(FontAwesome.user),
       unSelectedColor: getColorFromHex(COLOR_3),
       selectedColor: Colors.white,
       title: Text(

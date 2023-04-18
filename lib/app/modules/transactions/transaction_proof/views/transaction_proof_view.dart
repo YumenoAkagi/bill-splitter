@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 import '../../../../routes/app_pages.dart';
 import '../../../../utils/app_constants.dart';
@@ -82,8 +83,17 @@ class TransactionProofView extends GetView<TransactionProofController> {
                               subtitle: Text(tpc.trxProofs[index].createdDate),
                               trailing: tpc.trxProofs[index].fromUser.id ==
                                       supabaseClient.auth.currentUser!.id
-                                  ? const Icon(FontAwesome.up_circled)
-                                  : const Icon(FontAwesome.down_circled),
+                                  ? const Icon(
+                                      FontAwesome.up_circled,
+                                      color: Colors.red,
+                                    )
+                                  : Icon(
+                                      FontAwesome.down_circled,
+                                      color: getColorFromHex(COLOR_5),
+                                    ),
+                            ),
+                            const SizedBox(
+                              height: 5 * GOLDEN_RATIO,
                             ),
                             tpc.trxProofs[index].imgUrl == null
                                 ? const SizedBox()
@@ -99,10 +109,20 @@ class TransactionProofView extends GetView<TransactionProofController> {
                                             arguments: tpc.trxProofs[index],
                                           );
                                         },
-                                        child: Hero(
-                                          tag: tpc.trxProofs[index].id,
-                                          child: Image.network(
-                                            tpc.trxProofs[index].imgUrl!,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                                BUTTON_BORDER_RAD),
+                                            border: Border.all(
+                                              color: getColorFromHex(COLOR_1),
+                                              width: 0.75,
+                                            ),
+                                          ),
+                                          child: Hero(
+                                            tag: tpc.trxProofs[index].id,
+                                            child: Image.network(
+                                              tpc.trxProofs[index].imgUrl!,
+                                            ),
                                           ),
                                         ),
                                       ),

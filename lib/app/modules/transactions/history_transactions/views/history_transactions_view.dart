@@ -1,6 +1,6 @@
 import 'package:avatar_stack/avatar_stack.dart';
 import 'package:avatar_stack/positions.dart';
-import 'package:bill_splitter/app/routes/app_pages.dart';
+import '../../../../routes/app_pages.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

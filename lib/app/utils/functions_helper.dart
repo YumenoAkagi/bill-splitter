@@ -1,4 +1,4 @@
-import 'package:bill_splitter/app/utils/enums.dart';
+import 'enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttericon/entypo_icons.dart';
@@ -76,8 +76,8 @@ class DecimalFormatter extends TextInputFormatter {
 
 SizedBox showCustomCircularProgressIndicator() {
   return SizedBox(
-    width: 10 * GOLDEN_RATIO,
-    height: 10 * GOLDEN_RATIO,
+    width: 12 * GOLDEN_RATIO,
+    height: 12 * GOLDEN_RATIO,
     child: CircularProgressIndicator(
       color: getColorFromHex(COLOR_1),
     ),

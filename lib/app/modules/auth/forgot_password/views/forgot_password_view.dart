@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
 
 import '../../../../utils/app_constants.dart';
@@ -45,7 +46,7 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
                       hintText: 'Enter email address',
-                      icon: Icon(Entypo.mail),
+                      icon: Icon(FontAwesome.mail),
                     ),
                     validator: emailValidator,
                   ),
@@ -66,7 +67,10 @@ class ForgotPasswordView extends GetView<ForgotPasswordController> {
                               }
                             : null,
                         icon: controller.isLoading.isFalse
-                            ? const Icon(Entypo.paper_plane)
+                            ? const Icon(
+                                FontAwesome.paper_plane,
+                                size: BUTTON_ICON_SIZE,
+                              )
                             : showCustomCircularProgressIndicator(),
                         label: controller.isLoading.isFalse
                             ? const Text('Send Password Reset Link')

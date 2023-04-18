@@ -33,6 +33,16 @@ class AddTrxDetailsItemsView extends GetView<AddTrxDetailsItemsController> {
                 'Items List',
                 style: Get.textTheme.labelMedium,
               ),
+              const SizedBox(
+                height: 2 * GOLDEN_RATIO,
+              ),
+              Text(
+                'Manage your transaction items here',
+                style: Get.textTheme.labelSmall,
+              ),
+              const SizedBox(
+                height: 10 * GOLDEN_RATIO,
+              ),
               Expanded(
                 child: GetBuilder<AddTrxDetailsItemsController>(
                   builder: (trxdc) => trxdc.isFetching
@@ -67,6 +77,16 @@ class AddTrxDetailsItemsView extends GetView<AddTrxDetailsItemsController> {
                                     },
                                   );
                                 },
+                                leading: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      FontAwesome.box,
+                                      size: BUTTON_ICON_SIZE,
+                                      color: getColorFromHex(COLOR_1),
+                                    ),
+                                  ],
+                                ),
                                 title: Text(
                                   trxdc.detailItemsList[index].name,
                                   style: Get.textTheme.labelMedium,
@@ -195,7 +215,7 @@ class AddTrxDetailsItemsView extends GetView<AddTrxDetailsItemsController> {
                   icon: controller.isLoading.isFalse
                       ? const Icon(
                           FontAwesome.plus,
-                          size: 10 * GOLDEN_RATIO,
+                          size: BUTTON_ICON_SIZE,
                         )
                       : showCustomCircularProgressIndicator(),
                   label: controller.isLoading.isFalse

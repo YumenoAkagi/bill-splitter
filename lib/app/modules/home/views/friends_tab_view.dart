@@ -1,6 +1,7 @@
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -49,20 +50,23 @@ class FriendsTabView extends StatelessWidget {
                             child: const Align(
                               alignment: Alignment.centerRight,
                               child: Icon(
-                                Entypo.trash,
+                                FontAwesome.cancel_circled,
                                 color: Colors.white,
                               ),
                             ),
                           ),
                           confirmDismiss: (_) async {
                             bool confirmDelete = false;
-                            await showConfirmDialog(context,
-                                'Delete ${ftc.friendList[index].displayName}?\nThis action cannot be undone.',
-                                buttonColor: Colors.red.shade700,
-                                negativeText: 'Cancel',
-                                positiveText: 'Delete', onAccept: () {
-                              confirmDelete = true;
-                            });
+                            await showConfirmDialog(
+                              context,
+                              'Delete ${ftc.friendList[index].displayName}?\nThis action cannot be undone.',
+                              buttonColor: Colors.red.shade700,
+                              negativeText: 'Cancel',
+                              positiveText: 'Delete',
+                              onAccept: () {
+                                confirmDelete = true;
+                              },
+                            );
                             return confirmDelete;
                           },
                           child: Card(

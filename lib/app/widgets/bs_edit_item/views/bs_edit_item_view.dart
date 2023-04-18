@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttericon/entypo_icons.dart';
+import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -168,7 +169,10 @@ class BsEditItemView extends StatelessWidget {
                         ? controller.editItem
                         : null,
                     icon: controller.isLoading.isFalse
-                        ? const Icon(Entypo.floppy)
+                        ? const Icon(
+                            FontAwesome.floppy,
+                            size: BUTTON_ICON_SIZE,
+                          )
                         : showCustomCircularProgressIndicator(),
                     label: controller.isLoading.isFalse
                         ? const Text('Save')

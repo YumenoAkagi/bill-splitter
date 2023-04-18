@@ -81,6 +81,7 @@ class AddTrxDetailsItemsController extends GetxController {
               children: const [
                 Icon(
                   FontAwesome.doc_text_inv,
+                  size: BUTTON_ICON_SIZE,
                 ),
                 SizedBox(
                   width: 10 * GOLDEN_RATIO,
@@ -96,7 +97,8 @@ class AddTrxDetailsItemsController extends GetxController {
             child: Row(
               children: const [
                 Icon(
-                  Entypo.plus_squared,
+                  FontAwesome.plus_squared,
+                  size: BUTTON_ICON_SIZE,
                 ),
                 SizedBox(
                   width: 10 * GOLDEN_RATIO,

@@ -1,4 +1,4 @@
-import 'package:bill_splitter/app/utils/app_constants.dart';
+import '../../../../utils/app_constants.dart';
 
 import '../../../../models/transaction_proof_model.dart';
 import '../../../../providers/transactions_provider.dart';

@@ -1,5 +1,5 @@
-import 'package:bill_splitter/app/routes/app_pages.dart';
-import 'package:bill_splitter/app/widgets/bx_add_trx_proof/views/bs_add_trx_proof_view.dart';
+import '../../../../routes/app_pages.dart';
+import '../../../../widgets/bx_add_trx_proof/views/bs_add_trx_proof_view.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
