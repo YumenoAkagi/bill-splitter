@@ -55,7 +55,16 @@ class SplitTrxOptionsView extends GetView<SplitTrxOptionsController> {
                         child: InkWell(
                           borderRadius:
                               BorderRadius.circular(BUTTON_BORDER_RAD),
-                          onTap: controller.splitEqually,
+                          onTap: () async {
+                            await showConfirmDialog(
+                              context,
+                              'Use this split method?',
+                              positiveText: 'Continue',
+                              negativeText: 'Cancel',
+                              buttonColor: getColorFromHex(COLOR_1),
+                              onAccept: controller.splitEqually,
+                            );
+                          },
                           child: Card(
                             elevation: 0,
                             shape: RoundedRectangleBorder(
