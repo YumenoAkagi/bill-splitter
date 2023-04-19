@@ -1,9 +1,8 @@
 import 'package:avatar_stack/avatar_stack.dart';
 import 'package:avatar_stack/positions.dart';
-import '../../../utils/functions_helper.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
+import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttericon/entypo_icons.dart';
 import 'package:fluttericon/font_awesome5_icons.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
@@ -11,6 +10,7 @@ import 'package:nb_utils/nb_utils.dart';
 
 import '../../../routes/app_pages.dart';
 import '../../../utils/app_constants.dart';
+import '../../../utils/functions_helper.dart';
 import '../../../widgets/icon_button_with_text.dart';
 import '../controllers/dashboard_tab_controller.dart';
 import '../controllers/home_controller.dart';
@@ -136,14 +136,40 @@ class DashboardTabView extends StatelessWidget {
                     style: Get.textTheme.labelMedium,
                   ),
                 ),
-                TextButton(
-                  onPressed: () {
-                    homeController.switchTab(1);
-                  },
-                  child: Text(
-                    'Show More',
+                DescribedFeatureOverlay(
+                  featureId: showMoreTrxFeatureId,
+                  tapTarget: TextButton(
+                    onPressed: null,
+                    child: Text(
+                      'Show More',
+                      style: Get.textTheme.labelMedium?.copyWith(
+                        color: getColorFromHex(COLOR_1),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                  title: Text(
+                    'Show More Transactions',
                     style: Get.textTheme.labelMedium?.copyWith(
-                      color: getColorFromHex(COLOR_1),
+                      color: Colors.white,
+                      fontSize: 12 * GOLDEN_RATIO,
+                    ),
+                  ),
+                  description: Text(
+                    'Tap here see more transactions related to you',
+                    style: Get.textTheme.labelSmall?.copyWith(
+                        color: Colors.white, fontSize: 9 * GOLDEN_RATIO),
+                  ),
+                  backgroundColor: getColorFromHex(COLOR_1),
+                  child: TextButton(
+                    onPressed: () {
+                      homeController.switchTab(1);
+                    },
+                    child: Text(
+                      'Show More',
+                      style: Get.textTheme.labelMedium?.copyWith(
+                        color: getColorFromHex(COLOR_1),
+                      ),
                     ),
                   ),
                 ),

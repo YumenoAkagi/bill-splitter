@@ -40,6 +40,16 @@ class HomeController extends GetxController {
     selectedTab.value = index;
     pageController.jumpToPage(index);
 
+    if (index == 1) {
+      FeatureDiscovery.discoverFeatures(Get.context as BuildContext, {
+        historyTrxFeatureId,
+      });
+    } else if (index == 2) {
+      FeatureDiscovery.discoverFeatures(Get.context as BuildContext, {
+        manageFriendFeatureId,
+      });
+    }
+
     // DO NOT USE
     // this caused bug duplicated globalkey
     // pageController.animateToPage(
@@ -65,6 +75,7 @@ class HomeController extends GetxController {
         trxBBFeatureId,
         friendBBFeatureId,
         profileBBFeatureId,
+        showMoreTrxFeatureId,
       });
     });
   }

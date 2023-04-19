@@ -43,6 +43,9 @@ class ProfileTabController extends GetxController {
       trxBBFeatureId,
       friendBBFeatureId,
       profileBBFeatureId,
+      showMoreTrxFeatureId,
+      historyTrxFeatureId,
+      manageFriendFeatureId,
     });
     await OneSignal.shared.removeExternalUserId();
     strg.remove(SESSION_KEY);

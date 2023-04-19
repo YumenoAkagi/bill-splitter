@@ -280,48 +280,81 @@ class HomeView extends GetView<HomeController> {
         actions: [
           Obx(
             () => controller.selectedTab.value == 2
-                ? IconButton(
-                    onPressed: () {
-                      Get.toNamed(Routes.MANAGE_FRIEND);
-                    },
-                    iconSize: 12 * GOLDEN_RATIO,
-                    padding: const EdgeInsets.only(right: 5 * GOLDEN_RATIO),
-                    icon: const Icon(
+                ? DescribedFeatureOverlay(
+                    featureId: manageFriendFeatureId,
+                    tapTarget: Icon(
                       FontAwesome5.user_friends,
+                      color: Get.isDarkMode
+                          ? getColorFromHex(COLOR_1)
+                          : getColorFromHex(COLOR_2),
+                    ),
+                    title: Text(
+                      'Manage Friends',
+                      style: Get.textTheme.labelMedium?.copyWith(
+                        color: Colors.white,
+                        fontSize: 12 * GOLDEN_RATIO,
+                      ),
+                    ),
+                    description: Text(
+                      'Tap here to view and manage pending request and incoming request or add new friends',
+                      style: Get.textTheme.labelSmall?.copyWith(
+                          color: Colors.white, fontSize: 9 * GOLDEN_RATIO),
+                    ),
+                    backgroundColor: getColorFromHex(COLOR_1),
+                    child: IconButton(
+                      onPressed: () {
+                        Get.toNamed(Routes.MANAGE_FRIEND);
+                      },
+                      iconSize: 12 * GOLDEN_RATIO,
+                      padding: const EdgeInsets.only(right: 5 * GOLDEN_RATIO),
+                      icon: const Icon(
+                        FontAwesome5.user_friends,
+                      ),
                     ),
                   )
                 : controller.selectedTab.value == 0
                     ? IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.offNamed(Routes.CONFIGS);
+                        },
+                        icon: const Icon(FontAwesome.cog),
                         iconSize: 12 * GOLDEN_RATIO,
                         padding: const EdgeInsets.only(right: 5 * GOLDEN_RATIO),
-                        icon: const Icon(
-                          FontAwesome.bell,
-                        ),
                       )
                     : controller.selectedTab.value == 1
-                        ? IconButton(
-                            onPressed: () {
-                              Get.toNamed(Routes.HISTORYTRX);
-                            },
-                            iconSize: 12 * GOLDEN_RATIO,
-                            icon: const Icon(FontAwesome.history),
-                            padding:
-                                const EdgeInsets.only(right: 5 * GOLDEN_RATIO),
+                        ? DescribedFeatureOverlay(
+                            featureId: historyTrxFeatureId,
+                            tapTarget: Icon(
+                              FontAwesome.history,
+                              color: Get.isDarkMode
+                                  ? getColorFromHex(COLOR_1)
+                                  : getColorFromHex(COLOR_2),
+                            ),
+                            title: Text(
+                              'View History Transactions',
+                              style: Get.textTheme.labelMedium?.copyWith(
+                                color: Colors.white,
+                                fontSize: 12 * GOLDEN_RATIO,
+                              ),
+                            ),
+                            description: Text(
+                              'Tap here to view completed transactions',
+                              style: Get.textTheme.labelSmall?.copyWith(
+                                  color: Colors.white,
+                                  fontSize: 9 * GOLDEN_RATIO),
+                            ),
+                            backgroundColor: getColorFromHex(COLOR_1),
+                            child: IconButton(
+                              onPressed: () {
+                                Get.toNamed(Routes.HISTORYTRX);
+                              },
+                              iconSize: 12 * GOLDEN_RATIO,
+                              icon: const Icon(FontAwesome.history),
+                              padding: const EdgeInsets.only(
+                                  right: 5 * GOLDEN_RATIO),
+                            ),
                           )
                         : const SizedBox(),
-          ),
-          Obx(
-            () => controller.selectedTab.value == 0
-                ? IconButton(
-                    onPressed: () {
-                      Get.offNamed(Routes.CONFIGS);
-                    },
-                    icon: const Icon(FontAwesome.cog),
-                    iconSize: 12 * GOLDEN_RATIO,
-                    padding: const EdgeInsets.only(right: 5 * GOLDEN_RATIO),
-                  )
-                : const SizedBox(),
           ),
         ],
       ),
