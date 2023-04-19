@@ -13,6 +13,7 @@ dependencies:
   circular_profile_avatar: ^2.0.5
   crop_your_image: ^0.7.4
   dropdown_button2: ^2.0.0
+  feature_discovery: ^0.14.1
   flutter:
     sdk: flutter
   flutter_dotenv: ^5.0.2

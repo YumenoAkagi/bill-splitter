@@ -8,6 +8,11 @@ final supabaseClient = Supabase.instance.client;
 // dictionary keys
 const SESSION_KEY = 'Session';
 const THEME_KEY = 'Theme';
+const fabFeatureId = 'add-new-trx-fab';
+const homeBBFeatureId = 'home-bottom-nav';
+const trxBBFeatureId = 'trx-bottom-nav';
+const friendBBFeatureId = 'friend-bottom-nav';
+const profileBBFeatureId = 'profile-bottom-nav';
 
 // font family
 const MAIN_FONT = 'Lato';

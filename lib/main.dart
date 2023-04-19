@@ -1,3 +1,4 @@
+import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -41,34 +42,36 @@ void main() async {
         overlayWidget: Center(
           child: showCustomCircularProgressIndicator(),
         ),
-        child: GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: APP_NAME,
-          initialRoute: AppPages.INITIAL,
-          getPages: AppPages.routes,
-          theme: ThemeData(
-            fontFamily: MAIN_FONT,
-            appBarTheme: appBarThemeLight,
-            brightness: Brightness.light,
-            scaffoldBackgroundColor: Colors.white,
-            filledButtonTheme: filledButtonThemeDataLight,
-            elevatedButtonTheme: elevatedButtonThemeDataLight,
-            outlinedButtonTheme: outlinedButtonThemeDataLight,
-            textTheme: textThemeLight,
-            inputDecorationTheme: inputDecorationThemeLight,
+        child: FeatureDiscovery(
+          child: GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: APP_NAME,
+            initialRoute: AppPages.INITIAL,
+            getPages: AppPages.routes,
+            theme: ThemeData(
+              fontFamily: MAIN_FONT,
+              appBarTheme: appBarThemeLight,
+              brightness: Brightness.light,
+              scaffoldBackgroundColor: Colors.white,
+              filledButtonTheme: filledButtonThemeDataLight,
+              elevatedButtonTheme: elevatedButtonThemeDataLight,
+              outlinedButtonTheme: outlinedButtonThemeDataLight,
+              textTheme: textThemeLight,
+              inputDecorationTheme: inputDecorationThemeLight,
+            ),
+            darkTheme: ThemeData(
+              fontFamily: MAIN_FONT,
+              appBarTheme: appBarThemeDark,
+              brightness: Brightness.dark,
+              scaffoldBackgroundColor: getColorFromHex(COLOR_DARK_MAIN),
+              filledButtonTheme: filledButtonThemeDataDark,
+              elevatedButtonTheme: elevatedButtonThemeDataDark,
+              outlinedButtonTheme: outlinedButtonThemeDataDark,
+              textTheme: textThemeDark,
+              inputDecorationTheme: inputDecorationThemeDark,
+            ),
+            themeMode: ThemeMode.light,
           ),
-          darkTheme: ThemeData(
-            fontFamily: MAIN_FONT,
-            appBarTheme: appBarThemeDark,
-            brightness: Brightness.dark,
-            scaffoldBackgroundColor: getColorFromHex(COLOR_DARK_MAIN),
-            filledButtonTheme: filledButtonThemeDataDark,
-            elevatedButtonTheme: elevatedButtonThemeDataDark,
-            outlinedButtonTheme: outlinedButtonThemeDataDark,
-            textTheme: textThemeDark,
-            inputDecorationTheme: inputDecorationThemeDark,
-          ),
-          themeMode: ThemeMode.light,
         ),
       ),
     ),

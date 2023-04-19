@@ -1,10 +1,8 @@
+import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttericon/entypo_icons.dart';
-import 'package:fluttericon/font_awesome_icons.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:nb_utils/nb_utils.dart';
-import 'package:stylish_bottom_bar/model/bar_items.dart';
 
 import '../../../providers/friend_provider.dart';
 import '../../../utils/app_constants.dart';
@@ -19,111 +17,6 @@ class HomeController extends GetxController {
   final strg = Get.find<GetStorage>();
   RxInt requestCount = 0.obs;
   RxBool isDarkMode = false.obs;
-
-  final List<BottomBarItem> bottomNavbarItemsLight = [
-    BottomBarItem(
-      icon: const Icon(FontAwesome.home),
-      selectedIcon: const Icon(FontAwesome.home),
-      unSelectedColor: getColorFromHex(COLOR_3),
-      selectedColor: getColorFromHex(COLOR_2),
-      title: Text(
-        'Home',
-        style: Get.textTheme.labelMedium?.copyWith(
-          fontSize: 8 * GOLDEN_RATIO,
-        ),
-      ),
-    ),
-    BottomBarItem(
-      icon: const Icon(FontAwesome.doc_text_inv),
-      selectedIcon: const Icon(FontAwesome.doc_text_inv),
-      unSelectedColor: getColorFromHex(COLOR_3),
-      selectedColor: getColorFromHex(COLOR_2),
-      title: Text(
-        'Transactions',
-        style: Get.textTheme.labelMedium?.copyWith(
-          fontSize: 8 * GOLDEN_RATIO,
-        ),
-      ),
-    ),
-    BottomBarItem(
-      icon: const Icon(FontAwesome.users),
-      selectedIcon: const Icon(FontAwesome.users),
-      unSelectedColor: getColorFromHex(COLOR_3),
-      selectedColor: getColorFromHex(COLOR_2),
-      title: Text(
-        'Friends',
-        style: Get.textTheme.labelMedium?.copyWith(
-          fontSize: 8 * GOLDEN_RATIO,
-        ),
-      ),
-    ),
-    BottomBarItem(
-      icon: const Icon(FontAwesome.user),
-      selectedIcon: const Icon(FontAwesome.user),
-      unSelectedColor: getColorFromHex(COLOR_3),
-      selectedColor: getColorFromHex(COLOR_2),
-      title: Text(
-        'Profile',
-        style: Get.textTheme.labelMedium?.copyWith(
-          fontSize: 8 * GOLDEN_RATIO,
-        ),
-      ),
-    ),
-  ];
-  final List<BottomBarItem> bottomNavbarItemsDark = [
-    BottomBarItem(
-      icon: const Icon(FontAwesome.home),
-      selectedIcon: const Icon(FontAwesome.home),
-      unSelectedColor: getColorFromHex(COLOR_3),
-      selectedColor: Colors.white,
-      title: Text(
-        'Home',
-        style: Get.textTheme.labelMedium?.copyWith(
-          fontSize: 8 * GOLDEN_RATIO,
-          color: Colors.white,
-        ),
-      ),
-    ),
-    BottomBarItem(
-      icon: const Icon(FontAwesome.doc_text_inv),
-      selectedIcon: const Icon(FontAwesome.doc_text_inv),
-      unSelectedColor: getColorFromHex(COLOR_3),
-      selectedColor: Colors.white,
-      title: Text(
-        'Transactions',
-        style: Get.textTheme.labelMedium?.copyWith(
-          fontSize: 8 * GOLDEN_RATIO,
-          color: Colors.white,
-        ),
-      ),
-    ),
-    BottomBarItem(
-      icon: const Icon(FontAwesome.users),
-      selectedIcon: const Icon(FontAwesome.users),
-      unSelectedColor: getColorFromHex(COLOR_3),
-      selectedColor: Colors.white,
-      title: Text(
-        'Friends',
-        style: Get.textTheme.labelMedium?.copyWith(
-          fontSize: 8 * GOLDEN_RATIO,
-          color: Colors.white,
-        ),
-      ),
-    ),
-    BottomBarItem(
-      icon: const Icon(FontAwesome.user),
-      selectedIcon: const Icon(FontAwesome.user),
-      unSelectedColor: getColorFromHex(COLOR_3),
-      selectedColor: Colors.white,
-      title: Text(
-        'Profile',
-        style: Get.textTheme.labelMedium?.copyWith(
-          fontSize: 8 * GOLDEN_RATIO,
-          color: Colors.white,
-        ),
-      ),
-    ),
-  ];
 
   final pageController = PageController(
     initialPage: 0,
@@ -160,6 +53,20 @@ class HomeController extends GetxController {
 
   void recalcFriendRequest() async {
     requestCount.value = await friendProvider.getRequestCount() ?? 0;
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      FeatureDiscovery.discoverFeatures(Get.context as BuildContext, {
+        fabFeatureId,
+        homeBBFeatureId,
+        trxBBFeatureId,
+        friendBBFeatureId,
+        profileBBFeatureId,
+      });
+    });
   }
 
   @override

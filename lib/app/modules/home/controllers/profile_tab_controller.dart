@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -36,6 +37,13 @@ class ProfileTabController extends GetxController {
   RxBool isLoading = false.obs;
 
   Future<void> logout() async {
+    FeatureDiscovery.clearPreferences(Get.context as BuildContext, {
+      fabFeatureId,
+      homeBBFeatureId,
+      trxBBFeatureId,
+      friendBBFeatureId,
+      profileBBFeatureId,
+    });
     await OneSignal.shared.removeExternalUserId();
     strg.remove(SESSION_KEY);
     await supabaseClient.auth.signOut();
