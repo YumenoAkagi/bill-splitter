@@ -46,6 +46,7 @@ class LoginView extends GetView<LoginController> {
                   ),
                   TextFormField(
                     controller: controller.emailController,
+                    keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.next,
                     autofocus: true,
                     decoration: const InputDecoration(
