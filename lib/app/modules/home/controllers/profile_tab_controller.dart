@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -37,6 +38,37 @@ class ProfileTabController extends GetxController {
   RxBool isLoading = false.obs;
 
   Future<void> logout() async {
+    Get.dialog(
+      Center(
+        child: SizedBox(
+          width: Get.width * 0.5 * GOLDEN_RATIO,
+          height: 60 * GOLDEN_RATIO,
+          child: Card(
+            color: Get.isDarkMode
+                ? getColorFromHex(COLOR_DARK_MAIN)
+                : Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                showCustomCircularProgressIndicator(),
+                const SizedBox(
+                  width: 15 * GOLDEN_RATIO,
+                ),
+                Text(
+                  'Logging Out...',
+                  style: Get.textTheme.labelSmall?.copyWith(
+                    fontSize: 10 * GOLDEN_RATIO,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      barrierDismissible: false,
+    );
     FeatureDiscovery.clearPreferences(Get.context as BuildContext, {
       fabFeatureId,
       homeBBFeatureId,
