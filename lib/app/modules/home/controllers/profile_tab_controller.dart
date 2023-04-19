@@ -210,6 +210,7 @@ class ProfileTabController extends GetxController {
       final authEvent = response.event;
       if (authEvent == AuthChangeEvent.signedOut) {
         _redirecting = true;
+        if (Get.isDialogOpen ?? false) Get.back();
         Get.offAllNamed(Routes.SPLASH);
       }
     });
