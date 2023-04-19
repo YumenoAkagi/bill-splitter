@@ -13,7 +13,7 @@ class FriendsTabView extends StatelessWidget {
   const FriendsTabView({super.key});
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put<FriendTabController>(FriendTabController());
+    final controller = Get.put(FriendTabController());
     return SafeArea(
       child: Container(
         margin: const EdgeInsets.symmetric(

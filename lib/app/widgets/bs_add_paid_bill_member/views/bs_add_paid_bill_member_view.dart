@@ -39,11 +39,12 @@ class BsAddPaidBillMemberView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  'Add Member',
+                  'Add Payer',
                   style: Get.textTheme.labelMedium?.copyWith(
                     fontSize: 12 * GOLDEN_RATIO,
                     fontWeight: FontWeight.w900,
                   ),
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(
                   height: 12 * GOLDEN_RATIO,

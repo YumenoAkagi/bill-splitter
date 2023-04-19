@@ -33,6 +33,7 @@ class BsEditPaidMemberView extends StatelessWidget {
           ),
           child: Form(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
                   'Edit Amount - ${controller.whoPaidController.selectedPayer!.member.displayName}',
@@ -40,6 +41,7 @@ class BsEditPaidMemberView extends StatelessWidget {
                     fontSize: 12 * GOLDEN_RATIO,
                     fontWeight: FontWeight.w900,
                   ),
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(
                   height: 12 * GOLDEN_RATIO,

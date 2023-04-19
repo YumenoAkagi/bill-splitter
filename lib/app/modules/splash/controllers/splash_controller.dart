@@ -1,3 +1,4 @@
+import 'package:feature_discovery/feature_discovery.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -30,6 +31,16 @@ class SplashController extends GetxController {
     } on AuthException catch (_) {
       // get back to login page when refresh token is expired
       showErrorSnackbar('Session expired');
+      FeatureDiscovery.clearPreferences(Get.context as BuildContext, {
+        fabFeatureId,
+        homeBBFeatureId,
+        trxBBFeatureId,
+        friendBBFeatureId,
+        profileBBFeatureId,
+        showMoreTrxFeatureId,
+        historyTrxFeatureId,
+        manageFriendFeatureId,
+      });
       Get.offNamed(Routes.LOGIN);
     }
   }

@@ -14,7 +14,7 @@ class ProfileTabView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put<ProfileTabController>(ProfileTabController());
+    final controller = Get.put(ProfileTabController());
     return SafeArea(
       child: Container(
         margin: const EdgeInsets.symmetric(

@@ -17,8 +17,8 @@ class EmailSentView extends StatelessWidget {
       body: Center(
         child: Container(
           margin: const EdgeInsets.symmetric(
-            horizontal: CONTAINER_MARGIN_HORIZONTAL,
-            vertical: CONTAINER_MARGIN_VERTICAL,
+            horizontal: SAFEAREA_CONTAINER_MARGIN_H,
+            vertical: SAFEAREA_CONTAINER_MARGIN_V,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
