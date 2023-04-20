@@ -14,6 +14,7 @@ class SplitTrxOptionsController extends GetxController {
 
   Future splitEqually() async {
     isLoading.value = true;
+    List<String> memberIds = [];
     try {
       final whoPaidController = Get.find<WhoPaidTrxBillController>();
       final membersWhoPaidBill = whoPaidController.membersWhoPaidBill;
@@ -30,6 +31,7 @@ class SplitTrxOptionsController extends GetxController {
 
       for (var i = 0; i < trxHeader.membersList.length; i++) {
         final currentMember = trxHeader.membersList[i];
+        memberIds.add(currentMember.id);
         final isMemberPaidForBill = membersWhoPaidBill
             .firstWhereOrNull((mem) => mem.member.id == currentMember.id);
 
@@ -78,6 +80,11 @@ class SplitTrxOptionsController extends GetxController {
       } catch (e) {
         // do nothing
       }
+      await sendNotification(
+        memberIds,
+        'New Transaction Created',
+        'A new transaction has been created!',
+      );
       Get.offNamed(Routes.SPLITSUCCESS);
     } catch (e) {
       showUnexpectedErrorSnackbar(e);

@@ -51,6 +51,11 @@ class SplitTrxByItemController extends GetxController {
 
     final ctx = Get.context as BuildContext;
     ctx.loaderOverlay.show();
+    List<String> memberIds = [];
+
+    for (var i = 0; i < trxHeader.membersList.length; i++) {
+      memberIds.add(trxHeader.membersList[i].id);
+    }
     try {
       final whoPaidController = Get.find<WhoPaidTrxBillController>();
       final membersWhoPaidBill = whoPaidController.membersWhoPaidBill;
@@ -166,6 +171,11 @@ class SplitTrxByItemController extends GetxController {
       } catch (e) {
         // do nothing
       }
+      await sendNotification(
+        memberIds,
+        'New Transaction Created',
+        'A new transaction has been created!',
+      );
       Get.offNamed(Routes.SPLITSUCCESS);
     } catch (e) {
       showUnexpectedErrorSnackbar(e);

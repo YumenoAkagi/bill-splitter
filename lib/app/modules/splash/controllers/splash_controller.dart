@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../routes/app_pages.dart';
@@ -31,6 +32,7 @@ class SplashController extends GetxController {
     } on AuthException catch (_) {
       // get back to login page when refresh token is expired
       showErrorSnackbar('Session expired');
+      await OneSignal.shared.removeExternalUserId();
       FeatureDiscovery.clearPreferences(Get.context as BuildContext, {
         fabFeatureId,
         homeBBFeatureId,
