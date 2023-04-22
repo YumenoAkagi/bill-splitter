@@ -47,7 +47,9 @@ class BsEditItemController extends GetxController {
       discController.text = separatorFormatter
           .format(trxDetailItemController.selectedItem!.discount);
       recalculateMaxDiscount();
-    } catch (e) {}
+    } catch (e) {
+      showUnexpectedErrorSnackbar(e);
+    }
   }
 
   Future editItem() async {
@@ -73,7 +75,9 @@ class BsEditItemController extends GetxController {
         final trxDetailItemController =
             Get.find<AddTrxDetailsItemsController>();
         await trxDetailItemController.getAllDetailItems();
-      } catch (e) {}
+      } catch (e) {
+        showUnexpectedErrorSnackbar(e);
+      }
       Get.back();
     }
 

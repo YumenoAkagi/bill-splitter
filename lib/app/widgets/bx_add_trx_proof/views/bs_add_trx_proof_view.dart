@@ -81,6 +81,7 @@ class BsAddTrxProofView extends StatelessWidget {
                     onChanged: controller.setSelectedRecipient,
                     validator: (value) {
                       if (value == null) return requiredErrorText;
+                      return null;
                     },
                   ),
                 ),

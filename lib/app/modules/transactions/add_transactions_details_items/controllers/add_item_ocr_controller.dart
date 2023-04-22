@@ -72,7 +72,6 @@ class AddItemOCRController extends GetxController {
           "preserve_interword_spaces": "1",
         });
 
-    print(text);
     final textPerLine = text.split('\n');
 
     for (final line in textPerLine) {

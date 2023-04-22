@@ -82,6 +82,7 @@ class BsAddPaidBillMemberView extends StatelessWidget {
                     onChanged: (value) => controller.selectedMember = value,
                     validator: (value) {
                       if (value == null) return requiredErrorText;
+                      return null;
                     },
                   ),
                 ),
