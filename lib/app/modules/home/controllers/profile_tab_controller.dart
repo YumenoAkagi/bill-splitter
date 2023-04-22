@@ -80,6 +80,11 @@ class ProfileTabController extends GetxController {
       manageFriendFeatureId,
     });
     await OneSignal.shared.removeExternalUserId();
+    if (Get.isDarkMode) {
+      // change back to light mode
+      Get.changeThemeMode(ThemeMode.light);
+      await strg.write(THEME_KEY, 'Light');
+    }
     strg.remove(SESSION_KEY);
     await supabaseClient.auth.signOut();
   }

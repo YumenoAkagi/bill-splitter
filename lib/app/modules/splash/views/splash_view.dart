@@ -14,18 +14,29 @@ class SplashView extends GetView<SplashController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: getColorFromHex(COLOR_3),
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(
+              width: 150 * GOLDEN_RATIO,
+              height: 150 * GOLDEN_RATIO,
+              child: Image.asset('assets/logo/BS_icon.png'),
+            ),
             Text(
-              'Bill Splitter',
-              style: Get.textTheme.titleLarge,
+              'Bill-Splitter',
+              style: Get.textTheme.titleLarge?.copyWith(
+                color: getColorFromHex(COLOR_2),
+                fontSize: 20 * GOLDEN_RATIO,
+              ),
             ),
             Text(
               'An easy way to split your bill',
-              style: Get.textTheme.titleSmall,
+              style: Get.textTheme.titleSmall?.copyWith(
+                color: getColorFromHex(COLOR_1),
+              ),
             ),
           ],
         ),

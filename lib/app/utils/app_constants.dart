@@ -1,6 +1,6 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-const APP_NAME = 'Bill Splitter';
+const APP_NAME = 'Bill-Splitter';
 
 // supabase configs
 final supabaseClient = Supabase.instance.client;
