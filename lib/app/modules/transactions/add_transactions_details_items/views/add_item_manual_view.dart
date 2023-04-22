@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
@@ -43,6 +44,8 @@ class AddItemManualView extends GetView<AddItemManualController> {
                     controller: controller.nameController,
                     decoration: const InputDecoration(hintText: 'Name'),
                     textCapitalization: TextCapitalization.words,
+                    maxLength: 50,
+                  maxLengthEnforcement: MaxLengthEnforcement.none,
                     validator: RequiredValidator(errorText: requiredErrorText),
                   ),
                   const SizedBox(

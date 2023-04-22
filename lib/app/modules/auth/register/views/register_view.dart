@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
@@ -48,6 +49,8 @@ class RegisterView extends GetView<RegisterController> {
                     textInputAction: TextInputAction.next,
                     controller: controller.displayNameController,
                     textCapitalization: TextCapitalization.words,
+                    maxLength: 20,
+                    maxLengthEnforcement: MaxLengthEnforcement.enforced,
                     decoration: const InputDecoration(
                       icon: Icon(
                         FontAwesome.user,
