@@ -1,6 +1,5 @@
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttericon/entypo_icons.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -10,10 +9,10 @@ import '../../../utils/functions_helper.dart';
 import '../controllers/friend_tab_controller.dart';
 
 class FriendsTabView extends StatelessWidget {
-  const FriendsTabView({super.key});
+  FriendsTabView({super.key});
+  final controller = Get.put(FriendTabController());
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(FriendTabController());
     return SafeArea(
       child: Container(
         margin: const EdgeInsets.symmetric(

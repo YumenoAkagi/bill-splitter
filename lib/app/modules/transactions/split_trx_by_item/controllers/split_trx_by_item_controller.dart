@@ -30,9 +30,9 @@ class SplitTrxByItemController extends GetxController {
   Future _getTransactionDetails() async {
     _toggleFetchingStatus(true);
     final itemList = await _transactionRepo.fetchDetailsItems(trxHeader.id);
-    itemList.forEach((item) {
+    for (var item in itemList) {
       assignedItemMemberList.add(AssignedItemModel(item: item));
-    });
+    }
     _toggleFetchingStatus(false);
   }
 

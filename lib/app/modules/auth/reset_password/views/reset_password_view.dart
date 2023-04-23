@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttericon/entypo_icons.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';

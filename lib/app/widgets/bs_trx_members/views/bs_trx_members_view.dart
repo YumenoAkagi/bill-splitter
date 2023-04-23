@@ -12,7 +12,7 @@ class BsTrxMembersView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(BsTrxMembersController());
+    Get.put(BsTrxMembersController());
     return Wrap(
       children: [
         Container(

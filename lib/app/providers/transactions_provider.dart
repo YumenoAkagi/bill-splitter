@@ -487,10 +487,10 @@ class TransactionsProvider {
       for (int i = 0; i < (response.count ?? 0); i++) {
         final trxUserResponse = await supabaseClient
             .from('TransactionUser')
-            .select('fromUser:Users!FromUserId(*),toUser:Users!ToUserId(*)')
+            .select('*,fromUser:Users!FromUserId(*),toUser:Users!ToUserId(*)')
             .eq(
               'Id',
-              response.data![i]['TransactionUser']['Id'],
+              response.data![i]['TransactionUserId'],
             )
             .or('FromUserId.eq.$userId,ToUserId.eq.$userId')
             .single();

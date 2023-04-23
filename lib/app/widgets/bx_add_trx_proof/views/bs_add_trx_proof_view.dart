@@ -107,7 +107,7 @@ class BsAddTrxProofView extends StatelessWidget {
                     textAlign: TextAlign.end,
                     inputFormatters: [
                       DecimalFormatter(
-                        maxVal: controller.remainingAmount.value, // change soon
+                        maxVal: controller.remainingAmount.value,
                       ),
                     ],
                     validator: qtyAndPriceValidator,

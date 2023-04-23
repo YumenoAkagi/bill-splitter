@@ -23,6 +23,7 @@ dependencies:
   full_screen_image_null_safe: ^2.0.0
   get: 4.6.5
   get_storage: ^2.1.1
+  http: ^0.13.5
   image: ^4.0.15
   image_picker: ^0.8.7
   intl: ^0.18.0

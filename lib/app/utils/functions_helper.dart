@@ -32,8 +32,7 @@ Future<void> sendNotification(
       'headings': {'en': title},
     };
 
-    final response =
-        await http.post(uri, headers: headers, body: json.encode(body));
+    await http.post(uri, headers: headers, body: json.encode(body));
   } catch (e) {
     // do nothing
   }

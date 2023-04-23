@@ -1,7 +1,3 @@
-import 'package:bill_splitter/app/utils/app_constants.dart';
-import 'package:feature_discovery/feature_discovery.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 

@@ -50,7 +50,7 @@ class AddItemManualController extends GetxController {
         'TotalPrice': totalPriceRaw,
       }).select();
 
-      addTrxController.detailItemsList.value.add(
+      addTrxController.detailItemsList.add(
         TransactionDetailItemModel(
           id: response[0]['Id'],
           transactionId: response[0]['TransactionId'],
