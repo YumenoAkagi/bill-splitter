@@ -9,7 +9,6 @@ import '../modules/auth/change_password/bindings/change_password_bindings.dart';
 import '../modules/auth/change_password/bindings/done_change_password_bindings.dart';
 import '../modules/auth/change_password/views/change_password_view.dart';
 import '../modules/auth/change_password/views/done_change_password_view.dart';
-import '../modules/auth/email_sent/bindings/email_sent_binding.dart';
 import '../modules/auth/email_sent/views/email_sent_view.dart';
 import '../modules/auth/forgot_password/bindings/forgot_password_binding.dart';
 import '../modules/auth/forgot_password/views/forgot_password_view.dart';
@@ -86,7 +85,6 @@ class AppPages {
     GetPage(
       name: _Paths.RECOVERY_EMAIL_SENT,
       page: () => const EmailSentView(),
-      binding: EmailSentBinding(),
     ),
     GetPage(
       name: _Paths.WALKTHROUGH,
