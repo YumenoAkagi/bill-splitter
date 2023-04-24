@@ -318,8 +318,12 @@ class TransactionsProvider {
           .eq('TransactionId', headerId)
           .eq('FromUserId', userId);
 
-      response.forEach(
-          (tu) => totalDebts += (tu['TotalAmountOwed'] - tu['AmountPaid']));
+      response.forEach((tu) {
+        final totalAmountOwed = double.parse(tu['TotalAmountOwed']);
+        final amountPaid = double.parse(tu['AmountPaid']);
+        final remAmount = (totalAmountOwed - amountPaid).floorToDouble();
+        totalDebts += remAmount;
+      });
     } catch (e) {
       showUnexpectedErrorSnackbar(e);
     }
