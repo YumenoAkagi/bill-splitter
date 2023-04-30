@@ -319,8 +319,8 @@ class TransactionsProvider {
           .eq('FromUserId', userId);
 
       response.forEach((tu) {
-        final double totalAmountOwed = tu['TotalAmountOwed'];
-        final double amountPaid = tu['AmountPaid'];
+        final double totalAmountOwed = tu['TotalAmountOwed'].floorToDouble();
+        final double amountPaid = tu['AmountPaid'].floorToDouble();
         final double remAmount = (totalAmountOwed - amountPaid).floorToDouble();
         totalDebts += remAmount;
       });
