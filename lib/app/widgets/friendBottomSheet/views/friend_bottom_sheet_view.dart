@@ -63,7 +63,7 @@ class FriendBottomSheetView extends StatelessWidget {
                 Obx(
                   () => FilledButton(
                     onPressed: controller.isLoading.isFalse
-                        ? () {
+                        ? controller.friendEmailController.text.isEmptyOrNull ? null : () {
                             controller.addFriend();
                             Get.back();
                           }
