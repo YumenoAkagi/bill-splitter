@@ -56,6 +56,13 @@ class FriendBottomSheetView extends StatelessWidget {
                   decoration:
                       const InputDecoration(hintText: 'Enter Email Address'),
                   validator: emailValidator,
+                  onChanged: (value) {
+                    if(value != '') {
+                      controller.canSubmit.value = true;
+                    } else {
+                      controller.canSubmit.value = false;
+                    }
+                  },
                 ),
                 const SizedBox(
                   height: 20 * GOLDEN_RATIO,
@@ -63,7 +70,7 @@ class FriendBottomSheetView extends StatelessWidget {
                 Obx(
                   () => FilledButton(
                     onPressed: controller.isLoading.isFalse
-                        ? controller.friendEmailController.text.isEmptyOrNull ? null : () {
+                        ? controller.canSubmit.isFalse ? null : () {
                             controller.addFriend();
                             Get.back();
                           }

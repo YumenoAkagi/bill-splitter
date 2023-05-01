@@ -10,6 +10,7 @@ class FriendBottomSheetController extends GetxController {
   final friendProvider = FriendProvider();
 
   RxBool isLoading = false.obs;
+  RxBool canSubmit = false.obs;
 
   Future addFriend() async {
     isLoading.value = true;
