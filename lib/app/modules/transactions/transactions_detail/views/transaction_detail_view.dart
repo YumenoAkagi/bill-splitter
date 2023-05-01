@@ -260,6 +260,9 @@ class TransactionDetailView extends GetView<TransactionDetailController> {
                                                       item.name,
                                                       textAlign:
                                                           TextAlign.start,
+                                                      style: const TextStyle(
+                                                        overflow: TextOverflow.ellipsis,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
