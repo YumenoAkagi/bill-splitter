@@ -114,11 +114,6 @@ class DashboardTabView extends StatelessWidget {
                       Get.toNamed(Routes.HISTORYTRX);
                     },
                   ),
-                  IconButtonWithText(
-                    iconData: FontAwesome.help_circled,
-                    description: 'Help',
-                    onTap: () {},
-                  ),
                 ],
               ),
             ),
