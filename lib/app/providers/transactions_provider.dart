@@ -78,19 +78,41 @@ class TransactionsProvider {
     return membersList;
   }
 
-  Future<List<TransactionHeaderModel>> getTransactionHeaders(
-      bool isComplete) async {
+  Future<List<TransactionHeaderModel>> getTransactionHeaders(bool isComplete,
+      {DateTime? startDate, DateTime? endDate}) async {
     final List<TransactionHeaderModel> headersList = [];
     try {
-      final response = await supabaseClient
-          .from('TransactionMember')
-          .select('Users!inner(*), TransactionHeader!inner(*)')
-          .eq('UserId', supabaseClient.auth.currentUser?.id)
-          .eq('TransactionHeader.IsComplete', isComplete)
-          .order(
-            'created_at',
-            ascending: false,
-          ) as List;
+      List<dynamic> response;
+      if (startDate != null && endDate != null) {
+        response = await supabaseClient
+            .from('TransactionMember')
+            .select('Users!inner(*), TransactionHeader!inner(*)')
+            .eq('UserId', supabaseClient.auth.currentUser?.id)
+            .eq('TransactionHeader.IsComplete', isComplete)
+            .gt('TransactionHeader.created_at', startDate.toString())
+            .lt(
+              'TransactionHeader.created_at',
+              endDate
+                  .add(
+                    const Duration(days: 1),
+                  )
+                  .toString(),
+            )
+            .order(
+              'created_at',
+              ascending: false,
+            ) as List;
+      } else {
+        response = await supabaseClient
+            .from('TransactionMember')
+            .select('Users!inner(*), TransactionHeader!inner(*)')
+            .eq('UserId', supabaseClient.auth.currentUser?.id)
+            .eq('TransactionHeader.IsComplete', isComplete)
+            .order(
+              'created_at',
+              ascending: false,
+            ) as List;
+      }
 
       for (var idx = 0; idx < response.length; idx++) {
         final allTrxMembers = <UserModel>[
