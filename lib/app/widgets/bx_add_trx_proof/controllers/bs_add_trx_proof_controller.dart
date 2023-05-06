@@ -91,18 +91,16 @@ class BsAddTrxProofController extends GetxController {
         imgUrl,
       );
       if (!succeed) return;
-      // await _transactionRepo
-      //     .updateStatusOnTrxHeader(_trxDetailController.trxHeader.id);
 
-      // await _trxDetailController.calculateRemainingDebtsReceivables();
-      // await _trxDetailController.fetchTransactionUser();
+      await _trxDetailController.calculateRemainingDebtsReceivables();
+      await _trxDetailController.fetchTransactionUser();
 
-      // try {
-      //   final transactionTabController = Get.find<TransactionsTabController>();
-      //   await transactionTabController.getActiveTransactions();
-      // } catch (e) {
-      //   // do nothing
-      // }
+      try {
+        final transactionTabController = Get.find<TransactionsTabController>();
+        await transactionTabController.getActiveTransactions();
+      } catch (e) {
+        // do nothing
+      }
 
       // send notif to userid
       await sendNotification(
