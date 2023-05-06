@@ -84,28 +84,25 @@ class BsAddTrxProofController extends GetxController {
       final amountPaid =
           separatorFormatter.parse(amountPaidController.text).toDouble();
       final totalAmountPaid = selectedTrxUser!.amountPaid + amountPaid;
-      final bool hasPaid =
-          (totalAmountPaid >= selectedTrxUser!.totalAmountOwed);
       final succeed = await _transactionRepo.addTransactionProof(
         selectedTrxUser!.id,
         amountPaid,
         totalAmountPaid,
-        hasPaid,
         imgUrl,
       );
       if (!succeed) return;
-      await _transactionRepo
-          .updateStatusOnTrxHeader(_trxDetailController.trxHeader.id);
+      // await _transactionRepo
+      //     .updateStatusOnTrxHeader(_trxDetailController.trxHeader.id);
 
-      await _trxDetailController.calculateRemainingDebtsReceivables();
-      await _trxDetailController.fetchTransactionUser();
+      // await _trxDetailController.calculateRemainingDebtsReceivables();
+      // await _trxDetailController.fetchTransactionUser();
 
-      try {
-        final transactionTabController = Get.find<TransactionsTabController>();
-        await transactionTabController.getActiveTransactions();
-      } catch (e) {
-        // do nothing
-      }
+      // try {
+      //   final transactionTabController = Get.find<TransactionsTabController>();
+      //   await transactionTabController.getActiveTransactions();
+      // } catch (e) {
+      //   // do nothing
+      // }
 
       // send notif to userid
       await sendNotification(

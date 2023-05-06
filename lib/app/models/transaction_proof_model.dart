@@ -8,6 +8,8 @@ class TransactionProofModel {
     required this.fromUser,
     required this.toUser,
     required this.createdDate,
+    this.isVerified = false,
+    this.verifiedAt,
   });
 
   int id;
@@ -16,4 +18,6 @@ class TransactionProofModel {
   UserModel fromUser;
   UserModel toUser;
   String createdDate;
+  bool isVerified;
+  String? verifiedAt;
 }

@@ -18,6 +18,7 @@ class TransactionDetailController extends GetxController {
   RxDouble totalDebts = 0.0.obs;
   RxDouble totalReceivables = 0.0.obs;
   RxDouble subtotal = 0.0.obs;
+  RxInt remainingNotValidatedProof = 0.obs;
 
   RxBool isFetchingUser = false.obs;
   RxBool isFetchingDetail = false.obs;
@@ -43,6 +44,12 @@ class TransactionDetailController extends GetxController {
             supabaseClient.auth.currentUser!.id, trxHeader.id);
   }
 
+  Future refreshNotValidatedCount() async {
+    remainingNotValidatedProof.value =
+        await _transactionRepo.getRemainingNotVerifiedTrxProof(
+            trxHeader.id, supabaseClient.auth.currentUser!.id);
+  }
+
   Future fetchTransactionUser() async {
     _toggleFetchingStatusUser(true);
     trxMembers = await _transactionRepo.getTransactionUsers(
@@ -55,6 +62,7 @@ class TransactionDetailController extends GetxController {
         .any((tu) => tu.fromUser.id == supabaseClient.auth.currentUser!.id)) {
       hasDebts.value = true;
     }
+    await refreshNotValidatedCount();
     _toggleFetchingStatusUser(false);
   }
 

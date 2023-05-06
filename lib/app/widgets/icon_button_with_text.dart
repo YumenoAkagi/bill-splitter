@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:badges/badges.dart' as badges;
 
 import '../utils/app_constants.dart';
 
@@ -32,8 +33,11 @@ class IconButtonWithText extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             badgeCount > 0
-                ? Badge.count(
-                    count: badgeCount,
+                ? badges.Badge(
+                    badgeContent: Text(
+                      badgeCount.toString(),
+                      style: const TextStyle(color: Colors.white),
+                    ),
                     child: Icon(
                       iconData,
                       color: getColorFromHex(COLOR_5),

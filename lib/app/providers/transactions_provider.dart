@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 import '../models/transaction_proof_model.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -452,7 +454,7 @@ class TransactionsProvider {
   }
 
   Future<bool> addTransactionProof(int transactionUserId, double amountPaid,
-      double totalAmountPaid, bool hasPaid, String? imgUrl) async {
+      double totalAmountPaid, String? imgUrl) async {
     bool isSucceed = false;
 
     try {
@@ -464,8 +466,7 @@ class TransactionsProvider {
 
       // update transactionUser
       await supabaseClient.from('TransactionUser').update({
-        'AmountPaid': totalAmountPaid,
-        'HasPaid': hasPaid,
+        'AmountPaid': totalAmountPaid.toPrecision(2),
       }).eq('Id', transactionUserId);
       isSucceed = true;
     } catch (e) {
@@ -473,6 +474,76 @@ class TransactionsProvider {
     }
 
     return isSucceed;
+  }
+
+  Future verifyTransactionProof(int trxProofId) async {
+    try {
+      // verify transaction proof
+      final response = await supabaseClient
+          .from('TransactionProof')
+          .update(
+            {
+              'IsVerified': true,
+              'verified_at': DateTime.now().toIso8601String(),
+            },
+          )
+          .eq('Id', trxProofId)
+          .select()
+          .single();
+
+      // update transactionUser
+      final trxUserResponse = await supabaseClient
+          .from('TransactionUser')
+          .select()
+          .eq('Id', response['TransactionUserId'])
+          .single();
+
+      double totalAmountPaid = trxUserResponse['AmountPaid'];
+      bool hasPaid = false;
+      if (totalAmountPaid >= trxUserResponse['TotalAmountOwed']) {
+        final notVerifiedTrxProofs = await supabaseClient
+            .from('TransactionProof')
+            .select<PostgrestListResponse>(
+                '*', const FetchOptions(count: CountOption.exact))
+            .eq('TransactionUserId', trxUserResponse['Id'])
+            .eq('IsVerified', false);
+
+        if ((notVerifiedTrxProofs.count ?? 0) <= 0) {
+          hasPaid = true;
+        }
+      }
+
+      await supabaseClient.from('TransactionUser').update({
+        'HasPaid': hasPaid,
+      }).eq('Id', trxUserResponse['Id']);
+
+      // update header
+      await updateStatusOnTrxHeader(trxUserResponse['TransactionId']);
+    } catch (e) {
+      showUnexpectedErrorSnackbar(e);
+    }
+  }
+
+  Future rejectTrxProof(int trxProofId) async {
+    try {
+      final response = await supabaseClient
+          .from('TransactionProof')
+          .select('*,TransactionUser!inner(*)')
+          .eq('Id', trxProofId)
+          .single();
+      // return revert amount paid on trx user
+      await supabaseClient.from('TransactionUser').update({
+        'AmountPaid':
+            response['TransactionUser']['AmountPaid'] - response['AmountPaid']
+      }).eq('Id', response['TransactionUserId']);
+      // delete trx proof
+      await supabaseClient
+          .from('TransactionProof')
+          .delete()
+          .eq('Id', trxProofId);
+    } catch (e) {
+      showUnexpectedErrorSnackbar(e);
+    }
   }
 
   Future updateStatusOnTrxHeader(String headerId) async {
@@ -496,6 +567,27 @@ class TransactionsProvider {
     } catch (e) {
       showUnexpectedErrorSnackbar(e);
     }
+  }
+
+  Future<int> getRemainingNotVerifiedTrxProof(
+      String headerId, String userId) async {
+    int rem = 0;
+    try {
+      final response = await supabaseClient
+          .from('TransactionProof')
+          .select<PostgrestListResponse>(
+            '*,TransactionUser!inner(*)',
+            const FetchOptions(count: CountOption.exact),
+          )
+          .eq('TransactionUser.TransactionId', headerId)
+          .eq('TransactionUser.ToUserId', userId)
+          .eq('IsVerified', false);
+      rem = response.count ?? 0;
+    } catch (e) {
+      showUnexpectedErrorSnackbar(e);
+    }
+
+    return rem;
   }
 
   Future<List<TransactionProofModel>> getUserTransactionProofs(
@@ -523,7 +615,7 @@ class TransactionsProvider {
 
         proofs.add(
           TransactionProofModel(
-            id: response.data![i]['id'],
+            id: response.data![i]['Id'],
             paidAmount: response.data![i]['AmountPaid'],
             fromUser: UserModel(
                 id: trxUserResponse['fromUser']['Id'],
@@ -538,8 +630,14 @@ class TransactionsProvider {
               profilePicUrl: trxUserResponse['toUser']['ProfilePictureURL'],
             ),
             imgUrl: response.data![i]['ImageURL'],
-            createdDate: DateFormat('dd MMM yyyy - hh:mm:ss a')
+            createdDate: DateFormat('dd MMM yyyy - hh:mm a')
                 .format(DateTime.parse(response.data![i]['created_at'])),
+            isVerified: response.data![i]['IsVerified'],
+            verifiedAt: (response.data![i]['verified_at'] != null &&
+                    response.data![i]['verified_at'] != '')
+                ? DateFormat('dd MMM yyyy - hh:mm a')
+                    .format(DateTime.parse(response.data![i]['verified_at']))
+                : '',
           ),
         );
       }

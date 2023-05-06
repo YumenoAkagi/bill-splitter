@@ -80,8 +80,19 @@ class TransactionProofView extends GetView<TransactionProofController> {
                                   ],
                                 ),
                               ),
-                              subtitle: Text(tpc.trxProofs[index].createdDate),
-                              trailing: tpc.trxProofs[index].fromUser.id ==
+                              subtitle: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Text(tpc.trxProofs[index].createdDate),
+                                  Text(
+                                    tpc.trxProofs[index].isVerified
+                                        ? 'Verified at ${tpc.trxProofs[index].verifiedAt}'
+                                        : 'Not yet confirmed',
+                                  ),
+                                ],
+                              ),
+                              leading: tpc.trxProofs[index].fromUser.id ==
                                       supabaseClient.auth.currentUser!.id
                                   ? const Icon(
                                       FontAwesome.up_circled,
@@ -91,15 +102,9 @@ class TransactionProofView extends GetView<TransactionProofController> {
                                       FontAwesome.down_circled,
                                       color: getColorFromHex(COLOR_5),
                                     ),
-                            ),
-                            const SizedBox(
-                              height: 5 * GOLDEN_RATIO,
-                            ),
-                            tpc.trxProofs[index].imgUrl == null
-                                ? const SizedBox()
-                                : Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: SizedBox(
+                              trailing: tpc.trxProofs[index].imgUrl == null
+                                  ? const SizedBox()
+                                  : SizedBox(
                                       height: 50 * GOLDEN_RATIO,
                                       width: 50 * GOLDEN_RATIO,
                                       child: InkWell(
@@ -127,7 +132,99 @@ class TransactionProofView extends GetView<TransactionProofController> {
                                         ),
                                       ),
                                     ),
-                                  )
+                            ),
+                            if (supabaseClient.auth.currentUser!.id ==
+                                    tpc.trxProofs[index].toUser.id &&
+                                !tpc.trxProofs[index].isVerified)
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  const SizedBox(
+                                    height: 5 * GOLDEN_RATIO,
+                                  ),
+                                  Text(
+                                    'Confirm this payment?',
+                                    style: Get.textTheme.labelMedium,
+                                  ),
+                                  const SizedBox(
+                                    height: 5 * GOLDEN_RATIO,
+                                  ),
+                                  IntrinsicHeight(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Expanded(
+                                          child: OutlinedButton.icon(
+                                            onPressed: () async {
+                                              await showConfirmDialog(
+                                                context,
+                                                'Reject this payment?',
+                                                positiveText: 'Reject',
+                                                negativeText: 'Cancel',
+                                                buttonColor:
+                                                    Colors.red.shade700,
+                                                onAccept: () async {
+                                                  controller.rejectProof(
+                                                    tpc.trxProofs[index].id,
+                                                  );
+                                                },
+                                              );
+                                            },
+                                            icon: const Icon(
+                                              FontAwesome.cancel,
+                                              size: BUTTON_ICON_SIZE,
+                                            ),
+                                            label: const Text('Reject'),
+                                            style: ButtonStyle(
+                                              foregroundColor:
+                                                  MaterialStateProperty.all(
+                                                      Colors.red.shade700),
+                                              side: MaterialStateProperty.all(
+                                                BorderSide(
+                                                  color: Colors.red.shade700,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 5 * GOLDEN_RATIO,
+                                        ),
+                                        Expanded(
+                                          child: FilledButton.icon(
+                                            onPressed: () async {
+                                              await showConfirmDialog(
+                                                context,
+                                                'Confirm this payment?',
+                                                positiveText: 'Confirm',
+                                                negativeText: 'Cancel',
+                                                buttonColor:
+                                                    getColorFromHex(COLOR_1),
+                                                onAccept: () async {
+                                                  controller.confirmProof(
+                                                    tpc.trxProofs[index].id,
+                                                  );
+                                                },
+                                              );
+                                            },
+                                            icon: const Icon(
+                                              FontAwesome.check,
+                                              size: BUTTON_ICON_SIZE,
+                                            ),
+                                            label: const Text('Confirm'),
+                                            style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all(
+                                                getColorFromHex(COLOR_1),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                           ],
                         ),
                       ),

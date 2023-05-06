@@ -4,6 +4,7 @@ import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:badges/badges.dart' as badges;
 
 import '../../../../utils/app_constants.dart';
 import '../../../../utils/functions_helper.dart';
@@ -261,7 +262,8 @@ class TransactionDetailView extends GetView<TransactionDetailController> {
                                                       textAlign:
                                                           TextAlign.start,
                                                       style: const TextStyle(
-                                                        overflow: TextOverflow.ellipsis,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                       ),
                                                     ),
                                                   ),
@@ -339,13 +341,31 @@ class TransactionDetailView extends GetView<TransactionDetailController> {
                                   child: const Text(
                                       'View My Payment Confirmation'),
                                 )
-                          : FilledButton(
-                              onPressed: () {
-                                Get.toNamed(Routes.TRXPROOFS,
-                                    arguments: controller.trxHeader);
-                              },
-                              child: const Text('View Transaction Proofs'),
-                            ),
+                          : controller.remainingNotValidatedProof.value > 0
+                              ? badges.Badge(
+                                  badgeContent: Text(
+                                    controller.remainingNotValidatedProof.value
+                                        .toString(),
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                  position:
+                                      badges.BadgePosition.topEnd(end: -4),
+                                  child: FilledButton(
+                                    onPressed: () {
+                                      Get.toNamed(Routes.TRXPROOFS,
+                                          arguments: controller.trxHeader);
+                                    },
+                                    child:
+                                        const Text('View Transaction Proofs'),
+                                  ),
+                                )
+                              : FilledButton(
+                                  onPressed: () {
+                                    Get.toNamed(Routes.TRXPROOFS,
+                                        arguments: controller.trxHeader);
+                                  },
+                                  child: const Text('View Transaction Proofs'),
+                                ),
                     ),
                   ],
                 ),
