@@ -630,12 +630,12 @@ class TransactionsProvider {
               profilePicUrl: trxUserResponse['toUser']['ProfilePictureURL'],
             ),
             imgUrl: response.data![i]['ImageURL'],
-            createdDate: DateFormat('dd MMM yyyy - hh:mm a')
+            createdDate: DateFormat('dd MMM yyyy')
                 .format(DateTime.parse(response.data![i]['created_at'])),
             isVerified: response.data![i]['IsVerified'],
             verifiedAt: (response.data![i]['verified_at'] != null &&
                     response.data![i]['verified_at'] != '')
-                ? DateFormat('dd MMM yyyy - hh:mm a')
+                ? DateFormat('dd MMM yyyy')
                     .format(DateTime.parse(response.data![i]['verified_at']))
                 : '',
           ),
