@@ -494,7 +494,7 @@ class TransactionsProvider {
       // update transactionUser
       final trxUserResponse = await supabaseClient
           .from('TransactionUser')
-          .select()
+          .select('*,TransactionHeader!inner(*)')
           .eq('Id', response['TransactionUserId'])
           .single();
 
@@ -519,6 +519,10 @@ class TransactionsProvider {
 
       // update header
       await updateStatusOnTrxHeader(trxUserResponse['TransactionId']);
+      await sendNotification(
+          [trxUserResponse['FromUserId']],
+          'Payment Confirmed',
+          'Your Payment on ${trxUserResponse['TransactionHeader']['Name']} Has Been Confirmed');
     } catch (e) {
       showUnexpectedErrorSnackbar(e);
     }
@@ -532,15 +536,25 @@ class TransactionsProvider {
           .eq('Id', trxProofId)
           .single();
       // return revert amount paid on trx user
-      await supabaseClient.from('TransactionUser').update({
-        'AmountPaid':
-            response['TransactionUser']['AmountPaid'] - response['AmountPaid']
-      }).eq('Id', response['TransactionUserId']);
+      final trxUserResponse = await supabaseClient
+          .from('TransactionUser')
+          .update({
+            'AmountPaid': response['TransactionUser']['AmountPaid'] -
+                response['AmountPaid']
+          })
+          .eq('Id', response['TransactionUserId'])
+          .select('TransactionHeader!inner(*)')
+          .single();
       // delete trx proof
       await supabaseClient
           .from('TransactionProof')
           .delete()
           .eq('Id', trxProofId);
+
+      await sendNotification(
+          [response['TransactionUser']['FromUserId']],
+          'Payment Rejected', //Nice Try
+          'Your Payment on ${trxUserResponse['TransactionHeader']['Name']} Has Been Rejected');
     } catch (e) {
       showUnexpectedErrorSnackbar(e);
     }
