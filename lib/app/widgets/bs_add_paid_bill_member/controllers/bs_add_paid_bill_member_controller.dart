@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../../models/trx_member_pays_the_bill_model.dart';
 import '../../../models/user_model.dart';
@@ -16,9 +17,12 @@ class BsAddPaidBillMemberController extends GetxController {
   void _refreshTrxMembers() {
     try {
       final whoPaidController = Get.find<WhoPaidTrxBillController>();
-      trxMembers.value = whoPaidController.trxHeader.membersList;
-      for (var wp in whoPaidController.membersWhoPaidBill) {
-        trxMembers.removeWhere((mem) => mem.id == wp.member.id);
+      for (var member in whoPaidController.trxHeader.membersList) {
+        if (whoPaidController.membersWhoPaidBill
+                .firstWhereOrNull((e) => e.member.id == member.id) ==
+            null) {
+          trxMembers.add(member);
+        }
       }
       maxAmountPaid = whoPaidController.remainingAmount.value;
     } catch (e) {
