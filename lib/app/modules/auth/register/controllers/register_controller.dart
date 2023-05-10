@@ -49,7 +49,12 @@ class RegisterController extends GetxController {
           'Account successfully registered. Email confirmation has been sent.');
       Get.offNamed(Routes.LOGIN);
     } catch (e) {
-      showUnexpectedErrorSnackbar(e);
+      if (e.toString().contains("Email_Must_Unique")) {
+        showErrorSnackbar(
+            "Email already exists, please use another email address.");
+      } else {
+        showUnexpectedErrorSnackbar(e);
+      }
     } finally {
       isLoading.value = false;
     }
