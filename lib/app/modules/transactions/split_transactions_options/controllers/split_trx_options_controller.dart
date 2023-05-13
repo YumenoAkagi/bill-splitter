@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../models/transaction_header_model.dart';
@@ -6,6 +7,7 @@ import '../../../../routes/app_pages.dart';
 import '../../../../utils/functions_helper.dart';
 import '../../../home/controllers/transactions_tab_controller.dart';
 import '../../who_paid_trx_bill/controllers/who_paid_trx_bill_controller.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class SplitTrxOptionsController extends GetxController {
   TransactionHeaderModel trxHeader = Get.arguments as TransactionHeaderModel;
@@ -14,6 +16,8 @@ class SplitTrxOptionsController extends GetxController {
 
   Future splitEqually() async {
     isLoading.value = true;
+    final ctx = Get.context as BuildContext;
+    ctx.loaderOverlay.show();
     List<String> memberIds = [];
     try {
       final whoPaidController = Get.find<WhoPaidTrxBillController>();
@@ -88,6 +92,9 @@ class SplitTrxOptionsController extends GetxController {
       Get.offNamed(Routes.SPLITSUCCESS);
     } catch (e) {
       showUnexpectedErrorSnackbar(e);
+    }
+    finally {
+      ctx.loaderOverlay.hide();
     }
   }
 
